@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="185" height="40" viewBox="0 0 185 40">
+  <g id="Group_214" data-name="Group 214" transform="translate(-420 -138)">
+    <text id="Add_Member" data-name="Add Member" transform="translate(474.188 164.5)" fill="#12dc2d" font-size="17" font-family="OpenSans-Bold, Open Sans" font-weight="700"><tspan x="0" y="0">Add Member</tspan></text>
+    <g id="add-user_1_" data-name="add-user (1)" transform="translate(441.812 146.5)">
+      <g id="Group_211" data-name="Group 211" transform="translate(0)">
+        <g id="Group_210" data-name="Group 210" transform="translate(0)">
+          <path id="Path_283" data-name="Path 283" d="M16.512,11.541A11.689,11.689,0,0,0,15.161,11a6.109,6.109,0,1,0-7.315,0A11.686,11.686,0,0,0,.059,19.708,2.73,2.73,0,0,0,2.727,23H13.791a.9.9,0,0,0,0-1.8H2.727a.913.913,0,0,1-.719-.342.939.939,0,0,1-.19-.787,9.926,9.926,0,0,1,9.444-7.86q.119,0,.238,0t.241,0a9.787,9.787,0,0,1,4,.95.9.9,0,0,0,.771-1.623ZM11.72,10.416l-.219,0-.217,0a4.313,4.313,0,1,1,.437,0Z" transform="translate(0)" fill="#12dc2d"/>
+        </g>
+      </g>
+      <g id="Group_213" data-name="Group 213" transform="translate(14.465 14.465)">
+        <g id="Group_212" data-name="Group 212">
+          <path id="Path_284" data-name="Path 284" d="M329.637,325.369h-2.471V322.9a.9.9,0,0,0-1.8,0v2.471H322.9a.9.9,0,0,0,0,1.8h2.471v2.471a.9.9,0,1,0,1.8,0v-2.471h2.471a.9.9,0,1,0,0-1.8Z" transform="translate(-322 -322)" fill="#12dc2d"/>
+        </g>
+      </g>
+    </g>
+    <g id="Rectangle_442" data-name="Rectangle 442" transform="translate(420 138)" fill="none" stroke="#12dc2d" stroke-width="1">
+      <rect width="185" height="40" rx="5" stroke="none"/>
+      <rect x="0.5" y="0.5" width="184" height="39" rx="4.5" fill="none"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,99 @@
+<main class="main ">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 pl-0 memb-sidebar">
+                    <app-memb-sidebar></app-memb-sidebar>
+                </div>
+                <div class="col-md-9 pr-0">
+                    <div class="col-inner">
+                        <div class="card">
+                            <div class="card-body mem-prof-view">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h5 class="page-title">Personal Details <strong>{{result?.personal_details?.full_name}}</strong></h5>
+                                        <span class="span_status status_active" *ngIf="result?.status=='1'"><span  class="dot"></span>Active</span>
+                                    </div>
+                                    <div class="col-md-3 text-right">
+                                        <a routerLink="/members/edit/{{memberId}}" class="edit-member"><img src="assets/icons/editing.svg" alt=""> <u>Edit member details</u></a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Full Name</label>
+                                        <p>{{result?.personal_details?.full_name}}</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label>IC Number</label>
+                                        <p>{{result?.personal_details?.ic_no}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Contact Number</label>
+                                        <p>{{result?.contact_details?.phone}}</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label>Email</label>
+                                        <p>{{result?.contact_details?.email}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Date of Birth</label>
+                                        <p>{{result?.personal_details?.dob | date: 'mediumDate'}}</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label>Gender</label>
+                                        <p>{{result?.personal_details?.gender}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="row" *ngIf="address.length>0">
+                                    <div class="col-md-12">
+                                        <label>Residential Address</label>
+                                        <p><span *ngFor="let i of address;let last = last;">{{i}} <span *ngIf="!last">,</span></span></p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4" *ngIf="this.result?.contact_details?.state">
+                                        <label>State</label>
+                                        <p>{{this.result?.contact_details?.state}}</p>
+                                    </div>
+                                    <div class="col-md-8" *ngIf="this.result?.contact_details?.country">
+                                        <label>Country</label>
+                                        <p>{{this.result?.contact_details?.country}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-30">
+                            <div class="card-body">
+                                <h5 class="page-title">Enrolled Programs</h5>
+                                <div class="mem-prog-list text-center">
+                                    <div class="row">
+                                        <div class="col-md-3 mt-4 mb-4" *ngFor="let item of enrolled_prog; let i=index;">
+                                            <div class="col-inner">
+                                               <a routerLink="/program/{{item?.id}}">
+                                                <img src="{{item?.image_url}}" onerror="this.src='assets/img/noimage.jpg';" class="mem-prog-img" alt="profile-name" />
+                                                <p class="mem-prog-name">{{item?.name}}</p>
+                                                <div><label>Joined</label></div>
+                                                <div><strong>{{item?.created_at | date:'mediumDate' }}</strong></div>
+                                               </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

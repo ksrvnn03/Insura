@@ -1,0 +1,254 @@
+
+<main class="main">
+    <div class="container-fluid">
+        <div class="row dashboard-grid">
+            <div class="col-12">
+                
+                <div class="col-inner">
+                    <div class="card">
+                        <div class="card-body min-vh-100">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h5 class="page-title">Financial Database</h5>
+                                </div>
+                            </div>
+
+                            <div class="row hightlists mt-3">
+                                <div class="col-md-3 info_list_item">
+                                    <label>Total Earning Transactions</label>
+                                    <h6 class="info">4,852</h6>
+                                    <span>925 Transactions this month</span>
+                                </div>
+                                <div class="col-md-3 info_list_item">
+                                    <label>Total Earnings</label>
+                                    <h6 class="info">RM 5,525,000.00</h6>
+                                    <span>RM 625,000 Earned this month</span>
+                                </div>
+                                <div class="col-md-3 info_list_item">
+                                    <label>Total Wallet Balances</label>
+                                    <h6 class="info">RM 1,230,000.00</h6>
+                                    <span>RM 220,000 Paid Out this month</span>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4 mb-4 filter_style2">
+                                <div class="col-md-7">
+                                    <a routerLink="/financial" class="btn">All Transactions</a>
+                                    <a routerLink="/financial/earning" class="btn ml-12 active">Earnings</a>
+                                    <a routerLink="/financial/payouts" class="btn ml-12">Payouts</a>
+                                    <a routerLink="/financial/collections" class="btn ml-12">Collections</a>
+                                </div>
+
+                                <div class="col-md-5 d-flex justify-content-end">
+                                </div>
+                                
+                            </div>
+
+                            <div class="row filter_style2  mb-4">
+                                <div class="col-md-7 d-flex align-items-center">
+                                    <h5 class="page-title m-0">Viewing All Transactions</h5> 
+                                </div>
+                                <div class="col-md-5 d-flex justify-content-end">
+                                    <div class="dropdown-list " dropdown>
+                                        <button class="btn no_items" dropdownToggle>
+                                            <i class="fa fa-eye"></i> 100
+                                        </button>
+                                        <div *dropdownMenu class="action_list dropdown-menu">
+                                            <button data-perpage="100">100</button>
+                                            <button data-perpage="50">50</button>
+                                            <button data-perpage="20">20</button>
+                                            <button data-perpage="10">10</button>
+                                            <button data-perpage="5">5</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="dropdown-list ml-12" dropdown>
+                                        <button class="btn status_by" dropdownToggle><i class="fa fa-calendar"></i> Date Range</button>
+                                        <div *dropdownMenu class="action_list dropdown-menu dropdown-caldendar">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="membersearch ml-12">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text" id="memb-search">
+                                                <img src="assets/icons/search-gray.svg" alt=""/>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Search transactions" aria-label="Search members" aria-describedby="memb-search">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table table-custom  mt-3">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">TRANSACTION ID / DATE</th>
+                                        <th width="20%">CATEGORY</th>
+                                        <th> PAYEE / FROM</th>
+                                        <th width="15%">AMOUNT</th>
+                                        <th width="10%" class="text-center">STATUS</th>
+                                        <th class="text-center" width="3%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" (click)="trans_open()">CL539</a><div class="cdate">Jan 29, 2023</div></td>
+                                        <td>Earnings</td>
+                                        <td> Hareem Cannon</td>
+                                        <td><span class="span_blue">RM 9,291.00</span></td>
+                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                        <td class="text-center" dropdown>
+                                            <button class="dot-line" dropdownToggle><span></span></button>
+                                            <div  *dropdownMenu class="action_list dropdown-menu">
+                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><a href="javascript:void(0)" (click)="trans_open()">CL539</a><div class="cdate">Jan 29, 2023</div></td>
+                                        <td>Earnings</td>
+                                        <td> Hareem Cannon</td>
+                                        <td><span class="span_blue">RM 9,291.00</span></td>
+                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                        <td class="text-center" dropdown>
+                                            <button class="dot-line" dropdownToggle><span></span></button>
+                                            <div  *dropdownMenu class="action_list dropdown-menu">
+                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><a href="javascript:void(0)" (click)="trans_open()">CL539</a><div class="cdate">Jan 29, 2023</div></td>
+                                        <td>Earnings</td>
+                                        <td> Hareem Cannon</td>
+                                        <td><span class="span_blue">RM 9,291.00</span></td>
+                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                        <td class="text-center" dropdown>
+                                            <button class="dot-line" dropdownToggle><span></span></button>
+                                            <div  *dropdownMenu class="action_list dropdown-menu">
+                                            <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><a href="javascript:void(0)" (click)="trans_open()">CL539</a><div class="cdate">Jan 29, 2023</div></td>
+                                        <td>Earnings</td>
+                                        <td> Hareem Cannon</td>
+                                        <td><span class="span_blue">RM 9,291.00</span></td>
+                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                        <td class="text-center" dropdown>
+                                            <button class="dot-line" dropdownToggle><span></span></button>
+                                            <div  *dropdownMenu class="action_list dropdown-menu">
+                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><a href="javascript:void(0)" (click)="trans_open()">CL539</a><div class="cdate">Jan 29, 2023</div></td>
+                                        <td>Earnings</td>
+                                        <td> Hareem Cannon</td>
+                                        <td><span class="span_blue">RM 9,291.00</span></td>
+                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                        <td class="text-center" dropdown>
+                                            <button class="dot-line" dropdownToggle><span></span></button>
+                                            <div  *dropdownMenu class="action_list dropdown-menu">
+                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><a href="javascript:void(0)" (click)="trans_open()">CL539</a><div class="cdate">Jan 29, 2023</div></td>
+                                        <td>Earnings</td>
+                                        <td> Hareem Cannon</td>
+                                        <td><span class="span_blue">RM 9,291.00</span></td>
+                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                        <td class="text-center" dropdown>
+                                            <button class="dot-line" dropdownToggle><span></span></button>
+                                            <div  *dropdownMenu class="action_list dropdown-menu">
+                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><a href="javascript:void(0)" (click)="trans_open()">CL539</a><div class="cdate">Jan 29, 2023</div></td>
+                                        <td>Earnings</td>
+                                        <td> Hareem Cannon</td>
+                                        <td><span class="span_blue">RM 9,291.00</span></td>
+                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                        <td class="text-center" dropdown>
+                                            <button class="dot-line" dropdownToggle><span></span></button>
+                                            <div  *dropdownMenu class="action_list dropdown-menu">
+                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-end mt-4">
+                                  <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <img src="assets/icons/left-arrow.svg" alt="" />
+                                        Prev
+                                    </a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        Next
+                                        <img src="assets/icons/right-arrow.svg" alt="" />
+                                    </a>
+                                  </li>
+                                </ul>
+                            </nav>
+                            
+                            <div class="transaction_view" *ngIf="transview">
+                                <a href="javascript:void(0);" (click)="trans_close()" class="close_trans"><img src="assets/icons/close.svg" alt=""></a>
+                                <h5>Transaction Detail</h5>
+                                <h6 class="d-flex mt-3">PA281 <span class="ml-auto"> -RM 850.00</span></h6>
+                                <span class="trans_date">Jan 29, 2023 | 05.80 PM</span>
+                                <hr>
+                                
+                                <div class="text-left">
+                                    <label>Member name</label>
+                                    <p>Male Hopkins</p>
+                                </div>
+                               
+                                <div class="text-left">
+                                    <label>Transaction type</label>
+                                    <p>Male Hopkins</p>
+                                </div>
+                    
+                                <div class="text-left">
+                                    <label>Type of transaction</label>
+                                    <p>Earnings</p>
+                                </div>
+                    
+                                <div class="text-left mt-4">
+                                    <span class="span_status status_active"><span class="dot"></span>Complete</span>
+                                </div>
+                    
+                                <div class="text-left mt-5">
+                                    <button class="btn btn-block btn-primary br8">Approve payment</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> 
+
+            </div>
+        </div>
+    </div>
+</main>

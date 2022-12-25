@@ -1,0 +1,113 @@
+<div class="reg-wrapper min-vh-100">
+
+    <div class="container min-vh-100 pt-5 pb-3">
+        <div class="row">
+            <div class="col-md-12 text-center mb-3">
+                <a routerLink="/"><img src="assets/img/logo.png" class="insura-reg-logo" alt="insura" /></a>
+                
+            </div>
+    
+            <div class="col-md-9 m-auto regfrm">
+                <div class="col-inner">
+                    <div class="text-center mb-4">
+                        <h2 class="frm-title">User Registration</h2>
+                        <p>Fill the details below to create your account</p>
+                    </div>
+    
+                    <form name="regFrm" id="regFrm" autocomplete="off" [formGroup]="regForm" (ngSubmit)="onSubmit()">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="user_name"><img src="assets/icons/idcard.svg" alt="full name"/></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Your full name (as per NRIC)"  formControlName="uname" />
+                        </div>
+                        <div *ngIf="submitted && !f.uname?.valid">
+                            <small class="text-danger" *ngIf="f.uname?.errors?.['required']">
+                           Full name requird </small>
+                        </div>
+    
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="user_email"><img src="assets/icons/envelope.png" class="icon-envelope" alt="email"/></span>
+                            </div>
+                            <input type="text" class="form-control" formControlName="email" placeholder="Your email address" />
+                        </div>
+                        <div *ngIf="submitted && f.email?.invalid">
+                            <small class="text-danger" *ngIf="f.email?.errors?.['required']">
+                           Email requird </small>
+                           <small class="text-danger" *ngIf="f.email?.errors?.['pattern'] ">
+                            Invalid Email </small>
+                        </div>
+    
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="user_cno"><img src="assets/icons/smartphone.svg" alt="user_cno"/></span>
+                            </div>
+                            <input type="text" class="form-control" maxlength="10" minlength="10" formControlName="phone" placeholder="Your contact number"  />
+                        </div>
+                        <div *ngIf="submitted && f.phone?.invalid">
+                            <small class="text-danger" *ngIf="f.phone?.errors?.['required']">
+                                Phone requird </small>
+                                <small class="text-danger" *ngIf="f.phone?.errors?.['minlength'] || f.phone?.errors?.['pattern']">
+                                    Enter 10 digit number </small>
+                        </div>
+                        
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="user_pwd"><img src="assets/icons/key.svg" alt="user_pwd"/></span>
+                            </div>
+                            <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="border-left-0 border-right-0    form-control" placeholder="Your password" aria-label="user_pwd" aria-describedby="user_pwd">
+                            <div class="input-group-append"><span class="input-group-text">
+                                <i class="fa fa-eye input-eye" [ngClass]="{'fa-eye-slash' : showPassword}" aria-hidden="true" (click)="toggleEye()"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div *ngIf="submitted && f.password?.touched">
+                            <small class="text-danger" *ngIf="f.password?.errors"> Min 6 digits </small>
+                        </div>
+                        <div *ngIf="submitted && !f.password?.touched">
+                            <small class="text-danger" *ngIf="f.password?.errors"> Require password  </small>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="user_cpwd"><img src="assets/icons/key.svg" alt="user_cpwd"/></span>
+                            </div>
+                            <input [type]="reshowPassword ? 'text' : 'password'" formControlName="cpassword"  class="border-left-0 border-right-0 form-control" placeholder="Re-enter password" />
+                            <div class="input-group-append"><span class="input-group-text">
+                                <i class="fa fa-eye input-eye" [ngClass]="{'fa-eye-slash' : reshowPassword}" aria-hidden="true" (click)="toggleEye2()"></i>
+                                </span></div>
+                        </div>
+                        <div *ngIf="submitted && !f.cpassword?.touched">
+                            <small class="text-danger" *ngIf="f.cpassword?.errors"> Require Re-enter password  </small>
+                        </div>
+                        <div *ngIf="submitted && f.cpassword?.touched">
+                            <small class="text-danger" *ngIf="f.cpassword?.errors?.['minlength']"> Min 6 digits </small>
+                        </div>
+                        <div *ngIf="submitted && f.cpassword?.errors?.['customError']">
+                            <small class="text-danger" *ngIf="f.cpassword?.errors?.['customError']"> Password mismatched </small>
+                        </div>
+
+                      <!--   <div class="form-group d-flex align-items-center mt-3">
+                            <div class="form-check w-50">
+                                <label class="form-check-label">
+                                  <input type="checkbox" class="form-check-input" formControlName="haveid" value="yes">Have a referral ID
+                                </label>
+                            </div>
+                                
+                            <input type="text" class="form-control" formControlName="referrer_id" placeholder="Enter your reference ID" />
+                        </div> 
+                        <div *ngIf="submitted && f.referrer_id?.invalid">
+                            <small class="text-danger" *ngIf="f.referrer_id?.errors?.['required']">
+                             Referral id requird </small>
+                        </div>-->
+                        
+                        <div class="form-group mt-5">
+                            <button class="btn btn-primary btn-block">Create Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

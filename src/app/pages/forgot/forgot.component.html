@@ -1,0 +1,46 @@
+<div class="wrapper login-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 position-absolute login-logo">
+                <div class="col-inner">
+                    <a routerLink="/"><img src="assets/img/logo.png" alt="INSURA"/></a>
+                </div>
+            </div>
+            <div class="col-md-7 text-white text-center welcome-col  min-vh-100">
+                <div class="col-inner">
+                    <h1>WELCOME TO INSURA</h1>
+                    <h3>ADMIN PANEL</h3>
+                </div>
+            </div>
+            <div class="col-md-5 ml-auto login_frm">
+                <div class="col-inner min-vh-100 d-flex flex-wrap flex-column justify-content-center">
+                    <h2 class="login-title">Forgot your password?</h2>
+                    <p>Confirm your email and we'll send the instructions to reset your password.</p>
+                    <form autocomplete="off" [formGroup]="forgotForm" (ngSubmit)="onSubmit()">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><img src="assets/icons/envelope.png" class="icon-envelope" alt=""/></span>
+                            </div>
+                            
+                            <input
+                            type="email"
+                            formControlName="email"
+                            placeholder="user@email.com"
+                            class="form-control border-left-0"
+                          />
+                        </div>
+                       
+                         <div *ngIf="!f.email?.valid && submitted">
+                            <small class="text-danger" *ngIf="f.email?.errors?.['required']">
+                           Enter a vaild email </small>
+                           <small class="text-danger" *ngIf="f.email?.errors?.['pattern']">
+                            Invaild email address </small>
+                         </div>
+
+                        <button class="btn btn-primary btn-block" >Reset Password <i class="fa fa-spin fa-spinner" *ngIf="loader"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

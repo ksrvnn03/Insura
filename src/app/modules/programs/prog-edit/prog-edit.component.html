@@ -1,0 +1,113 @@
+<main class="main program-page">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <form class="member_frm mt-4" autocomplete="off" [formGroup]="programUpdation" (ngSubmit)="onSubmit()">  
+                                
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="col-inner">
+                         <div class="card">
+                            <div class="card-body">
+                                <h5 class="page-title"><b>Edit Program</b></h5>
+                               
+                                    <div class="form-group">
+                                        <label>Program Name</label>   
+                                         <input type="text" name="name" placeholder="Enter your program name" class="form-control" formControlName="name" />  
+                                         <div *ngIf="submitted && !programUpdation.get('name')?.valid">
+                                            <small class="text-danger" *ngIf="programUpdation.get('name')?.errors?.['required']">Program name requird</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Program Description</label>   
+                                        <textarea name="description" rows="7" class="form-control" placeholder="Enter your description here" formControlName="description"></textarea> 
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <button class="btn btn-primary">Update</button>
+                                    </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="col-inner">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="sidebar-title"><strong>Featured Image</strong></h5>
+                                <div class="form-group mt-3">
+                                  <!--   <label class="d-flex w-100">Featured Image</label>  -->   
+                                    <input type="file" name="image" formControlName="image" accept=".png, .jpg, .jpeg" (change)="onFileChanged($event)"/>
+                                    
+                                    <div class="mt-3 text-center" *ngIf="choosedimg">
+                                        <img src="{{choosedimg}}" alt="" style="max-width: 300px; max-height: 300px;">
+                                    </div>
+                                </div>    
+
+                                <div class="input-group mt-3 prgprice">
+                                    <label class="d-flex w-100">Tax Percentage</label>    
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">RM</span>
+                                    </div>
+                                    <input name="tax_percent"  class="form-control" placeholder="Tax Percentage" formControlName="tax_percent"/>
+                                </div>
+
+                                <div class="input-group mt-3 prgprice">
+                                    <label class="d-flex w-100">Service Charge</label>    
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">RM</span>
+                                    </div>
+                                    <input name="service_charge" class="form-control" placeholder="Service Charge" formControlName="service_charge"/>
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <label class="d-flex w-100">Commission type</label>   
+                                    <select class="form-control" formControlName="commission_type">
+                                        <option value="" selected>Commission</option>
+                                        <option value="amount" selected>Amount</option>
+                                        <option value="percentage">Percentage</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group  prgprice">
+                                    <label class="d-flex w-100">Program Price</label>    
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">RM</span>
+                                    </div>
+                                    <input type="text" class="bl-0 form-control" name="join_fee" placeholder="Enter your program's price" formControlName="join_fee" /> 
+                                </div>
+                                <div *ngIf="submitted && !programUpdation.get('join_fee')?.touched">
+                                    <small class="text-danger" *ngIf="programUpdation.get('join_fee')?.errors?.['required']">
+                                        Program price requird </small> 
+                                <small class="text-danger" *ngIf="programUpdation.get('join_fee')?.touched &&programUpdation.get('join_fee')?.errors?.['pattern']">
+                                    Enter number format</small>    
+                                </div>
+
+                                <div class="input-group mt-3 prgprice">
+                                    <label class="d-flex w-100">Commission Price</label>    
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">RM</span>
+                                    </div>
+                                    <input type="text" class="bl-0 form-control" name="commission_amount" placeholder="Enter your program's price" formControlName="commission_amount" /> 
+                                </div>
+                                <div *ngIf="submitted && !programUpdation.get('commission_amount')?.valid">
+                                    <small class="text-danger" *ngIf="programUpdation.get('commission_amount')?.errors?.['required']">
+                                        Commission price requird </small> 
+                                </div>
+                               <!--  Upload An Image
+
+                                Published Date
+
+                                Visibility
+                                Draft
+                                Published -->
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</main>

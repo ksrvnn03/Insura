@@ -1,0 +1,44 @@
+<div class="col-inner">
+    <div class="card">
+        <div class="card-body">
+            <div class="memb-prof text-center">
+                <div class="memb_prof">
+                    <img src="assets/img/profile.svg" alt="profile-image" />
+                </div>
+                <h3 class="memb_name">{{result?.personal_details?.full_name}}</h3>
+                <p class="meta_loc" *ngIf="result?.personal_details?.country">{{result?.personal_details?.state}}, {{result?.personal_details?.country}}</p>
+                <p class="meta_join  mb-0"><label class="sub-label">Date Joined</label></p>
+                <p class="meta_join_dt">{{result?.personal_details?.created_at | date: 'mediumDate'}}</p>
+                <div>
+                    <span class="span_status status_active" *ngIf="result?.status==1"><span  class="dot"></span>Active</span>
+                </div>
+            </div>
+        </div>
+        <div class="memb-prof-count">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="memb_count_txt">205</h4>
+                        <label class="sub-label">Recruited</label>
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="memb_count_txt">RM 281,921.20</h4>
+                        <label class="sub-label">Earned</label>
+                    </div>
+                </div>
+            </div>    
+        </div>
+        <div class="memb-nav">
+            <ul>
+                <li><a routerLink="/members/{{memberId}}"  [routerLinkActiveOptions]="{ exact: true }"
+                    routerLinkActive="active" ><img src="assets/icons/member-profile.svg" alt="Profile" /> Profile</a></li>
+                <li><a routerLink="/members/networks/{{memberId}}" [routerLinkActiveOptions]="{ exact: true }"
+                    routerLinkActive="active"><img src="assets/icons/member-network.svg" alt="Network" /> Network</a></li>
+                <li><a routerLink="/members/finance/{{memberId}}" [routerLinkActiveOptions]="{ exact: true }"
+                    routerLinkActive="active"><img src="assets/icons/member-financial.svg" alt="Financial" /> Financial</a></li>
+                <li><a routerLink="/members/documents/{{memberId}}" [routerLinkActiveOptions]="{ exact: true }"
+                    routerLinkActive="active"><img src="assets/icons/member-docu.svg" alt="Documents" /> Documents</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

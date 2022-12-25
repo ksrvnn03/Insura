@@ -1,0 +1,348 @@
+<main class="main ">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 pl-0 memb-sidebar">
+                    <app-memb-sidebar></app-memb-sidebar>
+                </div>
+
+                <div class="col-md-9 pr-0">
+                    <div class="col-inner">
+                        <div class="card min-vh-100">
+                            <div class="card-body mem-prof-view">
+                                <h5 class="page-title">Financial | <strong>Malek Hopkins</strong></h5>
+
+                                <div class="row hightlists mt-3">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6 info_list_item">
+                                                <label>Total Earnings</label>
+                                                <h6 class="success">RM 22,819.00</h6>
+                                                <span>RM 8,250.00 Collected this month</span>
+                                            </div>
+                                            <div class="col-md-6 info_list_item">
+                                                <label>Total Payouts</label>
+                                                <h6 class="danger">RM 4,895.00</h6>
+                                                <span>RM 850.00 Paid this month</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 text-right highlight_info">
+                                        <label>Current Wallet Balance</label>
+                                        <h5>RM 17,924.00</h5>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4 mb-4 filter_style2">
+                                    <div class="col-md-6">
+                                        <button class="btn active">All</button>
+                                        <button class="btn ml-12">Earnings</button>
+                                        <button class="btn ml-12">Payouts</button>
+                                        <button class="btn ml-12">Collections</button>
+                                    </div>
+
+                                    <div class="col-md-6 d-flex justify-content-end">
+                                        <div class="dropdown-list " dropdown>
+                                            <button class="btn no_items" dropdownToggle>
+                                                <i class="fa fa-eye"></i> 100
+                                            </button>
+                                            <div *dropdownMenu class="action_list dropdown-menu">
+                                                <button data-perpage="100">100</button>
+                                                <button data-perpage="50">50</button>
+                                                <button data-perpage="20">20</button>
+                                                <button data-perpage="10">10</button>
+                                                <button data-perpage="5">5</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="dropdown-list ml-12" dropdown>
+                                            <button class="btn status_by" dropdownToggle><i class="fa fa-calendar"></i> Date Range</button>
+                                            <div *dropdownMenu class="action_list dropdown-menu dropdown-caldendar">
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="membersearch ml-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text" id="memb-search">
+                                                    <img src="assets/icons/search-gray.svg" alt=""/>
+                                                </span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Search" aria-label="Search members" aria-describedby="memb-search">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <table class="table table-custom table-style2 mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th class="checkall"><input type="checkbox" /></th>
+                                            <th>TRANSACTION ID / DATE</th>
+                                            <th>CATEGORY</th>
+                                            <th>AMOUNT</th>
+                                            <th class="text-center">STATUS</th>
+                                            <th class="text-center" width="3%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td  class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td  class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td  class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td  class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912s</a><div class="cdate">Jan 29, 2023</div></td>
+                                            <td>Earnings</td>
+                                            <td><span class="span_blue">RM 9,291.00</span></td>
+                                            <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                    <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                    <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-end mt-4">
+                                      <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <img src="assets/icons/left-arrow.svg" alt="" />
+                                            Prev
+                                        </a>
+                                      </li>
+                                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                      <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            Next
+                                            <img src="assets/icons/right-arrow.svg" alt="" />
+                                        </a>
+                                      </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="transaction_view" *ngIf="transview">
+                        <a href="javascript:void(0);" (click)="trans_close()" class="close_trans"><img src="assets/icons/close.svg" alt=""></a>
+                        <h5>Transaction Detail</h5>
+                        <h6 class="d-flex mt-3 ">PA281 <span class="ml-auto"> -RM 850.00</span></h6>
+                        <span class="trans_date">Jan 29, 2023 | 05.80 PM</span>
+                        <hr>
+                        
+                        <div class="text-left">
+                            <label>Member name</label>
+                            <p>Male Hopkins</p>
+                        </div>
+                       
+                        <div class="text-left">
+                            <label>Transaction type</label>
+                            <p>Male Hopkins</p>
+                        </div>
+            
+                        <div class="text-left">
+                            <label>Type of transaction</label>
+                            <p>Earnings</p>
+                        </div>
+            
+                        <div class="text-left mt-4">
+                            <span class="span_status status_active"><span class="dot"></span>Complete</span>
+                        </div>
+            
+                        <div class="text-left mt-5">
+                            <button class="btn btn-block btn-primary br8">Approve payment</button>
+                        </div>
+                    </div>
+
+                </div><!---col md 9-->
+            </div>
+        </div>
+
+        
+
+    </div><!--Wrapper-->
+</main><!--Main-->

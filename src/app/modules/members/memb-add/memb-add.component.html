@@ -1,0 +1,219 @@
+<main class="main ">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-md-12 pr-0">
+                    <div class="col-inner">
+                        <div class="card">
+                            <div class="card-body mem-prof-view">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5 class="page-title"><strong>New Member Registration</strong></h5>
+                                    </div>
+                                </div>
+
+                                <form class="member_frm mt-4" autocomplete="off" [formGroup]="membCreation" (ngSubmit)="onSubmit()">
+                                    <div class="row">
+                                        
+                                        <div class="col-md-3">
+                                            <div class="form-group m-0">
+                                                <label>Full Name (as per NRIC)</label>
+                                                <input type="text" value="" placeholder="Full Name" name="name" class="form-control" formControlName="name" />
+                                                <div *ngIf="submitted && !membCreation.get('name')?.valid">
+                                                    <small class="text-danger" *ngIf="membCreation.get('name')?.errors?.['required']">
+                                                   Full name requird </small>
+                                                </div>
+                                            </div>
+                                        </div>  
+
+                                        <div class="col-md-3">
+                                            <div class="form-group m-0">
+                                                <label>IC Number</label>
+                                                <input type="text" value="" placeholder="IC Number" name="ic_no" class="form-control" formControlName="ic_no"/>
+                                                <div *ngIf="submitted && !membCreation.get('ic_no')?.valid">
+                                                    <small class="text-danger" *ngIf="membCreation.get('ic_no')?.errors?.['required']">
+                                                        IC number requird </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group m-0">
+                                                <label>Contact Number</label>
+                                                <input type="text" (keypress)="numberOnly($event)" value="" minlength="10" maxlength="10" placeholder="Contact Number" name="phone" formControlName="phone" class="form-control" />
+                                                <div *ngIf="submitted && !membCreation.get('phone')?.valid">
+                                                    <small class="text-danger" *ngIf="membCreation.get('phone')?.errors?.['required']">
+                                                        Phone number requird </small>
+                                                    <small class="text-danger" *ngIf="membCreation.get('phone')?.errors?.['minlength'] || membCreation.get('phone')?.errors?.['pattern']">
+                                                            Enter 10 digits number</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <div class="form-group m-0">
+                                                <label>Email</label>
+                                                <input type="email"  placeholder="Email" name="email" class="form-control" formControlName="email"/>
+                                                <div *ngIf="submitted && !membCreation.get('email')?.valid">
+                                                    <small class="text-danger" *ngIf="membCreation.get('email')?.errors?.['required']">
+                                                        Email requird </small>
+                                                    <small class="text-danger" *ngIf="membCreation.get('email')?.errors?.['email'] || membCreation.get('email')?.errors?.['pattern']">
+                                                        Enter vaild email</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group m-0"> 
+                                               <label>Date of Birth</label>
+                                               <input type="hidden" value="{{dobchoosed}}" formControlName="dob" />
+                                                <input type="text" placeholder="Date of Birth"
+                                                class="form-control datereadonly" name="dob" formControlName="dobchoosed"  bsDatepicker  (bsValueChange)="onDateChange($event)" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" readonly required /> 
+                                                <div *ngIf="submitted && !membCreation.get('dob')?.valid">
+                                                    <small class="text-danger" *ngIf="membCreation.get('dob')?.errors?.['required']">
+                                                        Date of birth requird </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group m-0">
+                                                <label>Gender</label>
+                                                <select class="form-control" name="gender" formControlName="gender">
+                                                    <option value="">Select</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                                <div *ngIf="submitted && !membCreation.get('gender')?.valid">
+                                                    <small class="text-danger" *ngIf="membCreation.get('gender')?.errors?.['required']">
+                                                       Gender requird </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Residential Address</label>
+                                            <input type="text" value="" placeholder="Residential Address" name="address" formControlName="address"  class="form-control" />
+                                            <div *ngIf="submitted && !membCreation.get('address')?.valid">
+                                                <small class="text-danger" *ngIf="membCreation.get('address')?.errors?.['required']">
+                                                    Address requird </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label>City</label>
+                                            <input type="text" value="" placeholder="City" name="city" formControlName="city"  class="form-control" />
+                                            <div *ngIf="submitted && !membCreation.get('city')?.valid">
+                                                <small class="text-danger" *ngIf="membCreation.get('city')?.errors?.['required']">
+                                                    City name requird </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>State</label>
+                                            <input type="text" value="" placeholder="State" name="state" formControlName="state" class="form-control" />
+                                            <div *ngIf="submitted && !membCreation.get('state')?.valid">
+                                                <small class="text-danger" *ngIf="membCreation.get('state')?.errors?.['required']">
+                                                    State name requird </small>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label>Zip</label>
+                                            <input type="text" value="" placeholder="Zip" name="zip" formControlName="zip" class="form-control" />
+                                            <div *ngIf="submitted && !membCreation.get('zip')?.valid">
+                                                <small class="text-danger" *ngIf="membCreation.get('zip')?.errors?.['required']">
+                                                    Zip code requird </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Country</label>
+                                            <input type="text" value="" placeholder="Country" name="country" formControlName="country" class="form-control" />
+                                            <div *ngIf="submitted && !membCreation.get('country')?.valid">
+                                                <small class="text-danger" *ngIf="membCreation.get('country')?.errors?.['required']">
+                                                    Country requird </small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 mt-4">
+                                            <hr>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <h5 class="page-title"><strong>Security Settings</strong></h5>
+                                        </div> 
+                                        
+                                        <div class="col-md-6 mt-4">
+                                            <div class="row">
+                                                <div class="col-md-3">Enter password</div>
+                                                <div class="col-md-9">
+                                                    <div class="input-group newpwd"  [ngClass]="{'eyeopen' : showPassword}">
+                                                        <input [type]="showPassword ? 'text' : 'password'" name="password" placeholder="xxxxxxxxx" class="form-control border-right-0" formControlName="password" />
+                                                        
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                            <i class="fa fa-eye input-eye" [ngClass]="{'fa-eye-slash' : showPassword}" aria-hidden="true" (click)="toggleEye()"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                 
+                                                    
+                                                    <div *ngIf="submitted && membCreation.get('password')?.touched">
+                                                        <small class="text-danger" *ngIf="membCreation.get('password')?.errors"> Min 6 digits </small>
+                                                    </div>
+                                                    <div *ngIf="submitted && !membCreation.get('password')?.touched">
+                                                        <small class="text-danger" *ngIf="membCreation.get('password')?.errors">Password require   </small>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-3">Re-enter password</div>
+                                                <div class="col-md-9">
+                                                    <div class="input-group newpwd"  [ngClass]="{'eyeopen' : rshowPassword}">
+                                                        <input [type]="rshowPassword ? 'text' : 'password'" name="password_confirmation" placeholder="xxxxxxxxx" class="form-control border-right-0" formControlName="password_confirmation" />
+                                                        
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                            <i class="fa fa-eye input-eye" [ngClass]="{'fa-eye-slash' : rshowPassword}" aria-hidden="true" (click)="toggleEye2()"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="submitted && membCreation.get('password_confirmation')?.touched">
+                                                        <small class="text-danger" *ngIf="membCreation.get('password_confirmation')?.errors"> Min 6 digits </small>
+                                                    </div>
+                                                    <div *ngIf="submitted && !membCreation.get('password_confirmation')?.touched">
+                                                        <small class="text-danger" *ngIf="membCreation.get('password_confirmation')?.errors">Re-enter required</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-12 mt-5">
+                                            <button class="btn btn-style2 btn-primary">Add account</button>
+                                        </div>
+                                       
+                                    </div>
+                                </form>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

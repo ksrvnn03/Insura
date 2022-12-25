@@ -1,0 +1,110 @@
+<main class="main program-page">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row single-program">
+                <div class="col-md-6">
+                    <div class="col-inner">
+                        <div class="card">
+                            <div class="card-body ">
+                                <h5 class="page-title"><b>{{result?.name}}</b></h5>
+                                <div class="d-flex align-content-center justify-content-between">
+                                    <div class="prg-price">
+                                        <label>Program Price</label>
+                                        <div><sup>RM</sup> {{result?.join_fee | currency:'RM':''}}</div>
+                                    </div>
+                                    <div class="prog_status">
+                                        <div >
+                                            <span class="span_status status_pending" *ngIf="result?.status==0">Pending</span>
+                                            <span class="span_status status_active" *ngIf="result?.status==1">Active</span>
+                                            <span class="span_status status_blocked" *ngIf="result?.status==2">Blocked</span>
+                                            <span class="span_status status_expire" *ngIf="result?.status==3">Expired</span>
+                                        </div>
+                                        <a routerLink="/program/edit/{{programId}}"><i class="fa fa-edit"></i> Edit this package</a>
+                                    </div>
+                                </div>
+                                <div class="prog_detail">
+                                    <span>Total<br> <strong>{{result?.total  | currency:'RM':''}}</strong></span>
+                                    <span>Created by <br> <strong>{{result?.created_by}}</strong></span>
+                                    <span>Created on <br> <strong>{{result?.created_at | date:'mediumDate'}}</strong></span>
+                                    <span>Service charge <br><strong>{{result?.service_charge  | currency:'RM':''}}</strong></span>
+                                    <span>Commission <br> <strong>{{result?.commission_total  | currency:'RM':''}}</strong></span>
+                                </div>
+
+                                <div class="prog_img text-center">
+                                    <img src="{{result?.image_url}}" onerror="this.src='assets/img/noimage.jpg';" alt=""/>
+                                </div>
+
+                                <div class="prog_desc">
+                                    <h3>About this package</h3>
+                                <p>{{result?.description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="col-inner">
+                        <div class="card">
+                            <div class="card-body">
+                               <div class="d-flex align-items-center justify-content-between">
+                                    <h5 class="page-title d-inline"><b>Enrolled Members</b></h5>
+                                    <div class="ml-auto action_btn">
+                                        <button class="btn" *ngIf="action_btn" (click)="removeMember($event)"><img src="assets/img/removememb.svg" alt="" /></button>
+                                        <button class="btn"><img src="assets/img/addmemb.svg" alt="" /></button>
+                                    </div>
+                               </div>
+
+                               <table class="table table-custom table-style2 mt-3">
+                                <thead>
+                                    <tr>
+                                        <th class="checkall"><input type="checkbox"  (click)="toggleCheckboxAll($event)" /></th>
+                                        <th>MEMBER ID</th>
+                                        <th>MEMBER FULL NAME</th>
+                                        <th>DATE JOINED</th>
+                                        <th class="text-center">STATUS</th>
+                                        <th class="text-center" width="3%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    <tr *ngFor="let item of progMember; let i=index;">
+                                        <td class="checkall"><input type="checkbox" (click)="toggleSingle($event)"  value="{{item?.id}}" name="checkitem" /></td>
+
+                                        <td><a routerLink="/members/{{item?.id}}">{{item?.member_id}}</a></td>
+                                        <td><a routerLink="/members/{{item?.id}}">{{item?.personal_details?.full_name}}</a></td>
+                                        <td>{{item?.created_at | date: 'mediumDate'}}</td>
+                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Active</span></td>
+                                        <td class="text-center" dropdown>
+                                            <button class="dot-line" dropdownToggle><span></span></button>
+                                            <div  *dropdownMenu class="action_list dropdown-menu">
+                                <a routerLink="/members/{{item?.id}}"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                <a href="javascript:void(0);"  (click)="confirmModal(template, $event)" [attr.data-id]="item?.id" ><i class="fa fa-trash-o" aria-hidden="true"></i> Remove</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Confirm remove the member ?</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center confirm_modal"> 
+        <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId (click)="delete($event)">Confirm</button> 
+        <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">No</button>  
+    </div>
+    </ng-template>
+
+</main>

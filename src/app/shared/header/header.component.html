@@ -1,0 +1,45 @@
+<header class="header">
+   
+       <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 justify-content-between d-flex">
+                <div class="search-form  d-flex align-items-center mr-auto">
+                    <form>
+                        <input type="text" class="form-control" placeholder="Search..."/>
+                        <button type="submit" class="submit"><img src="assets/icons/search.svg" alt="search"/></button>
+                    </form>
+                 </div>  
+                 
+                
+                 <div class="profile-nav d-inline-flex ml-auto">
+                    <ul>
+                        <li class="nodification-item"><a href=""><i class="fa fa-bell-o" aria-hidden="true"></i><span>3</span></a></li>
+                        <li class="help-item"><a href=""><i class="fa fa-question-circle-o" aria-hidden="true"></i></a></li>
+                        <li class="profile-item" dropdown>
+                            <a class="nav-link dropdown-toggle" id="profile-menu-item"  dropdownToggle  role="button" data-toggle="dropdown" aria-controls="dropdown-basic">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            </a>
+                            <div id="profile-menu" *dropdownMenu class="dropdown-menu">
+                                <div class="profile-menu-header">
+                                    <a class="profile_menu-close">x</a>
+                                    <img src="../../../assets/img/profile.svg" alt=""/>
+                                    <span class="menu_detail">
+                                        <span class="user_name">test stest</span>
+                                        <span class="user_role">test stest</span>
+                                    </span>
+                                </div>
+                                <a class="dropdown-item" routerLink="#">Profile</a>
+                                <a class="dropdown-item" routerLink="#">Security</a>
+                                <a class="dropdown-item" routerLink="#">Settings</a>
+                                <a class="dropdown-item" routerLink="#">Audit</a>
+                                <div class="dropdown-divider m-0"></div>
+                                 <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
+                            </div>
+                          </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+ 

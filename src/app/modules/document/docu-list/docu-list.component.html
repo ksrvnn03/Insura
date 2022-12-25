@@ -1,0 +1,180 @@
+<main class="main ">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div  class="col-md-12">
+                    <div class="col-inner">
+                        <div class="card min-vh-100">
+                            <div class="card-body mem-prof-view">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <h5 class="page-title"><b>Documents Database</b></h5>
+                                    </div>
+                                    <div class="col-md-5 text-right">
+                                        <span>Total Recruited: <strong>229 Members</strong></span>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 mb-2 filter_style2">
+                                    <div class="col-md-12 d-flex">
+                                        <button class="btn active"> Member Upload</button>
+                                        <button class="btn ml-12"> Insura Upload</button>
+                                    </div>
+                                </div>
+                                <div class="row mt-3 mb-4 filter_style2">
+                                    <div class="col-md-8 d-flex">
+                                        <button class="btn active">All</button>
+                                        <button class="btn ml-12">Verified</button>
+                                        <button class="btn ml-12">Unverified</button>
+                                        <div class="membersearch ml-12">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text" id="memb-search">
+                                                    <img src="assets/icons/search-gray.svg" alt=""/>
+                                                </span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Search documents" aria-label="Search members" aria-describedby="memb-search">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 d-flex justify-content-end">
+                                        <div class="dropdown-list" dropdown>
+                                            <button class="btn status_by" dropdownToggle><i class="fa fa-calendar"></i> Date Range</button>
+                                            <div *dropdownMenu class="action_list dropdown-menu dropdown-caldendar">
+                                            </div>
+                                        </div>
+                                        <button class="btn ml-12 upload_doc_btn" (click)="uploadModal(upload_modal)"><img src="assets/icons/download-green.png" alt="upload"/>Upload</button>
+                                    </div>
+                                </div>
+                                  
+                                <table class="table table-custom table-style2 mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th class="checkall"><input type="checkbox" /></th>
+                                            <th width="40%">DOCUMENT NAME</th>
+                                            <th width="25%">UPLOAD DATE</th>
+                                            <th width="10%">FILE SIZE</th>
+                                            <th width="20%" class="text-center">STATUS</th>
+                                            <th width="5%" class="text-center" width="3%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        <tr *ngFor="let item of result | paginate
+                                        : {
+                                            itemsPerPage: perpage,
+                                            currentPage: cpage,
+                                            totalItems: noitem
+                                          };  let i=index;">
+                                            <td  class="checkall"><input type="checkbox" /></td>
+                                            <td><a href="" class="doc_item_name">
+                                                <span class="doc_type doc_{{item.file_name | Extension:item.file_name}}"></span>  {{item.file_name}}
+                                            </a>
+                                            </td>
+                                            <td>{{item.created_at | date: 'mediumDate'}}</td>
+                                            <td>{{item.size}}</td>
+                                            <td class="text-center">
+                                                <span class="span_status" 
+                                                [ngClass]="{'status_pending': item.status =='1',
+                                                 'status_active' : item.status == '2',
+                                                 'status_blocked' : item.status == '3',
+                                                 'status_expire' : item.status == '4'
+                                                 }"
+                                                >
+                                                    <span class="dot"></span>{{item.status_txt}}</span>
+                                            </td>
+                                            <td class="text-center" dropdown>
+                                                <button class="dot-line" dropdownToggle><span></span></button>
+                                                <div  *dropdownMenu class="action_list dropdown-menu">
+                                    <a href="javascript:void(0)" [attr.data-id]="item?.id"  (click)="download($event)"><i class="fa fa-download" aria-hidden="true"></i> Download</a>
+                                    <a href="javascript:void(0)" (click)="statusChange($event)"   [attr.data-status]="item?.status"  [attr.data-id]="item?.id"><i class="fa fa-check" aria-hidden="true"></i> Verify</a>
+                                    <a href="javascript:void(0)" [attr.data-id]="item?.id"  (click)="confirmModal(template, $event)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr *ngIf="result.length==0">
+                                            <td colspan="6" class="text-center">No document found</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                              <!--   <pagination-controls class="category-pagination" (pageChange)="pageChange($event)"></pagination-controls>
+ -->
+                                
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-end mt-4">
+                                      <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <img src="assets/icons/left-arrow.svg" alt="" />
+                                            Prev
+                                        </a>
+                                      </li>
+                                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                      <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            Next
+                                            <img src="assets/icons/right-arrow.svg" alt="" />
+                                        </a>
+                                      </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <ng-template #template>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">Confirm Delete Document ?</h4>
+              <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-center confirm_modal"> 
+               <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId (click)="delete($event)">Confirm</button> 
+               <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">No</button>  
+            </div>
+          </ng-template>
+
+          <ng-template #upload_modal>
+            <div class="modal-header text-center upload_modal_head">
+              <h4 class="modal-title w-100">Document Upload</h4>
+              <button type="button" class="btn-close close" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body upload_modal_body"> 
+                <div class="form-group">
+                    <label>Enter Member Name:</label>
+                    <select class="form-control">
+                        <option>Please enter / search member name</option>
+                    </select>
+                </div>
+
+                <div class="doc_name">
+                    <img src="assets/icons/upload_doc.svg" alt="upload_doc"/> 
+                    <span class="nameof_doc">Cannonball_Wrecked2911.png</span>
+                    <span class="sizeof_doc">1.2/2.0MB</span>
+                    <a href="javascript:void(0)" class="clear_doc"><i class="fa fa-close"></i></a>
+                </div>
+
+                <div class="upload_area text-center">
+                    <p class="m-0">Drag and Drop file</p>
+                    <div><small>or</small></div>
+                    <label class="upload_file"><input type="file"/>Browse</label>
+                </div>
+
+                <button class="btn btn-primary btn-block">Confirm Upload</button>
+            </div>
+          </ng-template>
+
+    </div>
+</main>

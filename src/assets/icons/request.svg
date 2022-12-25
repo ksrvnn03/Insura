@@ -1,0 +1,22 @@
+<svg id="credit-card" xmlns="http://www.w3.org/2000/svg" width="59.717" height="52.252" viewBox="0 0 59.717 52.252">
+  <g id="Group_47" data-name="Group 47" transform="translate(0 11.196)">
+    <g id="Group_46" data-name="Group 46" transform="translate(0 0)">
+      <path id="Path_50" data-name="Path 50" d="M57.851,150.39a1.867,1.867,0,0,0-1.866,1.866v13.063H3.732V142.925H24.26a1.866,1.866,0,0,0,0-3.732H3.732v-7.465H24.26a1.866,1.866,0,0,0,0-3.732H3.732A3.734,3.734,0,0,0,0,131.728v33.591a3.734,3.734,0,0,0,3.732,3.732H55.985a3.734,3.734,0,0,0,3.732-3.732V152.256A1.867,1.867,0,0,0,57.851,150.39Z" transform="translate(0 -127.996)" fill="#460222"/>
+    </g>
+  </g>
+  <g id="Group_49" data-name="Group 49" transform="translate(7.465 33.59)">
+    <g id="Group_48" data-name="Group 48" transform="translate(0 0)">
+      <path id="Path_51" data-name="Path 51" d="M73.331,320H65.866a1.866,1.866,0,1,0,0,3.732h7.465a1.866,1.866,0,1,0,0-3.732Z" transform="translate(-64 -319.996)" fill="#460222"/>
+    </g>
+  </g>
+  <g id="Group_51" data-name="Group 51" transform="translate(29.859 0)">
+    <g id="Group_50" data-name="Group 50" transform="translate(0 0)">
+      <path id="Path_52" data-name="Path 52" d="M284.728,37.751l-13.063-5.6a1.905,1.905,0,0,0-1.474,0l-13.063,5.6A1.871,1.871,0,0,0,256,39.468v7.465C256,57.2,259.8,63.2,270,69.08a1.876,1.876,0,0,0,1.859,0c10.2-5.863,14-11.865,14-22.148V39.468A1.868,1.868,0,0,0,284.728,37.751Zm-2.6,9.182c0,8.618-2.851,13.362-11.2,18.363-8.345-5.013-11.2-9.756-11.2-18.363V40.7l11.2-4.8,11.2,4.8Z" transform="translate(-256 -32.004)" fill="#460222"/>
+    </g>
+  </g>
+  <g id="Group_53" data-name="Group 53" transform="translate(37.325 11.198)">
+    <g id="Group_52" data-name="Group 52" transform="translate(0 0)">
+      <path id="Path_53" data-name="Path 53" d="M334.241,128.421a1.879,1.879,0,0,0-2.624.291l-5.867,7.338-2.322-3.471a1.865,1.865,0,1,0-3.105,2.068l3.732,5.6a1.881,1.881,0,0,0,1.474.832h.078a1.867,1.867,0,0,0,1.459-.7l7.465-9.331A1.868,1.868,0,0,0,334.241,128.421Z" transform="translate(-320.011 -128.016)" fill="#460222"/>
+    </g>
+  </g>
+</svg>
