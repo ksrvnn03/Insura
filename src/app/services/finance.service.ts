@@ -16,10 +16,19 @@ export class FinanceService {
    }
   
   listingTransaction(memberId:any, type:any){
-    if(type!=0){
-      return this.http.get(this.apiUrl+'transactions/list?memberId='+memberId+'&type='+type,{headers: new HttpHeaders().set("Authorization", ''+this.token)});
+    if(memberId){
+      if(type!=0){
+        return this.http.get(this.apiUrl+'transactions/list?memberId='+memberId+'&type='+type,{headers: new HttpHeaders().set("Authorization", ''+this.token)});
+      }else{
+        return this.http.get(this.apiUrl+'transactions/list?memberId='+memberId,{headers: new HttpHeaders().set("Authorization", ''+this.token)});
+      }
     }else{
-      return this.http.get(this.apiUrl+'transactions/list?memberId='+memberId,{headers: new HttpHeaders().set("Authorization", ''+this.token)});
+      if(type==0){
+        return this.http.get(this.apiUrl+'transactions/list',{headers: new HttpHeaders().set("Authorization", ''+this.token)});
+      }else{
+        return this.http.get(this.apiUrl+'transactions/list?type='+type,{headers: new HttpHeaders().set("Authorization", ''+this.token)});
+      }
+      
     }
   }
 

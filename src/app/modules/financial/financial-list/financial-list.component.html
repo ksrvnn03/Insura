@@ -16,32 +16,36 @@
                             <div class="row hightlists mt-3">
                                 <div class="col-md-3 info_list_item">
                                     <label>Total Transactions</label>
-                                    <h6 class="info">8,291</h6>
-                                    <span>392 Transactions this month</span>
+                                    <h6 class="info">{{this.transData?.overall?.total_count}}</h6>
+                                    <span>{{this.transData?.month?.total_count}} Transactions this month</span>
                                 </div>
                                 <div class="col-md-3 info_list_item">
                                     <label>Total Collections</label>
-                                    <h6 class="success">RM 10,295,000.00</h6>
-                                    <span>RM 240,000 Collected this month</span>
+                                    <h6 class="success">{{ this.transData?.overall?.total_collection | currency: 'RM' }}</h6>
+                                    <span>{{ this.transData?.month?.total_collection | currency: 'RM' }} Collected this month</span>
                                 </div>
                                 <div class="col-md-3 info_list_item">
                                     <label>Total Earnings</label>
-                                    <h6 class="info">RM 5,525,000.00</h6>
-                                    <span>RM 625,000 Earned this month</span>
+                                    <h6 class="info">{{ this.transData?.overall?.total_earnings | currency: 'RM' }}</h6>
+                                    <span>{{ this.transData?.month?.total_earnings | currency: 'RM' }} Earned this month</span>
                                 </div>
                                 <div class="col-md-3 info_list_item">
                                     <label>Total Payout</label>
-                                    <h6 class="danger">RM 1,825,000.00</h6>
-                                    <span>RM 125,000 Paid Out this month</span>
+                                    <h6 class="danger">{{ this.transData?.overall?.total_payouts | currency: 'RM' }}</h6>
+                                    <span>{{ this.transData?.month?.total_payouts | currency: 'RM' }}</span>
                                 </div>
                             </div>
 
                             <div class="row mt-4 mb-4 filter_style2">
                                 <div class="col-md-7">
-                                    <a routerLink="/financial" class="btn active">All Transactions</a>
+                                    <button (click)="typeTranscation(0)" class="btn" [ngClass]="{'active' : this.activeTab==0}">All</button>
+                                    <button (click)="typeTranscation(1)" class="btn ml-12" [ngClass]="{'active' : this.activeTab==1}">Payment</button>
+                                    <button (click)="typeTranscation(2)" class="btn ml-12" [ngClass]="{'active' : this.activeTab==2}">Earnings</button>
+                                    <button (click)="typeTranscation(3)" class="btn ml-12" [ngClass]="{'active' : this.activeTab==3}">Payouts</button>
+                                   <!--  <a routerLink="/financial" class="btn active">All Transactions</a>
                                     <a routerLink="/financial/earning" class="btn ml-12">Earnings</a>
                                     <a routerLink="/financial/payouts" class="btn ml-12">Payouts</a>
-                                    <a routerLink="/financial/collections" class="btn ml-12">Collections</a>
+                                    <a routerLink="/financial/collections" class="btn ml-12">Collections</a> -->
                                 </div>
 
                                 <div class="col-md-5 d-flex justify-content-end" *ngIf="action_btn">
@@ -101,277 +105,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let item of result; let i=index;">
                                         <td class="checkall"><input type="checkbox"   (click)="itemchecked($event)" name="checkitem" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td> Hareem Cannon</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
+                                        <td><a href="javascript:void(0)" (click)="trans_open(i)">#IM{{item.id}}</a><div class="cdate">{{item?.transaction_date | date: 'mediumDate'}}</div></td>
+                                        <td>
+                                            <span *ngIf="item.type==1">Payment</span>
+                                            <span *ngIf="item.type==2">Earnings</span>
+                                            <span *ngIf="item.type==3">Payouts</span>
                                         </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Payout</td>
-                                        <td> Yahya Lee</td>
-                                        <td><span class="span_red">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_pending"><span class="dot"></span>Pending</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
+                                        <td><span class="span_blue">{{item?.amount | currency: 'RM'}}</span></td>
+                                        <td class="text-center">
+                                            <span class="span_status"  [ngClass]="{
+                                                'status_active': item.status ==1,
+                                                'status_pending' : item.status == 2 || item.status == 4,
+                                                'status_expire' : item.status == 3
+                                                }">
+                                            <span class="dot"></span>{{item?.status_txt}}</span>
                                         </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Payout</td>
-                                        <td>Hettie Barajas</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
                                         <td class="text-center" dropdown>
                                             <button class="dot-line" dropdownToggle><span></span></button>
                                             <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td  class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td>Louisa Steadman</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td>Rose Whelan</td>
-                                        <td><span class="span_red">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_blocked"><span class="dot"></span>Blocked</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Payout</td>
-                                        <td>Selina Villalobos</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td  class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td>Wendy Sweet</td>
-                                        <td><span class="span_red">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_pending"><span class="dot"></span>Pending</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td> Umaiza Barlow</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                   
-                                    <tr>
-                                        <td  class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td> Hareem Cannon</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td> Yahya Lee</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td>Hettie Barajas</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td  class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td>Louisa Steadman</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td>Rose Whelan</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td>Selina Villalobos</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td  class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td>Wendy Sweet</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td class="checkall"><input type="checkbox" name="checkitem" (click)="itemchecked($event)" /></td>
-                                        <td><a href="javascript:void(0)" (click)="trans_open()">#IM2912</a><div class="cdate">Jan 29, 2023</div></td>
-                                        <td>Collection</td>
-                                        <td> Umaiza Barlow</td>
-                                        <td><span class="span_green">RM 9,291.00</span></td>
-                                        <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Complete</span></td>
-                                        <td class="text-center" dropdown>
-                                            <button class="dot-line" dropdownToggle><span></span></button>
-                                            <div  *dropdownMenu class="action_list dropdown-menu">
-                                <a href=""><i class="fa fa-eye" aria-hidden="true"></i> View</a>
-                                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                <a href="javascript:void(0)" class="mt-1 span_status status_active" (click)="statusChange($event)"   [attr.data-status]="1"  [attr.data-id]="item?.id" *ngIf="item.status!=1"><i class="fa fa-circle" aria-hidden="true"></i> Complete</a>
+                                                <a href="javascript:void(0)" class="mt-1 span_status status_pending" (click)="statusChange($event)"   [attr.data-status]="2"  [attr.data-id]="item?.id" *ngIf="item.status!=2"><i class="fa fa-circle" aria-hidden="true"></i> Pending</a>
+                                                <a href="javascript:void(0)" class="mt-1 span_status status_expire" (click)="statusChange($event)"   [attr.data-status]="3"  [attr.data-id]="item?.id" *ngIf="item.status!=3"><i class="fa fa-circle" aria-hidden="true"></i> Rejected</a>
+                                <a href="javascript:void(0)" (click)="trans_open(i)" class="mt-1"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                 <!--                <a href=""><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                                <a href=""><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a> -->
                                             </div>
                                         </td>
                                     </tr>
@@ -380,7 +139,11 @@
                                 </tbody>
                             </table>
 
-                            <nav aria-label="Page navigation">
+                            <div class="mt-2 text-center mb-5" *ngIf="result==''">
+                                <p><small>No result found</small></p>
+                            </div>
+                            
+                            <!-- <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-end mt-4">
                                   <li class="page-item">
                                     <a class="page-link" href="#" aria-label="Previous">
@@ -398,36 +161,50 @@
                                     </a>
                                   </li>
                                 </ul>
-                            </nav>
+                            </nav> -->
                             
                             <div class="transaction_view" *ngIf="transview">
                                 <a href="javascript:void(0);" (click)="trans_close()" class="close_trans"><img src="assets/icons/close.svg" alt=""></a>
                                 <h5>Transaction Detail</h5>
-                                <h6 class="d-flex mt-3">PA281 <span class="ml-auto"> -RM 850.00</span></h6>
-                                <span class="trans_date">Jan 29, 2023 | 05.80 PM</span>
+                                <h6 class="d-flex mt-3 ">IM{{this.viewData.id }} 
+                                    <span class="ml-auto"> -{{ this.viewData.amount | currency : "RM" }}</span></h6>
+                                <span class="trans_date">{{ this.viewData.transaction_date | date: 'MMM d, y | hh.mm a' }}</span>
                                 <hr>
                                 
                                 <div class="text-left">
                                     <label>Member name</label>
-                                    <p>Male Hopkins</p>
+                                    <p>{{this.viewData?.member?.personal_details?.full_name}}</p>
                                 </div>
-                               
+                                
+                                <div class="text-left">
+                                    <label>Member Email</label>
+                                    <p>{{this.viewData?.member?.email}}</p>
+                                </div>
+                                
                                 <div class="text-left">
                                     <label>Transaction type</label>
-                                    <p>Male Hopkins</p>
+                                    <p>{{this.viewData?.type_txt}}</p>
                                 </div>
                     
-                                <div class="text-left">
+                               <div class="text-left">
                                     <label>Type of transaction</label>
-                                    <p>Earnings</p>
-                                </div>
+                                    <p> <span *ngIf="this.viewData?.type==1">Payment</span>
+                                        <span *ngIf="this.viewData?.type==2">Earnings</span>
+                                        <span *ngIf="this.viewData?.type==3">Payouts</span></p>
+                                </div> 
                     
                                 <div class="text-left mt-4">
-                                    <span class="span_status status_active"><span class="dot"></span>Complete</span>
+                                    <label>Transaction Status</label>
+                                    <span class="span_status"  [ngClass]="{
+                                        'status_active': this.viewData?.status ==1,
+                                        'status_pending' : this.viewData?.status == 2 || this.viewData?.status == 4,
+                                        'status_expire' : this.viewData?.status == 3
+                                        }">
+                                    <span class="dot"></span>{{this.viewData?.status_txt}}</span>
                                 </div>
                     
                                 <div class="text-left mt-5">
-                                    <button class="btn btn-block btn-primary br8">Approve payment</button>
+                                    <button (click)="approve_payment(this.viewData?.id)" class="btn btn-block btn-primary br8">Approve payment</button>
                                 </div>
                             </div>
 
