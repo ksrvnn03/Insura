@@ -47,6 +47,8 @@ export class ProgEditComponent implements OnInit {
       service_charge:["",[Validators.pattern("^[0-9]*$")]],
       commission_type:[""],
       commission_amount:["",Validators.required],
+      commission_amount_2:["",Validators.required],
+      commission_amount_3:["",Validators.required],
       image:[""],
       description:[""]
     }
@@ -66,6 +68,8 @@ export class ProgEditComponent implements OnInit {
         service_charge: data.service_charge,
         commission_type: data.commission_type,
         commission_amount: data.commission_amount,
+        commission_amount_2: data.commission_amount_2,
+        commission_amount_3: data.commission_amount_3,
         description: data.description,
       });
       this.choosedimg=data.image_url;
@@ -110,6 +114,15 @@ export class ProgEditComponent implements OnInit {
       if(this.selectedFile){
         formData.append("image", this.selectedFile);  
       }
+
+      if(form.commission_amount_2){
+        formData.append("commission_amount_2", form.commission_amount_2);  
+      }
+
+      if(form.commission_amount_3){
+        formData.append("commission_amount_3", form.commission_amount_3);  
+      }
+
        this.http.patch(environment.apiUrl+'admin/programmes/'+this.progId, formData, { headers: new HttpHeaders().set("Authorization", ''+this.token)}).subscribe((res:any)=>{
         if(res.status='success'){
           this.toastr.success('', 'Program Added Successfully...',{

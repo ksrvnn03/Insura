@@ -19,19 +19,23 @@ export class DocumentService {
     return this.http.get(this.apiUrl+'documents/list', {headers: new HttpHeaders().set("Authorization", ''+this.token)});
   }
 
-  memberDocu(id:any){    
-    return this.http.get(this.apiUrl+'documents/list/'+id+'', {headers: new HttpHeaders().set("Authorization", ''+this.token)});
+  memberDocu(id:any,status:any){    
+    if(status==0){
+      return this.http.get(this.apiUrl+'documents/list/'+id+'', {headers: new HttpHeaders().set("Authorization", ''+this.token)});
+    }else{
+      return this.http.get(this.apiUrl+'documents/list/'+id+'?status='+status, {headers: new HttpHeaders().set("Authorization", ''+this.token)});
+    }
   }
 
   downloadDocu(id:number){
-    return this.http.get(this.apiUrl+'documents/download/'+id+'', {headers: new HttpHeaders().set("Authorization", ''+this.token)});
+    return this.http.get(this.apiUrl+'documents/download/'+id+'', {responseType: 'blob', headers: new HttpHeaders().set("Authorization", ''+this.token)});
   }
 
   deleteDocu(id:any){
     return this.http.delete(this.apiUrl+'documents/'+id+'',  {headers: new HttpHeaders().set("Authorization", ''+this.token)});
   }
 
-  statusDocu(id:any){
-    return this.http.patch(this.apiUrl+'documents/update-status/'+id+'', {status:2},  {headers: new HttpHeaders().set("Authorization", ''+this.token)});
+  statusDocu(id:any,cstatus:any){
+    return this.http.patch(this.apiUrl+'documents/update-status/'+id+'', {status:cstatus},  {headers: new HttpHeaders().set("Authorization", ''+this.token)});
   }
 }

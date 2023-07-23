@@ -62,11 +62,11 @@
                                 <table class="table table-custom mt-3">
                                     <thead>
                                         <tr>
-                                            <th>MEMBER ID</th>
-                                            <th>MEMBER FULL NAME</th>
+                                            <th>ID</th>
+                                            <th>FULL NAME</th>
                                             <th>DATE REGISTERED</th>
                                             <th>TOTAL EARNINGS</th>
-                                            <th>TOTAL PAYOURS</th>
+                                            <th>TOTAL PAYOUT</th>
                                             <th>TOTAL BALANCE</th>
                                             <th class="text-center">STATUS</th>
                                             <th class="text-center" width="3%"></th>
@@ -99,8 +99,12 @@
                                        
                                     </tbody>
                                 </table>
-                                <pagination-controls class="category-pagination" (pageChange)="pageChange($event)"></pagination-controls>
-                                <nav aria-label="Page navigation">
+
+                                <div class="text-right">
+                                    <pagination-controls class="category-pagination" (pageChange)="pageChange($event)"></pagination-controls>
+
+                                </div>
+                               <!--  <nav aria-label="Page navigation">
                                     <ul class="pagination justify-content-end mt-4">
                                       <li class="page-item">
                                         <a class="page-link" href="#" aria-label="Previous">
@@ -118,7 +122,7 @@
                                         </a>
                                       </li>
                                     </ul>
-                                </nav>
+                                </nav> -->
 
                                   
                             </div>

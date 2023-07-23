@@ -10,7 +10,12 @@
                 <p class="meta_join  mb-0"><label class="sub-label">Date Joined</label></p>
                 <p class="meta_join_dt">{{result?.personal_details?.created_at | date: 'mediumDate'}}</p>
                 <div>
-                    <span class="span_status status_active" *ngIf="result?.status==1"><span  class="dot"></span>Active</span>
+                    <span class="span_status"  [ngClass]="{'status_active': result?.status =='1',
+                                                'status_blocked' : result?.status == '2',
+                                                'status_pending' : result?.status == '3',
+                                                'status_expire' : result?.status == '4'
+                                                }">
+                                                    <span class="dot"></span>{{result?.status_txt}}</span>
                 </div>
             </div>
         </div>
@@ -18,11 +23,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4 class="memb_count_txt">205</h4>
+                        <h4 class="memb_count_txt">{{this.result?.recruited}}</h4>
                         <label class="sub-label">Recruited</label>
                     </div>
                     <div class="col-md-8">
-                        <h4 class="memb_count_txt">RM 281,921.20</h4>
+                        <h4 class="memb_count_txt">{{this.result?.earned | currency:'RM'}}</h4>
                         <label class="sub-label">Earned</label>
                     </div>
                 </div>

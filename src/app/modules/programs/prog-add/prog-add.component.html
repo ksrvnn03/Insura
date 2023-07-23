@@ -21,6 +21,11 @@
                                     <div class="form-group">
                                         <label>Program Description</label>   
                                         <textarea name="description" rows="7" class="form-control" placeholder="Enter your description here" formControlName="description"></textarea> 
+                                    </div>  
+
+                                    <div class="form-group">
+                                        <label>Featured Image</label>
+                                        <input type="file" class="form-control" name="image" formControlName="image" accept=".png, .jpg, .jpeg" (change)="onFileChanged($event)"/>
                                     </div>
                                     
                                     <div class="form-group">
@@ -35,13 +40,8 @@
                     <div class="col-inner">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="sidebar-title"><strong>Featured Image</strong></h5>
-                                <div class="form-group mt-3">
-                                  <!--   <label class="d-flex w-100">Featured Image</label>  -->   
-                                    <input type="file" name="image" formControlName="image" accept=".png, .jpg, .jpeg" (change)="onFileChanged($event)"/>
-                                </div>    
 
-                                <div class="input-group mt-3 prgprice">
+                                <div class="input-group  prgprice">
                                     <label class="d-flex w-100">Tax Percentage</label>    
                                     <div class="input-group-prepend">
                                       <span class="input-group-text">RM</span>
@@ -81,7 +81,7 @@
                                 </div>
 
                                 <div class="input-group mt-3 prgprice">
-                                    <label class="d-flex w-100">Commission Price</label>    
+                                    <label class="d-flex w-100">Commission Price 1</label>    
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">RM</span>
                                     </div>
@@ -89,6 +89,32 @@
                                 </div>
                                 <div *ngIf="submitted && !programCreation.get('commission_amount')?.valid">
                                     <small class="text-danger" *ngIf="programCreation.get('commission_amount')?.errors?.['required']">
+                                        Commission price requird </small> 
+                                </div>
+
+
+                                <div class="input-group mt-3 prgprice">
+                                    <label class="d-flex w-100">Commission Price 2</label>    
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">RM</span>
+                                    </div>
+                                    <input type="text" class="bl-0 form-control" name="commission_amount_2" placeholder="Enter your program's price" formControlName="commission_amount_2" /> 
+                                </div>
+                                <div *ngIf="submitted && !programCreation.get('commission_amount_2')?.valid">
+                                    <small class="text-danger" *ngIf="programCreation.get('commission_amount_2')?.errors?.['required']">
+                                        Commission price requird </small> 
+                                </div>
+
+
+                                <div class="input-group mt-3 prgprice">
+                                    <label class="d-flex w-100">Commission Price 3</label>    
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">RM</span>
+                                    </div>
+                                    <input type="text" class="bl-0 form-control" name="commission_amount_3" placeholder="Enter your program's price" formControlName="commission_amount_3" /> 
+                                </div>
+                                <div *ngIf="submitted && !programCreation.get('commission_amount_3')?.valid">
+                                    <small class="text-danger" *ngIf="programCreation.get('commission_amount_3')?.errors?.['required']">
                                         Commission price requird </small> 
                                 </div>
                                <!--  Upload An Image

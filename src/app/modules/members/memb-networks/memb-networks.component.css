@@ -1,0 +1,9 @@
+.accordion-content.open {
+    display: block;
+}
+.accordion-content{
+    display: none;
+}
+.accordian-item-title span{
+    cursor: pointer;
+}

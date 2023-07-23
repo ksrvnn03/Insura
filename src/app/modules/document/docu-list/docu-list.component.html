@@ -86,14 +86,19 @@
                                             <td class="text-center" dropdown>
                                                 <button class="dot-line" dropdownToggle><span></span></button>
                                                 <div  *dropdownMenu class="action_list dropdown-menu">
-                                    <a href="javascript:void(0)" [attr.data-id]="item?.id"  (click)="download($event)"><i class="fa fa-download" aria-hidden="true"></i> Download</a>
-                                    <a href="javascript:void(0)" (click)="statusChange($event)"   [attr.data-status]="item?.status"  [attr.data-id]="item?.id"><i class="fa fa-check" aria-hidden="true"></i> Verify</a>
+                                                    <a href="javascript:void(0)" class="mt-1 span_status status_pending" (click)="statusChange($event)"   [attr.data-status]="1"  [attr.data-id]="item?.id"><i class="fa fa-circle" aria-hidden="true"></i> Pending</a>
+                                                    <a href="javascript:void(0)" class="mt-1 span_status status_active" (click)="statusChange($event)"   [attr.data-status]="2"  [attr.data-id]="item?.id"><i class="fa fa-circle" aria-hidden="true"></i> Verify</a>
+                                                    <a href="javascript:void(0)" class="mt-1 span_status status_blocked" (click)="statusChange($event)"   [attr.data-status]="3"  [attr.data-id]="item?.id"><i class="fa fa-circle" aria-hidden="true"></i> Block</a>
+                                                    <a href="javascript:void(0)" class="mt-1 span_status status_expire" (click)="statusChange($event)"   [attr.data-status]="4"  [attr.data-id]="item?.id"><i class="fa fa-circle" aria-hidden="true"></i> Rejected</a>
+                                                    
+                                    <a href="javascript:void(0)" [attr.data-id]="item?.id" download  (click)="download($event)"><i class="fa fa-download" aria-hidden="true"></i> Download</a>
+                                    
                                     <a href="javascript:void(0)" [attr.data-id]="item?.id"  (click)="confirmModal(template, $event)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
                                                 </div>
                                             </td>
                                         </tr>
                                         
-                                        <tr *ngIf="result.length==0">
+                                        <tr *ngIf="result==''">
                                             <td colspan="6" class="text-center">No document found</td>
                                         </tr>
 

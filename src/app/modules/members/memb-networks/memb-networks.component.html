@@ -12,20 +12,23 @@
                             <div class="card-body mem-prof-view">
                                 <div class="row">
                                     <div class="col-md-7">
-                                        <h5 class="page-title">Networks <strong>Malek Hopkins</strong></h5>
+                                        <h5 class="page-title">Networks <strong>{{this.profile?.personal_details?.full_name}}</strong></h5>
                                     </div>
                                     <div class="col-md-5 text-right">
-                                        <span>Total Recruited: <strong>229 Members</strong></span>
+                                        <span>Total Recruited: <strong>{{this.totalMemb}} Members</strong></span>
                                     </div>
                                 </div>
                                 
-
-                                <div class="row mt-4 mb-4 filter_style2">
-                                    <div class="col-md-7">
-                                        <button class="btn"  [ngClass]="{'active': IsVisible0 === true}" (click)="IsVisible(0)">All</button>
-                                        <button class="btn ml-12"  [ngClass]="{'active': IsVisible1 === true}" (click)="IsVisible(1)">Tier 1</button>
-                                        <button class="btn ml-12"  [ngClass]="{'active': IsVisible2 === true}" (click)="IsVisible(2)">Tier 2</button>
-                                        <button class="btn ml-12"  [ngClass]="{'active': IsVisible3 === true}"  (click)="IsVisible(3)">Tier 3</button>
+                                <div class="row"  *ngIf="result==''">
+                                    <div class="col-md-12 mt-4 mb-5 text-center"><small>No network found</small></div>
+                                </div>
+                                
+                                <div class="row mt-4 mb-4 filter_style2"  *ngIf="result!=''">
+                                    <div class="col-md-7 d-flex">
+                                        <button class="btn" [ngClass]="{'active' : allOpen}" (click)="openAllAccordions()">All</button>
+                                        <div *ngFor="let bt of result; let i = index;">
+                                            <button [ngClass]="{'active': isAccordionOpen[i]}" class="btn ml-12" (click)="toggleAccordion(i)">Tier {{i+1}}</button>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-5 d-flex justify-content-end">
@@ -49,303 +52,30 @@
                                     </div>
                                 </div>
 
-                               <!--  <accordion-group>
-                                    <span accordion-heading>
-                                          Tier 4 <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    </span>
-                                    <div accordion-panel>
-                                        test
-                                    </div>
-                                </accordion-group> -->
 
                                 
             <div class="nt_tier memb_nt_accordion">
-                <div (click)="IsVisible(1)" class="accordian-item-title">
-                    <span>Tier 1 <i [ngClass]="IsVisible1 ? 'fa fa-angle-down' : 'fa fa-angle-up'"></i></span>
+                <div  *ngFor="let tier_list of result; let t=index;" [ngClass]="{'open': isAccordionOpen[t]}">
+                    <div class="accordian-item-title" (click)="toggleAccordion(t)" [ngClass]="{'active': isAccordionOpen[t]}"> <span>Tier {{t+1}} <i class='fa' [ngClass]="isAccordionOpen[t] ? 'fa-angle-down' : 'fa-angle-up' " ></i></span>
+                    </div>
+                    <div  class="accordion-content accordian-item-content" [ngClass]="{'open': isAccordionOpen[t]}">
+                        <div class="row">
+                            <div class="col-md-3" *ngFor="let dt of tier_list.value; let i = index;" >
+                                <div class="col-inner d-flex align-items-center nt_user_item">
+                                    <div class="user-thumb">
+                                        <img src="assets/img/profile.svg" alt=""/>
+                                    </div>
+                                    <div class="user-details">
+                                        <span class="nt_user_name">{{dt.name}}</span>
+                                        <span class="nt_user_join">joined <span>27 August 2023</span></span>
+                                        <a routerLink="/members/{{dt.id}}" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
                 </div>
-                <div *ngIf="IsVisible1" class="accordian-item-content">
-                    <div class="row">
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-
-                <!---Tier 2-->
-                <div (click)="IsVisible(2)" class="accordian-item-title">
-                    <span>Tier 2 <i [ngClass]="IsVisible2 ? 'fa fa-angle-down' : 'fa fa-angle-up'"></i></span>
-                </div>
-                <div *ngIf="IsVisible2" class="accordian-item-content">
-                    <div class="row">
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-
-                <!--Tier 3-->
-                <div (click)="IsVisible(3)" class="accordian-item-title">
-                    <span>Tier 3 <i [ngClass]="IsVisible3 ? 'fa fa-angle-down' : 'fa fa-angle-up'"></i></span>
-                </div>
-                <div *ngIf="IsVisible3" class="accordian-item-content">
-                    <div class="row">
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-3 ">
-                            <div class="col-inner d-flex align-items-center nt_user_item">
-                                <div class="user-thumb">
-                                    <img src="assets/img/profile.svg" alt=""/>
-                                </div>
-                                <div class="user-details">
-                                    <span class="nt_user_name">Joanna Lee Yin Teng</span>
-                                    <span class="nt_user_join">joined <span>27 August 2023</span></span>
-                                    <a routerLink="" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
             </div>     
-            
             
                                 
                             </div><!---card body-->

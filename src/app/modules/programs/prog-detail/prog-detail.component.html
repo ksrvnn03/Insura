@@ -50,8 +50,8 @@
                                <div class="d-flex align-items-center justify-content-between">
                                     <h5 class="page-title d-inline"><b>Enrolled Members</b></h5>
                                     <div class="ml-auto action_btn">
-                                        <button class="btn" *ngIf="action_btn" (click)="removeMember($event)"><img src="assets/img/removememb.svg" alt="" /></button>
-                                        <button class="btn"><img src="assets/img/addmemb.svg" alt="" /></button>
+                                        <button class="btn" *ngIf="action_btn && this.progMember!=''" (click)="removeMember($event)"><img src="assets/img/removememb.svg" alt="" /></button>
+                                        <button class="btn" (click)="addMember(addmember, $event)" ><img src="assets/img/addmemb.svg" alt="" /></button>
                                     </div>
                                </div>
 
@@ -84,6 +84,11 @@
                                     </tr>
                                 </tbody>
                                 </table>
+                                <div class="row" *ngIf="this.progMember==''">
+                                    <div class="col mt-3 mb-5 text-center">
+                                        <p><small>No member found.</small></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -93,18 +98,30 @@
         </div>
     </div>
 
+    <ng-template #addmember>    
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Add Members</h4>
+            <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body text-center confirm_modal"> 
+            <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId (click)="addtoprogram($event)">Add to Program</button> 
+            <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">Cancel</button>  
+        </div>
+    </ng-template>
 
     <ng-template #template>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Confirm remove the member ?</h4>
-        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-        <span aria-hidden="true" class="visually-hidden">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body text-center confirm_modal"> 
-        <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId (click)="delete($event)">Confirm</button> 
-        <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">No</button>  
-    </div>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Confirm remove the member ?</h4>
+            <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body text-center confirm_modal"> 
+            <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId (click)="delete($event)">Confirm</button> 
+            <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">No</button>  
+        </div>
     </ng-template>
 
 </main>

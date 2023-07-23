@@ -881,7 +881,7 @@ ul#profile-menus li a {
     height: auto;
     padding: 0 10px;
     border-color: #f0f0f0;
-    max-width: 140px;
+    max-width: 150px;
 }
 .membersearch input.form-control::placeholder{
     color:#c7c7c7;
@@ -1005,8 +1005,9 @@ ul#profile-menus li a {
     color: #333737;
     text-align: center;
     padding: 3px 15px;
-    min-width: 90px;
+    min-width: 95px;
     display: inline-block;
+    text-transform: capitalize;
 }
 .span_status .dot,.filter_bar .dropdown-menu > button > span{
     border-radius: 50%;
@@ -1014,6 +1015,9 @@ ul#profile-menus li a {
     width: 8px;
     height: 8px;
     margin-right:6px;
+}
+.action_list .span_status {
+    text-align: center;
 }
 .dot-line{
     border:0;
@@ -1248,8 +1252,8 @@ ul.pagination li a[aria-label="Next"] img{
     margin-bottom: 10px;
 }
 .transaction_view h5,.transaction_view h6{
-    font-size: 26px;
-    line-height: 28px;
+    font-size: 21px;
+    line-height: 24px;
     font-weight: bold;
 }
 .br4{
@@ -1276,8 +1280,8 @@ ul.pagination li a[aria-label="Next"] img{
     display: block;
 }
 .transaction_view p {
-    font-size: 21px;
-    line-height: 26px;
+    font-size: 16px;
+    line-height: 21px;
     font-weight: bold;
     margin: 3px 0 20px;
 }
@@ -1298,9 +1302,10 @@ a.close_trans {
 .doc_item_name {
     padding-left: 15px;
     text-align: left;
-    word-break: break-word;
+    word-break: break-all;
     display: flex;
     flex-wrap: wrap;
+    max-width: 200px;
 }
 .doc_type{
     width: 30px;

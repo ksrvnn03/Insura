@@ -61,24 +61,19 @@ export class DocuListComponent implements OnInit {
   statusChange($event:any){
     let docid=$event.target.getAttribute('data-id');
     let cstatus=$event.target.getAttribute('data-status');
-    if(cstatus==2){
-      this.toastr.warning('', 'This document already verified.',{
+
+    this.apiUrl.statusDocu(docid,cstatus).subscribe((res:any)=>{
+      this.toastr.success('', 'Verified Successfully...',{
         positionClass: 'toast-bottom-right',
       });
-    }else{
-      this.apiUrl.statusDocu(docid).subscribe((res:any)=>{
-        this.toastr.success('', 'Verified Successfully...',{
-          positionClass: 'toast-bottom-right',
-        });
-        this.listDocu(1);
-      },
-      (err:any)=>{
-        this.toastr.error('', err.error.message,{
-          timeOut: 2500,
-          positionClass: 'toast-bottom-right' 
-        });
+      this.listDocu(1);
+    },
+    (err:any)=>{
+      this.toastr.error('', err.error.message,{
+        timeOut: 2500,
+        positionClass: 'toast-bottom-right' 
       });
-    }
+    });
   }
 
   delete(event:any){

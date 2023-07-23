@@ -26,47 +26,49 @@
                                     </div>
                                     <div class="col-md-8">
                                         <label>IC Number</label>
-                                        <p>{{result?.personal_details?.ic_no}}</p>
+                                        <p>{{result?.personal_details?.ic_no ? result?.personal_details?.ic_no : '-'}}</p>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>Contact Number</label>
-                                        <p>{{result?.contact_details?.phone}}</p>
+                                        <p>{{result?.contact_details?.phone ? result?.contact_details?.phone : '-'}}</p>
                                     </div>
                                     <div class="col-md-8">
                                         <label>Email</label>
-                                        <p>{{result?.contact_details?.email}}</p>
+                                        <p>{{result?.contact_details?.email ? result?.contact_details?.email : '-'}}</p>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>Date of Birth</label>
-                                        <p>{{result?.personal_details?.dob | date: 'mediumDate'}}</p>
+                                        <p *ngIf="result?.personal_details?.dob">{{ result?.personal_details?.dob | date: 'mediumDate'}}</p>
+                                        <p *ngIf="!result?.personal_details?.dob">-</p>
                                     </div>
                                     <div class="col-md-8">
                                         <label>Gender</label>
-                                        <p>{{result?.personal_details?.gender}}</p>
-                                    </div>
-                                </div>
-
-                                <div class="row" *ngIf="address.length>0">
-                                    <div class="col-md-12">
-                                        <label>Residential Address</label>
-                                        <p><span *ngFor="let i of address;let last = last;">{{i}} <span *ngIf="!last">,</span></span></p>
+                                        <p>{{ result?.personal_details?.gender ? result?.personal_details?.gender : '-'}}</p>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-4" *ngIf="this.result?.contact_details?.state">
-                                        <label>State</label>
-                                        <p>{{this.result?.contact_details?.state}}</p>
+                                    <div class="col-md-12">
+                                        <label>Residential Address</label>
+                                        <p *ngIf="address.length==0">-</p>
+                                        <p *ngIf="address.length>0"><span *ngFor="let i of address;let last = last;">{{i}} <span *ngIf="!last">,</span></span></p>
                                     </div>
-                                    <div class="col-md-8" *ngIf="this.result?.contact_details?.country">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>State</label>
+                                        <p>{{this.result?.contact_details?.state ? this.result?.contact_details?.state : '-'}}</p>
+                                    </div>
+                                    <div class="col-md-8">
                                         <label>Country</label>
-                                        <p>{{this.result?.contact_details?.country}}</p>
+                                        <p>{{this.result?.contact_details?.country ? this.result?.contact_details?.country : '-'}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -77,6 +79,9 @@
                                 <h5 class="page-title">Enrolled Programs</h5>
                                 <div class="mem-prog-list text-center">
                                     <div class="row">
+                                        <div class="col-md-12" *ngIf="enrolled_prog==''">
+                                            <h6><small>No program found</small></h6>
+                                        </div>
                                         <div class="col-md-3 mt-4 mb-4" *ngFor="let item of enrolled_prog; let i=index;">
                                             <div class="col-inner">
                                                <a routerLink="/program/{{item?.id}}">

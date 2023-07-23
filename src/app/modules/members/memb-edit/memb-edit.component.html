@@ -31,7 +31,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>IC Number</label>
-                                            <input type="text"  placeholder="IC Number" name="ic_no" class="form-control" />
+                                            <input type="text"  placeholder="IC Number" name="ic_no" class="form-control" formControlName="ic_no"/>
                                             <div *ngIf="submitted && !membUpdate.get('ic_no')?.valid">
                                                 <small class="text-danger" *ngIf="membUpdate.get('ic_no')?.errors?.['required']">
                                                     IC number requird </small>
@@ -150,47 +150,17 @@
                                 <h5 class="page-title">Enrolled Programs</h5>
                                 <div class="mem-prog-list text-center">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-12" *ngIf="enrolled_prog==''">
+                                            <h6><small>No program found</small></h6>
+                                        </div>
+                                        <div class="col-md-3 mt-4 mb-4" *ngFor="let item of enrolled_prog; let i=index;">
                                             <div class="col-inner">
-                                               <a routerLink="">
-                                                <img src="assets/img/mem-prof-1.svg" class="mem-prog-img" alt="profile-name" />
-                                                <p class="mem-prog-name">Family Insurance Premium Program</p>
+                                               <a routerLink="/program/{{item?.id}}">
+                                                <img src="{{item?.image_url}}" onerror="this.src='assets/img/noimage.jpg';" class="mem-prog-img" alt="profile-name" />
+                                                <p class="mem-prog-name">{{item?.name}}</p>
                                                 <div><label>Joined</label></div>
-                                                <div><strong>08 January 2021</strong></div>
+                                                <div><strong>{{item?.created_at | date:'mediumDate' }}</strong></div>
                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="col-inner">
-                                                <a routerLink="">
-                                                    <img src="assets/img/mem-prof-2.svg" class="mem-prog-img" alt="profile-name" />
-                                                    <p class="mem-prog-name">Family Insurance Premium Program</p>
-                                                    <div><label>Joined</label></div>
-                                                    <div><strong>08 January 2021</strong></div>
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="col-inner">
-                                                <a routerLink="">
-                                                    <img src="assets/img/mem-prof-3.svg" class="mem-prog-img" alt="profile-name" />
-                                                    <p class="mem-prog-name">Family Insurance Premium Program</p>
-                                                    <div><label>Joined</label></div>
-                                                    <div><strong>08 January 2021</strong></div>
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="col-inner">
-                                                <a routerLink="">
-                                                    <img src="assets/img/mem-prof-4.svg" class="mem-prog-img" alt="profile-name" />
-                                                    <p class="mem-prog-name">Family Insurance Premium Program</p>
-                                                    <div><label>Joined</label></div>
-                                                    <div><strong>08 January 2021</strong></div>
-                                                </a>
                                             </div>
                                         </div>
                                     </div>

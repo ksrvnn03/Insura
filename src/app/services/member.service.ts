@@ -34,5 +34,9 @@ export class MemberService {
   deleteMember(id:any){
     return this.http.delete(this.apiUrl+'members/'+id+'', {headers: new HttpHeaders().set("Authorization", ''+this.token)});
   }
+
+  memberNetwork(id:any){
+    return this.http.get(this.apiUrl+'members/'+id+'/network',{headers: new HttpHeaders().set("Authorization", ''+this.token)});
+  }
   
 }

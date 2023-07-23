@@ -24,6 +24,7 @@ export class MembEditComponent implements OnInit {
   submitted:boolean = false;
   showPassword:boolean = false;
   rshowPassword:boolean = false;
+  enrolled_prog:any;
 
   constructor(
     private fb: FormBuilder,
@@ -98,7 +99,7 @@ export class MembEditComponent implements OnInit {
           this.result=res.data;
           let newdob=  this.datepipe.transform(this.result.personal_details.dob, 'yyyy-MM-dd');
           
-       
+          this.enrolled_prog=res.data.enrolled_programmes;
           this.membUpdate.patchValue({
             name: this.result.personal_details.full_name,
             ic_no: this.result.personal_details.ic_no,

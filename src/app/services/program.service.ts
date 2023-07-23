@@ -17,7 +17,7 @@ export class ProgramService {
    }
 
   listingProgram(page:any){
-    return this.http.get(this.apiUrl+'admin/programmes?page=3',{headers: new HttpHeaders().set("Authorization", ''+this.token)});
+    return this.http.get(this.apiUrl+'admin/programmes',{headers: new HttpHeaders().set("Authorization", ''+this.token)});
   }
 
   createProgram(form:any){
@@ -37,7 +37,7 @@ export class ProgramService {
   }
 
   programDetachMember(pid:any, mid:any){
-    return this.http.patch(this.apiUrl+'admin/programmes/'+pid+'/member/'+mid, { headers: new HttpHeaders().set("Authorization", ''+this.token)});
+    return this.http.patch(this.apiUrl+'admin/programmes/'+pid+'/member/'+mid,{}, { headers: new HttpHeaders().set("Authorization", ''+this.token)});
   }  
 
   programBulkDeleteMember(pid:any, mid:any){

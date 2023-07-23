@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { DocumentService } from 'src/app/services/document.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment.prod';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-memb-documents',
@@ -16,6 +18,8 @@ export class MembDocumentsComponent implements OnInit {
   memberId = this.route.snapshot.paramMap.get("id");
   modalRef?: BsModalRef;
   delId:any;
+  filePath=environment.apiUrl;
+  statusChoosed=0;
 
   constructor(
     private router: Router,
@@ -29,14 +33,17 @@ export class MembDocumentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMembDocu(this.memberId);
+    this.getMembDocu(this.memberId, 0);
   }
 
-  getMembDocu(id:any){
-    this.apiUrl.memberDocu(id).subscribe((res:any)=>{
+  getMembDocu(id:any,status:any){
+    this.apiUrl.memberDocu(id,status).subscribe((res:any)=>{
         this.result=res.data;
     },(err:any)=>{
-      console.log();
+      this.toastr.error('', err.error.message,{
+        timeOut: 2500,
+        positionClass: 'toast-bottom-right' 
+      });
     })
   }
 
@@ -49,7 +56,21 @@ export class MembDocumentsComponent implements OnInit {
   statusChange($event:any){
     let docid=$event.target.getAttribute('data-id');
     let cstatus=$event.target.getAttribute('data-status');
-    if(cstatus==2){
+
+    this.apiUrl.statusDocu(docid,cstatus).subscribe((res:any)=>{
+      this.toastr.success('', res.message,{
+        positionClass: 'toast-bottom-right',
+      });
+      this.getMembDocu(this.memberId,this.statusChoosed);
+    },
+    (err:any)=>{
+      this.toastr.error('', err.error.message,{
+        timeOut: 2500,
+        positionClass: 'toast-bottom-right' 
+      });
+    });
+
+   /*  if(cstatus==2){
       this.toastr.warning('', 'This document already verified.',{
         positionClass: 'toast-bottom-right',
       });
@@ -66,14 +87,19 @@ export class MembDocumentsComponent implements OnInit {
           positionClass: 'toast-bottom-right' 
         });
       });
-    }
+    } */
+  }
+  
+  status(id:any){
+    this.statusChoosed=id;
+    this.getMembDocu(this.memberId,id);
   }
 
   delete(event:any){
     var delMembId= event.target.getAttribute("data-id"); 
     this.apiUrl.deleteDocu(delMembId).subscribe((res:any)=>{
       this.modalService.hide();
-      this.getMembDocu(this.memberId);
+      this.getMembDocu(this.memberId,this.statusChoosed);
    },(err:any)=>{
     this.modalService.hide();
     this.noresult=err.error.message;
@@ -84,16 +110,24 @@ export class MembDocumentsComponent implements OnInit {
    });
   }
 
-  download(event:any){
-    var docuId= event.target.getAttribute("data-id"); 
-    this.apiUrl.downloadDocu(docuId).subscribe((response:any)=>{
+  makeHttpRequest(docuId:any): Observable<any> {
+    // Show the Toastr notification when the request is initiated
+    this.toastr.info('Document Downloading....', 'Please wait', { timeOut: 0 });
+    return this.apiUrl.downloadDocu(docuId);
+  }
 
-    },(err:any)=>{
-    this.noresult=err.error.message;
-    /* this.toastr.error('', err.error.message,{
-      timeOut: 2500,
-      positionClass: 'toast-bottom-right' 
-    }); */
-   }); 
-}
+
+  download(event:any){
+    const docuId= event.target.getAttribute("data-id");
+    const  docuName =event.target.getAttribute("data-name");
+    this.makeHttpRequest(docuId).subscribe((response:Blob)=>{
+      const fileURL = URL.createObjectURL(response);
+      const a = document.createElement('a');
+      a.href = fileURL;
+      a.download = docuName; 
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  }
 }

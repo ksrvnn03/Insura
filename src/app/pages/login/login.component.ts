@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
    let userLogged=this.user.getLoggedUser();
    if(userLogged){
     this.router.navigate(['/dashboard']); 
-   }  
+   }
 
   }
 

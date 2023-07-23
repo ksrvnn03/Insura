@@ -135,11 +135,25 @@ export class ProgDetailComponent implements OnInit {
     this.delId=element;
     console.log(this.delId);
   }
+  
+  addMember(template: any, event:any){
+    this.modalRef = this.modalService.show(template);
+    var element = event.target.getAttribute("data-id");
+    this.delId=element;
+  }
+
+  addtoprogram($event:any){
+
+  }
 
   delete(event:any){
     var delMembId= event.target.getAttribute("data-id"); 
       this.apiUrl.programDetachMember(this.programId, delMembId).subscribe((res:any)=>{
         this.modalService.hide();
+        this.toastr.success('', 'Members detach successfully',{
+          timeOut: 1500,
+          positionClass: 'toast-bottom-right' 
+        });
         this.getProgram(this.programId);
     },(err:any)=>{
       this.noresult=err.error.message;

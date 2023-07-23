@@ -46,6 +46,8 @@ export class ProgAddComponent implements OnInit {
       service_charge:["",[Validators.pattern("^[0-9]*$")]],
       commission_type:[""],
       commission_amount:["",Validators.required],
+      commission_amount_2:["",Validators.required],
+      commission_amount_3:["",Validators.required],
       image:[""],
       description:[""]
     }
@@ -90,6 +92,14 @@ export class ProgAddComponent implements OnInit {
       if(this.selectedFile){
         formData.append("image", this.selectedFile);  
       }
+      if(form.commission_amount_2){
+        formData.append("commission_amount_2", form.commission_amount_2);  
+      }
+      if(form.commission_amount_3){
+        formData.append("commission_amount_3", form.commission_amount_3);  
+      }
+
+
       this.apiUrl.createProgram(formData).subscribe((res:any)=>{
         if(res.status='success'){
           this.toastr.success('', 'Program Added Successfully...',{
