@@ -15,8 +15,16 @@ export class MemberService {
     this.token='Bearer '+localStorage.getItem('token');
    }
   
-  listingMember(page:any){
-    return this.http.get(this.apiUrl+'members?page='+page+'',{headers: new HttpHeaders().set("Authorization", ''+this.token)});
+  listingMember(page:any ){
+    if(page>0){
+      return this.http.get(this.apiUrl+'members?page='+page+'',{headers: new HttpHeaders().set("Authorization", ''+this.token)});
+    }else{
+      return this.http.get(this.apiUrl+'members',{headers: new HttpHeaders().set("Authorization", ''+this.token)});
+    }
+  }
+
+  memberList(){
+    return this.http.get(this.apiUrl+'members-list',{headers: new HttpHeaders().set("Authorization", ''+this.token)});
   }
 
   getMember(id:any){
@@ -39,4 +47,5 @@ export class MemberService {
     return this.http.get(this.apiUrl+'members/'+id+'/network',{headers: new HttpHeaders().set("Authorization", ''+this.token)});
   }
   
+
 }

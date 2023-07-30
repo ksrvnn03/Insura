@@ -68,8 +68,8 @@ export class ProgEditComponent implements OnInit {
         service_charge: data.service_charge,
         commission_type: data.commission_type,
         commission_amount: data.commission_amount,
-        commission_amount_2: data.commission_amount_2,
-        commission_amount_3: data.commission_amount_3,
+        commission_amount_2: data.commissions[1].commission_value,
+        commission_amount_3: data.commissions[2].commission_value,
         description: data.description,
       });
       this.choosedimg=data.image_url;
@@ -88,13 +88,15 @@ export class ProgEditComponent implements OnInit {
     this.submitted=true;
     var form=this.programUpdation.value;
     if (this.programUpdation.valid) {
+      const fileReader = new FileReader();
       const formData = new FormData();
-      
+      const fileContent = fileReader.result as ArrayBuffer;
+      console.log(fileContent,'fileContent');
       if(form.name){
-        formData.set('name',  form.name );
+        formData.append('name',  form.name );
       }
       if(form.join_fee){
-        formData.set('join_fee',  form.join_fee );
+        formData.append('join_fee',  form.join_fee );
       }
       if(form.tax_percent){
         formData.append('tax_percent', form.tax_percent);
@@ -114,16 +116,19 @@ export class ProgEditComponent implements OnInit {
       if(this.selectedFile){
         formData.append("image", this.selectedFile);  
       }
-
+      console.log(this.selectedFile)
       if(form.commission_amount_2){
         formData.append("commission_amount_2", form.commission_amount_2);  
       }
-
+      formData.append("_method", 'PUT');  
+   
+      Object.assign(form,{image:this.selectedFile})
+  
       if(form.commission_amount_3){
         formData.append("commission_amount_3", form.commission_amount_3);  
       }
 
-       this.http.patch(environment.apiUrl+'admin/programmes/'+this.progId, formData, { headers: new HttpHeaders().set("Authorization", ''+this.token)}).subscribe((res:any)=>{
+       this.http.post(environment.apiUrl+'admin/programmes/'+this.progId, formData, { headers: new HttpHeaders().set("Authorization", ''+this.token)}).subscribe((res:any)=>{
         if(res.status='success'){
           this.toastr.success('', 'Program Added Successfully...',{
             positionClass: 'toast-bottom-right',

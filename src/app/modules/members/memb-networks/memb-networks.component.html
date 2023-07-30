@@ -61,11 +61,11 @@
                     <div  class="accordion-content accordian-item-content" [ngClass]="{'open': isAccordionOpen[t]}">
                         <div class="row">
                             <div class="col-md-3" *ngFor="let dt of tier_list.value; let i = index;" >
-                                <div class="col-inner d-flex align-items-center nt_user_item">
+                                <div class="col-inner d-flex align-items-center nt_user_item" title="{{dt.name}}">
                                     <div class="user-thumb">
                                         <img src="assets/img/profile.svg" alt=""/>
                                     </div>
-                                    <div class="user-details">
+                                    <div class="user-details d-block">
                                         <span class="nt_user_name">{{dt.name}}</span>
                                         <span class="nt_user_join">joined <span>27 August 2023</span></span>
                                         <a routerLink="/members/{{dt.id}}" class="nt_user_view">View details <i class="ml-1 fa fa-angle-right"></i></a>

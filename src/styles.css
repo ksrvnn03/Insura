@@ -1322,10 +1322,13 @@ a.close_trans {
 .doc_pdf{
     background-image: url(assets/icons/pdf-file.svg);
 }
-.doc_png{
+.doc_png,.doc_PNG{
     background-image: url(assets/icons/png-file.svg);
 }
-.doc_jpg{
+.doc_xls,.doc_xlsx{
+    background-image: url(assets/icons/sheet.png);
+}
+.doc_jpg,.doc_jpeg{
     background-image: url(assets/icons/jpg-file.svg);
 }
 .verify_unverify {
@@ -1447,6 +1450,13 @@ a.close_trans {
     border-radius: 50%;
     border: 1px solid #1D848F;
     padding: 3px;
+}
+.nt_user_name{
+    max-width: 140px;
+    word-wrap: revert;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .nt_user_item .user-details > span{
     display: block;

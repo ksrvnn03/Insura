@@ -43,12 +43,12 @@
                                         <div class="col-md-3">
                                             <div class="form-group m-0">
                                                 <label>Contact Number</label>
-                                                <input type="text" (keypress)="numberOnly($event)" value="" minlength="10" maxlength="10" placeholder="Contact Number" name="phone" formControlName="phone" class="form-control" />
+                                                <input type="text" (keypress)="numberOnly($event)" value="" minlength="10" maxlength="12" placeholder="Contact Number" name="phone" formControlName="phone" class="form-control" />
                                                 <div *ngIf="submitted && !membCreation.get('phone')?.valid">
                                                     <small class="text-danger" *ngIf="membCreation.get('phone')?.errors?.['required']">
                                                         Phone number requird </small>
                                                     <small class="text-danger" *ngIf="membCreation.get('phone')?.errors?.['minlength'] || membCreation.get('phone')?.errors?.['pattern']">
-                                                            Enter 10 digits number</small>
+                                                            Enter max 12 digits number</small>
                                                 </div>
                                             </div>
                                         </div>

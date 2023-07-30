@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
 import { ProgramService } from 'src/app/services/program.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { MemberService } from 'src/app/services/member.service';
+
 
 @Component({
   selector: 'app-prog-detail',
@@ -20,6 +22,13 @@ export class ProgDetailComponent implements OnInit {
   delId:any;
   ischecked: boolean = false;
   action_btn: boolean= false;
+  memberList:any;
+  selected_members: any[] = [];
+  ref_id='';
+
+  filterdOptions = [];
+  showFilter: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -27,10 +36,53 @@ export class ProgDetailComponent implements OnInit {
     private toastr: ToastrService,
     private apiUrl:ProgramService,
     private modalService: BsModalService,
+    private memberApi: MemberService,
   ) { }
 
   ngOnInit(): void {
     this.getProgram(this.programId);
+  }
+
+  filterUsers($event:any) {
+    this.showFilter=true;
+    let namesearch=$event.target.value.toLowerCase()
+
+    this.filterdOptions = this.memberList.filter((item:any) => item.name.toLowerCase().includes(namesearch));
+  }
+
+  removeChoosed(id:any){
+    console.log('id',id)
+    const foundIndex = this.selected_members.findIndex(item => item.id ===  id);
+    if (foundIndex !== -1) {
+      this.selected_members.splice(foundIndex,1)
+    }
+    console.log(this.selected_members)
+  }
+
+  alreadyChoosed(id:any){
+    for (const item of this.selected_members) {
+      if (item.id === id) {
+       return true
+      }
+    }
+    return false;
+  }
+  
+  refadd($event:any){
+    this.ref_id=$event.target.value;
+  }
+
+  memberClick(db:any) {
+    let id=db;
+    const idAlreadyExists = this.selected_members.some(item => item.id === id['id']);
+    if (!idAlreadyExists) {
+      this.selected_members.push(id);
+    }else{
+      const foundIndex = this.selected_members.findIndex(item => item.id ===  id['id']);
+      if (foundIndex !== -1) {
+        this.selected_members.splice(foundIndex,1)
+      }
+    }
   }
 
   toggleSingle($event:any){
@@ -74,6 +126,15 @@ export class ProgDetailComponent implements OnInit {
     } 
     this.action_btn=false;
    }
+  }
+
+  listMember(){
+    this.memberApi.memberList().subscribe((res:any)=>{
+      this.memberList=res.data;
+    },
+    (error:any)=>{
+        console.log(error)
+    })
   }
 
   removeMember($event:any){
@@ -137,13 +198,58 @@ export class ProgDetailComponent implements OnInit {
   }
   
   addMember(template: any, event:any){
+    this.listMember()
     this.modalRef = this.modalService.show(template);
     var element = event.target.getAttribute("data-id");
     this.delId=element;
   }
 
-  addtoprogram($event:any){
-
+  addtoprogram(){
+    let ids=this.selected_members;
+    let refid=this.ref_id;
+    
+    if(ids.length>0 && refid!=''){
+      const idsArray = ids.map(item => item.id);
+      const idsCommaSeparated = idsArray.join(',');
+      
+      this.apiUrl.addMembertoProgram(this.programId,idsCommaSeparated, refid).subscribe((res:any)=>{
+        this.toastr.success('', 'Members added successfully',{
+          timeOut: 1500,
+          positionClass: 'toast-bottom-right' 
+        });
+        this.showFilter=false;
+        this.selected_members=[];
+        this.ref_id='';
+        this.getProgram(this.programId);
+        this.modalService.hide();
+      },(err:any)=>{
+        this.noresult=err.error.message;
+        this.modalService.hide();
+        this.toastr.error('', err.error.message,{
+          timeOut: 2500,
+          positionClass: 'toast-bottom-right' 
+        });
+      });
+    }else{
+      if(ids.length==0 && refid==''){
+        this.toastr.error('', 'Choose any member and Enter refferal id',{
+          timeOut: 2500,
+          positionClass: 'toast-bottom-right' 
+        });
+      }
+      else if(ids.length>0 && refid==''){
+        this.toastr.error('', 'Enter refferal id',{
+          timeOut: 2500,
+          positionClass: 'toast-bottom-right' 
+        });
+      }
+      else if(ids.length==0 && refid!=''){
+        this.toastr.error('', 'Choose any member',{
+          timeOut: 2500,
+          positionClass: 'toast-bottom-right' 
+        });
+      }
+    }
   }
 
   delete(event:any){

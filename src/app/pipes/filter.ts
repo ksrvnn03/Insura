@@ -4,7 +4,7 @@ import {
  } from '@angular/core';  
  
  @Pipe ({ 
-    name: 'Extension' 
+    name: 'extension' 
  }) 
  
  export class MultiplierPipe implements PipeTransform { 

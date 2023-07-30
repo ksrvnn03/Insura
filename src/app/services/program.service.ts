@@ -44,4 +44,9 @@ export class ProgramService {
     return this.http.patch(this.apiUrl+'admin/programmes/'+pid+'/bulk-detach', {member_ids:mid}, { headers: new HttpHeaders().set("Authorization", ''+this.token)});
   }
 
+  
+  addMembertoProgram(id:any,ids:any,referal:any){
+    return this.http.post(this.apiUrl+'admin/programmes/'+id+'/member', { member_ids:ids , referral_id: referal } , {headers: new HttpHeaders().set("Authorization", ''+this.token)});
+  }
+
 }

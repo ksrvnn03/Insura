@@ -38,23 +38,6 @@ export class MembDocumentsComponent implements OnInit {
   ngOnInit(): void {
     this.getMembDocu(this.memberId, 0);
     this.getMemberData(this.memberId)
-  } 
-
-  isImageFile(fileName: string): boolean {
-    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
-    const ext = fileName.substr(fileName.lastIndexOf('.')).toLowerCase();
-    return imageExtensions.includes(ext);
-  }
-  
-  generateImageLink(id: any,name:any) {
-    const docuId= id;
-    const  docuName =name;
-    this.apiUrl.downloadDocu(docuId).subscribe((response:Blob)=>{
-      const fileURL = URL.createObjectURL(response);
-      const a = document.createElement('a');
-     const imageURL = URL.createObjectURL(response);
-     window.open(imageURL, '_blank');
-    });
   }
 
   getMembDocu(id:any,status:any){

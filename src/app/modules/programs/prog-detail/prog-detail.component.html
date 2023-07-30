@@ -100,13 +100,45 @@
 
     <ng-template #addmember>    
         <div class="modal-header">
-            <h4 class="modal-title pull-left">Add Members</h4>
+            <h4 class="modal-title pull-left">Add Member to Program</h4>
             <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
             <span aria-hidden="true" class="visually-hidden">&times;</span>
             </button>
         </div>
-        <div class="modal-body text-center confirm_modal"> 
-            <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId (click)="addtoprogram($event)">Add to Program</button> 
+        <div class="modal-body  confirm_modal">
+            <form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Member Name</label>
+                            <input type="text" placeholder="Please Enter / Search Member Name" (input) = "filterUsers($event)" class="form-control" />
+                        </div>
+                        
+                        <div class="memberfilter" *ngIf="filterdOptions.length">
+                            <div *ngIf="this.showFilter">
+                                <div class="memberitem" *ngFor="let mb of filterdOptions;  let i=index" [attr.data-id]="mb['id']" (click)="memberClick(mb)">{{  mb['name'] }} <span class="added" *ngIf="alreadyChoosed(mb['id'])"><i class="fa fa-check"></i> Added</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-danger" *ngIf="this.showFilter && filterdOptions.length==0">No Member found</div>
+
+                        <div class="filterchoosed mt-4 mb-4" *ngIf="selected_members.length">
+                            <div class="badge badge-info p-1  m-1" *ngFor="let mbs of selected_members; let i=index;" (click)="removeChoosed(mbs['id'])">
+                                {{ mbs['name'] }} <span class="ml-2"><i class="fa fa-close"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Referral Id</label>
+                            <input type="text" (input)="refadd($event)" name="referral_id"  class="form-control" placeholder="Refferal Id" />
+                        </div>
+                    </div>
+                </div>
+                
+            </form> 
+            <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId (click)="addtoprogram()">Add to Program</button> 
             <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">Cancel</button>  
         </div>
     </ng-template>
