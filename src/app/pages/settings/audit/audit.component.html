@@ -1,0 +1,120 @@
+<app-sidebarnav></app-sidebarnav>
+<app-header></app-header>
+
+<main class="main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-inner">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="page-title">Audit Logs</h5>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row mt-4 mb-4 filter_style2">
+                                        <div class="col-md-9">
+                                            <button (click)="typeTranscation(0)" class="btn" [ngClass]="{'active' : this.activeTab==0}">App Log</button>
+                                            <button (click)="typeTranscation(1)" class="btn ml-12" [ngClass]="{'active' : this.activeTab==1}">Member Log</button>
+                                            <button (click)="typeTranscation(2)" class="btn ml-12" [ngClass]="{'active' : this.activeTab==2}">Download Log</button>
+                                            <button (click)="typeTranscation(3)" class="btn ml-12" [ngClass]="{'active' : this.activeTab==3}">User Log</button>
+                                            <button (click)="typeTranscation(4)" class="btn ml-12" [ngClass]="{'active' : this.activeTab==3}">Finance Log</button>
+                                        </div>
+        
+                                        <div class="col-md-3 d-flex justify-content-end">
+                                            <button class="btn btn-dark"><img src="assets/icons/Download.svg" alt="Export"> Export Log</button>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row filter_style2  mb-4">
+                                        <div class="col-md-7 d-flex align-items-center">
+                                           
+                                        </div>
+                                        <div class="col-md-5 d-flex justify-content-end">
+                                            <div class="dropdown-list " dropdown>
+                                                <button class="btn no_items" dropdownToggle>
+                                                    <i class="fa fa-eye"></i> 100
+                                                </button>
+                                                <div *dropdownMenu class="action_list dropdown-menu">
+                                                    <button data-perpage="100">100</button>
+                                                    <button data-perpage="50">50</button>
+                                                    <button data-perpage="20">20</button>
+                                                    <button data-perpage="10">10</button>
+                                                    <button data-perpage="5">5</button>
+                                                </div>
+                                            </div>
+        
+                                            <div class="dropdown-list ml-12" dropdown>
+                                                <button class="btn status_by" dropdownToggle><i class="fa fa-calendar"></i> Date Range</button>
+                                                <div *dropdownMenu class="action_list dropdown-menu dropdown-caldendar">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="membersearch ml-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="memb-search">
+                                                        <img src="assets/icons/search-gray.svg" alt=""/>
+                                                    </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Search logos" aria-label="Search logos" aria-describedby="search-logos">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <table
+                                    class="table table-custom table-style2 mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th class="checkall" width="3%"><input
+                                                  type="checkbox" /></th>
+                                            <th width="20%">TITLE</th>
+                                            <th width="25%">DATE OF CREATION</th>
+                                            <th width="35%">CREATED BY</th>
+                                            <th width="20%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="checkall"><input
+                                                    type="checkbox" /></td>
+                                            <td>Promo Y-3
+                                            </td>
+                                            <td>09 August 2021 8:54 AM</td>
+                                            <td>Charles Xavier</td>
+                                            <th><span class="span_status status_active"><span class="dot"></span>Active</span></th>
+
+                                        </tr>
+                                        <tr>
+                                            <td class="checkall"><input
+                                                    type="checkbox" /></td>
+                                            <td>Promo Y-3
+                                            </td>
+                                            <td>09 August 2021 8:54 AM</td>
+                                            <td>Charles Xavier</td>
+                                            <th><span class="span_status status_active"><span class="dot"></span>Active</span></th>
+                                        </tr>
+            
+            
+                                        <tr *ngIf="result==''">
+                                            <td colspan="6" class="text-center">No
+                                                email found</td>
+                                        </tr>
+            
+                                    </tbody>
+                                </table>
+
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

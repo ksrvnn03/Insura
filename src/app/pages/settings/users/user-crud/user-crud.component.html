@@ -1,0 +1,79 @@
+<app-sidebarnav></app-sidebarnav>
+<app-header></app-header>
+
+
+<main class="main">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <app-setting-sidebar></app-setting-sidebar>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h5 class="page-title">Add New User</h5>
+                            </div>
+                            <div class="col-md-7">
+                                <form class="member_frm mt-4" autocomplete="off" [formGroup]="profileCreation" (ngSubmit)="onSubmit()">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Profile Picture</label> 
+                                        <div class="col-sm-9">
+                                            <div class="upload_file"> 
+                                                <input type=file oninput="pic.src=window.URL.createObjectURL(this.files[0])">
+                                                <img id="pic" class="prevImg" src="{{this.preview}}" />
+                                                <button class="btn"><span class="icon_edit"><img src="assets/icons/editing.svg" alt="edit"/></span></button>
+                                            </div>
+                                         </div>
+                                    </div>
+    
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" placeholder="Enter full name" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <input type="email" class="form-control" placeholder="Enter your email" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Role</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control">
+                                                <option value="">Select</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">IC No</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" placeholder="Enter IC No" />
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Contact No</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" placeholder="Enter Contact No" />
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group mt-4">
+                                        <button class="btn btn-primary">Create Profile</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

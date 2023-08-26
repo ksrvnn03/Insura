@@ -1,0 +1,94 @@
+<app-sidebarnav></app-sidebarnav>
+<app-header></app-header>
+
+
+<main class="main">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <app-setting-sidebar></app-setting-sidebar>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5 class="page-title">Manage User Roles</h5>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label>Select a role to edit</label>   
+                                <div class="input-group" style="width:350px;">                         
+                                      <select class="form-control" (change)="loadPermissions($event)">
+                                        <option value="">Select</option>
+                                        <option value="1">Administrator</option>
+                                        <option value="2">Team Leader</option>
+                                        <option value="3">Operations Admin</option>
+                                        <option value="4">Operations Manager</option>
+                                    </select> 
+                                </div>  
+                            </div>
+    
+                            <table class="table table-custom mt-3"> 
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Module</th>
+                                    <th scope="col" class="text-center">Read</th>
+                                    <th scope="col" class="text-center">Write</th>
+                                    <th scope="col" class="text-center">Read & Write</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Members</td>
+                                    <td class="text-center"><input type="checkbox" class="form-control"/></td>
+                                    <td class="text-center"><input type="checkbox" class="form-control"/></td>
+                                    <td class="text-center"><input type="checkbox" class="form-control"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Programs</td>
+                                    <td class="text-center"><input type="checkbox" class="form-control"/></td>
+                                    <td class="text-center"><input type="checkbox" class="form-control"/></td>
+                                    <td class="text-center"><input type="checkbox" class="form-control"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Finance</td>
+                                    <td class="text-center"><input type="checkbox" class="form-control"/></td>
+                                    <td class="text-center"><input type="checkbox" class="form-control"/></td>
+                                    <td class="text-center"><input type="checkbox" class="form-control"/></td>
+                                </tr>
+
+
+                                  <tr *ngFor="let item of result; let i=index;" >            
+                                    <td>{{item.name}}</td>
+                                    <td class="text-center">
+                                        <label class="chkboxwrap">  
+                                            <input type="checkbox" (change)="permission($event)" [attr.data-ind]="i" name="permission_{{item.pivot.permission_id}}" value="read"  title="Read"  [checked]="item.pivot.read==1" >
+                                            <span class="checkmark"></span>
+                                          </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="chkboxwrap">
+                                            <input type="checkbox" (change)="permission($event)" [attr.data-ind]="i"  class="permission_write_{{item.pivot.permission_id}}" name="permission_{{item.pivot.permission_id}}" title="Write" [checked]="item.pivot.write==1">
+                                            <span class="checkmark"></span>
+                                          </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="chkboxwrap">
+                                            <input type="checkbox" [attr.data-ind]="item.pivot.permission_id"  name="permission_{{item.pivot.permission_id}}" (click)="read_write($event)" value="readwrite"  [checked]="item.pivot.read==1 && item.pivot.write==1">
+                                            <span class="checkmark"></span>
+                                          </label>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+    

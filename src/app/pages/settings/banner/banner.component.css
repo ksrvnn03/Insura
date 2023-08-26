@@ -1,0 +1,14 @@
+.upload_area.upload_file{
+    max-width: 100%;
+    min-height: 120px;
+}
+.upload_area label{
+    background-color: #2DCBC1;
+    border-radius: 5px;
+    color: #fff;
+    padding:10px 15px;
+    font-size: 13px;
+}
+.prevImg{
+    margin-top: 10px;
+}

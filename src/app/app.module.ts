@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { DataTablesModule } from 'angular-datatables';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +28,23 @@ import { LayoutComponent } from './shared/layout/layout.component';
 import { MembersComponent } from './pages/members/members.component';
 import {  BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { RefferalRegisterComponent } from './pages/refferal-register/refferal-register.component';
+import { SiteHttp } from './httpHandle';
+import { PromoComponent } from './pages/settings/promo/promo.component';
+import { PromolistingComponent } from './pages/settings/promo/promolisting/promolisting.component';
+import { SecurityManageComponent }  from './pages/settings/users/security-manage/security-manage.component';
+import { UserProfileComponent } from './pages/settings/users/user-profile/user-profile.component';
+import { ColorManageComponent } from './pages/settings/colorManage/colormanage.component';
+import { EmailTempComponent } from './pages/settings/email-temp/email-temp.component';
+import { EmailTempListingComponent } from './pages/settings/email-temp-listing/email-temp-listing.component';
+import { AuditComponent } from './pages/settings/audit/audit.component';
+import { BannerComponent } from './pages/settings/banner/banner.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { SettingSidebarComponent } from './pages/settings/setting-sidebar/setting-sidebar.component';
+import { RoleManageComponent } from './pages/settings/users/role-manage/role-manage.component';
+import { UserCrudComponent } from './pages/settings/users/user-crud/user-crud.component';
+import { TestComponent } from './test/test.component';
+
+
 
 @NgModule({
   declarations: [
@@ -40,6 +59,20 @@ import { RefferalRegisterComponent } from './pages/refferal-register/refferal-re
     LayoutComponent,
     MembersComponent,
     RefferalRegisterComponent,
+    PromoComponent,
+    PromolistingComponent,
+    UserProfileComponent,
+    SecurityManageComponent,
+    SettingsComponent,
+    BannerComponent,
+    AuditComponent,
+    EmailTempListingComponent,
+    EmailTempComponent,
+    ColorManageComponent,
+    SettingSidebarComponent,
+    RoleManageComponent,
+    UserCrudComponent,
+    TestComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -57,9 +90,12 @@ import { RefferalRegisterComponent } from './pages/refferal-register/refferal-re
       closeButton: true,
       progressBar: true,
     }),
+    AngularEditorModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers: [],
+  providers:    [ 
+    { provide: HTTP_INTERCEPTORS, useClass: SiteHttp, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

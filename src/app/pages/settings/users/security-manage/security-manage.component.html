@@ -1,0 +1,70 @@
+<app-sidebarnav></app-sidebarnav>
+<app-header></app-header>
+
+<main class="main">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-inner">
+                            <h5 class="page-title"><b>Security Settings</b></h5>
+                            <form class="member_frm mt-4" autocomplete="off">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Current Password</label> 
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" placeholder="Current Password"/>
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">New Password</label> 
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" placeholder="New Password" />
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Confirm Password</label> 
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" placeholder="Confirm Password"/>
+                                    </div>
+                                </div>
+    
+                                <div class="form-group mt-4">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-inner">
+                            <h5 class="page-title"><b>2FA Setup</b></h5>
+                            <ol class="pl-3 mt-3">
+                                <li>Install an authenticate app on your mobile phone.</li>
+                                <li>Scan the QR code above with your app.</li>
+                                <li>Enter 6 digits code from the app once the scan is complete.</li>
+                            </ol>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" />
+                            </div>
+
+                            <div class="form-group  mt-4">
+                                <button type="submit" class="btn btn-primary">Complete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

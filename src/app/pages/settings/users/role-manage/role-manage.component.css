@@ -1,0 +1,31 @@
+label {
+    color: #9F9F9F;
+    font-family: Inter;
+    font-size: 14px;
+}
+input[type="checkbox"].form-control{
+    max-width: 16px;
+    margin: auto;
+}
+.table-custom thead tr{
+    background-color: #5E5E5E;
+    color: #fff;
+}
+.table-custom thead th{
+    color: #fff;
+    font-weight: 400;
+}
+/* .table-custom tr:nth-of-type(odd) {
+    background-color: #E6E6E6;
+}
+.table-custom tr:nth-of-type(even) {
+    background-color:#F6F6F6;
+}
+table tr td:first-child, .table-custom tr th:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+table tr td:last-child, .table-custom tr th:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+} */

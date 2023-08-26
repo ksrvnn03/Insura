@@ -1,0 +1,7 @@
+.color_Congif input[type="color"]{
+    max-width: 50px;
+    padding: 0;
+    border-radius: 5px;
+    border: 0;
+    height: 50px;
+}

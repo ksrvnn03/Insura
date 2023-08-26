@@ -1,0 +1,153 @@
+<app-sidebarnav></app-sidebarnav>
+<app-header></app-header>
+
+<main class="main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <app-setting-sidebar></app-setting-sidebar>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h5 class="page-title">Promo Codes</h5>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3 mb-4 filter_style2">
+                            <div class="col-md-8 d-flex">
+                                <div class="dropdown-list ml-12" dropdown>
+                                    <button class="btn no_items" dropdownToggle>
+                                        <i class="fa fa-eye"></i> 100
+                                    </button>
+                                    <div *dropdownMenu class="action_list dropdown-menu">
+                                        <button data-perpage="100">100</button>
+                                        <button data-perpage="50">50</button>
+                                        <button data-perpage="20">20</button>
+                                        <button data-perpage="10">10</button>
+                                        <button data-perpage="5">5</button>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown-list ml-12" dropdown>
+                                    <button class="btn status_by" dropdownToggle><i class="fa fa-calendar"></i> Date Range</button>
+                                    <div *dropdownMenu class="action_list dropdown-menu dropdown-caldendar">
+                                        <bs-datepicker-inline id="bsdatepickerinline" [bsValue]="bsInlineValue"></bs-datepicker-inline>
+                                    </div>
+                                </div>
+                                
+                                <div class="membersearch ml-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="memb-search">
+                                            <img src="assets/icons/search-gray.svg" alt=""/>
+                                        </span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Search Codes" aria-label="Search members" aria-describedby="memb-search">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 d-flex justify-content-end">
+                                <button routerLink="/settings/promo/add" class="btn ml-12"><img src="assets/icons/new-document.svg" alt="upload"/>New Promo</button>
+                            </div>
+                        </div>
+                        <table
+                        class="table table-custom table-style2 mt-3">
+                        <thead>
+                            <tr>
+                                <th class="checkall" width="3%"><input
+                                        type="checkbox" /></th>
+                                <th width="20%">TITLE</th>
+                                <th width="25%">DATE OF CREATION</th>
+                                <th width="35%">CREATED BY</th>
+                                <th width="10%">ACTIVE</th>
+                                <th width="10%" class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="checkall"><input
+                                        type="checkbox" /></td>
+                                <td>Promo Y-3
+                                </td>
+                                <td>09 August 2021 8:54 AM</td>
+                                <td>Charles Xavier</td>
+                                <th><span class="span_status status_active"><span class="dot"></span>Active</span></th>
+                                <td class="text-center" dropdown>
+                                    <button class="dot-line"
+                                        dropdownToggle><span></span></button>
+                                    <div *dropdownMenu
+                                        class="action_list dropdown-menu">
+                                            <a routerLink="/settings/email/edit/1"
+                                            [attr.data-id]="1"
+                                            ><i class="fa fa-edit"
+                                                aria-hidden="true"></i>
+                                            Edit</a>
+                                        <a href="javascript:void(0)"
+                                            [attr.data-id]="1"
+                                            (click)="confirmModal(template, $event)"><i
+                                                class="fa fa-trash-o"
+                                                aria-hidden="true"></i>
+                                            Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkall"><input
+                                        type="checkbox" /></td>
+                                <td>Promo Y-3
+                                </td>
+                                <td>09 August 2021 8:54 AM</td>
+                                <td>Charles Xavier</td>
+                                <th><span class="span_status status_active"><span class="dot"></span>Active</span></th>
+                                <td class="text-center" dropdown>
+                                    <button class="dot-line"
+                                        dropdownToggle><span></span></button>
+                                    <div *dropdownMenu
+                                        class="action_list dropdown-menu">
+                                            <a routerLink="/settings/email/edit/1"
+                                            [attr.data-id]="1"
+                                            ><i class="fa fa-edit"
+                                                aria-hidden="true"></i>
+                                            Edit</a>
+                                        <a href="javascript:void(0)"
+                                            [attr.data-id]="1"
+                                            (click)="confirmModal(template, $event)"><i
+                                                class="fa fa-trash-o"
+                                                aria-hidden="true"></i>
+                                            Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <tr *ngIf="result==''">
+                                <td colspan="6" class="text-center">No
+                                    email found</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #template>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Confirm Delete Promo Code ?</h4>
+          <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center confirm_modal"> 
+           <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId (click)="delete($event)">Confirm</button> 
+           <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">No</button>  
+        </div>
+      </ng-template>
+</main>

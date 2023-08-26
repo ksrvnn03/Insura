@@ -1,0 +1,55 @@
+<app-sidebarnav></app-sidebarnav>
+<app-header></app-header>
+
+<main class="main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <app-setting-sidebar></app-setting-sidebar>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h5 class="page-title">App  Configuration</h5>
+                            </div>
+                            <div class="col-sm-12 mt-4">
+                                <form class="row color_Congif">
+                                    <div class="form-group col-md-2">
+                                        <label>App Main Colour</label>
+                                        <input type="color" value="#1DA6B5" class="form-control"  (change)="updateColor($event)"/>
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label>Hightlight / Hover</label>
+                                        <input type="color" value="#DCF2F5" class="form-control" (change)="updateColor($event)"/>
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label>Headings</label>
+                                        <input type="color" value="#045056" class="form-control" (change)="updateColor($event)"/>
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label>Text</label>
+                                        <input type="color" value="#B5921D" class="form-control" (change)="updateColor($event)"/>
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label>Labels</label>
+                                        <input type="color" value="#5F655E" class="form-control" (change)="updateColor($event)"/>
+                                    </div>
+
+                                    <div class="form-group col-md-12 mt-4">
+                                        <button type="button" class="btn btn-primary">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
