@@ -11,7 +11,7 @@
                                 <h5 class="page-title"><b>Add New Program</b></h5>
                                
                                     <div class="form-group">
-                                        <label>Program Name</label>   
+                                        <label>Program Name <sup>*</sup></label>   
                                          <input type="text" name="name" placeholder="Enter your program name" class="form-control" formControlName="name" />  
                                          <div *ngIf="submitted && !programCreation.get('name')?.valid">
                                             <small class="text-danger" *ngIf="programCreation.get('name')?.errors?.['required']">Program name requird</small>
@@ -29,7 +29,7 @@
                                     </div>
                                     
                                     <div class="form-group">
-                                        <button class="btn btn-primary">Publish</button>
+                                        <button class="btn btn-primary" [disabled]="btnloader">Publish <i class="fa fa-spin fa-spinner" *ngIf="btnloader"></i></button>
                                     </div>
                             </div>
                          </div>
@@ -67,7 +67,7 @@
                                 </div>
 
                                 <div class="input-group  prgprice">
-                                    <label class="d-flex w-100">Program Price</label>    
+                                    <label class="d-flex w-100">Program Price <sup>*</sup></label>    
                                     <div class="input-group-prepend">
                                       <span class="input-group-text">RM</span>
                                     </div>
@@ -81,7 +81,7 @@
                                 </div>
 
                                 <div class="input-group mt-3 prgprice">
-                                    <label class="d-flex w-100">Commission Price 1</label>    
+                                    <label class="d-flex w-100">Commission Price 1 <sup>*</sup></label>    
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">RM</span>
                                     </div>
@@ -94,7 +94,7 @@
 
 
                                 <div class="input-group mt-3 prgprice">
-                                    <label class="d-flex w-100">Commission Price 2</label>    
+                                    <label class="d-flex w-100">Commission Price 2 <sup>*</sup></label>    
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">RM</span>
                                     </div>
@@ -107,7 +107,7 @@
 
 
                                 <div class="input-group mt-3 prgprice">
-                                    <label class="d-flex w-100">Commission Price 3</label>    
+                                    <label class="d-flex w-100">Commission Price 3 <sup>*</sup></label>    
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">RM</span>
                                     </div>

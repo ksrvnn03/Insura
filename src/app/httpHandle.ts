@@ -10,7 +10,18 @@ import {
   import { retry, catchError } from 'rxjs/operators';
   
   export class SiteHttp implements HttpInterceptor {
+     token=localStorage.getItem('token');
+    
+
+  
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+        request = request.clone({
+            setHeaders: {
+                Authorization: `Bearer `+ localStorage.getItem('token')
+            }
+        });
+
       return next.handle(request)
         .pipe(
           retry(1),
@@ -25,8 +36,8 @@ import {
             } */
 
             if(errorMessage=='Unauthenticated.'){
-                localStorage.clear();
-                window.location.href='/';
+                //localStorage.clear();
+               // window.location.href='/';
              }
            /*  window.alert(errorMessage); */
             return throwError(errorMessage);

@@ -202,7 +202,7 @@
                                         </div>
 
                                         <div class="col-md-12 mt-5">
-                                            <button class="btn btn-style2 btn-primary">Add account</button>
+                                            <button class="btn btn-style2 btn-primary" [disabled]="btnloader">Create Member <i class="fa fa-spin fa-spinner" *ngIf="btnloader"></i></button>
                                         </div>
                                        
                                     </div>

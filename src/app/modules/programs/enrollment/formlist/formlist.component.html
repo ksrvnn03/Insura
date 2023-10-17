@@ -1,0 +1,63 @@
+<main class="main program-page">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="col-inner">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h5 class="page-title">Enrollment Forms</h5>
+                            </div>
+                            <div class="col-md-7 text-right">
+                                <a routerLink="/program/enroll/create" class="btn btn-primary">Create New Form</a>
+                            </div>
+                            <div class="col-md-12">
+                                <table class="table table-custom mt-3">
+                                    <thead><tr><th>Form Name</th> <th>Program
+                                                Name</th> <th>Fee</th><th>Action</th></tr></thead>
+                                    <tbody>
+                                        <tr
+                                            *ngFor="let frm of list; let i=index;">
+                                            <td>{{ frm?.name}}</td>
+                                            <td>{{ frm?.programme_name}}</td>
+                                            <td>{{frm?.programme_join_fee}}</td>
+                                            <td><a class="btn"
+                                                    routerLink="/program/enroll/edit/{{frm.id}}"
+                                                    title="Edit"><i
+                                                        class="fa fa-edit"
+                                                        [attr.data-id]="frm?.id"></i></a>
+                                                <button class="btn"
+                                                    title="Delete"
+                                                    [attr.data-id]="frm?.id"
+                                                    (click)="confirmModal(template, $event)"><i
+                                                        class="fa fa-trash"
+                                                        [attr.data-id]="frm?.id"></i></button></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Confirm Delete Form ?</h4>
+        <button type="button" class="btn-close close pull-right"
+            aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center confirm_modal">
+        <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId
+            (click)="delete($event)">Confirm</button>
+        <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">No</button>
+    </div>
+</ng-template>

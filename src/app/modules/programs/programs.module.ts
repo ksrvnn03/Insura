@@ -12,6 +12,10 @@ import { ProgAddComponent } from './prog-add/prog-add.component';
 import { ProgListComponent } from './prog-list/prog-list.component';
 import { ProgDetailComponent } from './prog-detail/prog-detail.component';
 import { ProgEditComponent } from './prog-edit/prog-edit.component';
+import { CreateformComponent } from './enrollment/createform/createform.component';
+import { ListformComponent } from './enrollment/listform/listform.component';
+import { FormlistComponent } from './enrollment/formlist/formlist.component';
+import { EditformComponent } from './enrollment/editform/editform.component';
 
 
 @NgModule({
@@ -19,7 +23,11 @@ import { ProgEditComponent } from './prog-edit/prog-edit.component';
     ProgAddComponent,
     ProgListComponent,
     ProgDetailComponent,
-    ProgEditComponent
+    ProgEditComponent,
+    CreateformComponent,
+    ListformComponent,
+    FormlistComponent,
+    EditformComponent
   ],
   imports: [
     CommonModule,

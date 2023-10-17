@@ -1,0 +1,67 @@
+<app-sidebarnav></app-sidebarnav>
+<app-header></app-header>
+<main class="main">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="page-title">Report</h5>
+                                    <p><label>Select the type of report you would
+                                            like to generate</label></p>
+                                </div>
+                                <div class="col-md-5">
+                                    <form class="member_frm mt-4" autocomplete="off"
+                                    [formGroup]="reportFrm" (ngSubmit)="onSubmit()">
+                                        <div class="form-group">
+                                            <label>Start Date</label>
+                                            <input type="date" class="form-control"
+                                                id="start_date"
+                                                placeholder="YYYY/MM/DD"
+                                                formControlName="start_date" />
+                                        </div>
+    
+                                        <div class="form-group">
+                                            <label>End Date</label>
+                                            <input type="date" class="form-control"
+                                                id="end_date"
+                                                placeholder="YYYY/MM/DD"
+                                                formControlName="end_date" />
+                                        </div>
+    
+                                        <div class="form-group">
+                                            <label>Type</label>
+                                            <select class="form-control" name="type"
+                                                formControlName="type">
+                                                <option value="">Select report type</option>
+                                                <option value="pdf">PDF</option>
+                                                <option value="csv">CSV</option>
+                                            </select>
+                                            <div
+                                                *ngIf="submit && !reportFrm.get('type')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="reportFrm.get('type')?.errors?.['required']">
+                                                    Type is requird
+                                                </small>
+                                            </div>
+                                        </div>
+    
+                                        <div class="form-group">
+                                            <button class="btn btn-primary"
+                                                [disabled]="btnloader">Report <i
+                                                    class="fa fa-spin fa-spinner"
+                                                    *ngIf="btnloader"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

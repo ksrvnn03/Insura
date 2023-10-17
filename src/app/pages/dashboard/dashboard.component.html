@@ -11,12 +11,11 @@
             <div class="col">
                 <div class="card flex-fill">
                     <div class="card-body">
-                        <div class="grid-title">
+                        <div class="grid-title justify-content-center">
                             <img src="assets/icons/members.svg" alt="Total members" />
                             <h3>Total Members</h3>  
                         </div>
-                        <p class="gird-count">34,288</p>
-                        <p class="gird-desc">Members</p>
+                        <p class="gird-count">{{ gridData?.total_members }}</p>
                     </div>  
                 </div>
             </div>
@@ -25,12 +24,11 @@
                 <div class="card  flex-fill">
                     <div class="card-body"> 
                         
-                        <div class="grid-title"> 
+                        <div class="grid-title justify-content-center"> 
                             <img src="assets/icons/newsignup.svg" alt="New Sign-ups" />  
                             <h3>New Sign-ups</h3>  
                         </div>
-                        <p class="gird-count">129</p>
-                        <p class="gird-desc">Member Sign-ups</p>
+                        <p class="gird-count">{{ gridData?.new_signups }}</p>
                     </div>  
                 </div>
             </div>
@@ -38,12 +36,11 @@
             <div class="col">
                 <div class="card  flex-fill">
                     <div class="card-body">
-                        <div class="grid-title">
+                        <div class="grid-title justify-content-center">
                             <img src="assets/icons/collections.svg" alt="Total Collections" /> 
                             <h3>Total Collections</h3>  
                         </div>
-                        <p class="gird-count">RM 200,918.00</p>
-                        <p class="gird-desc">Amount Collected</p>
+                        <p class="gird-count">{{ gridData?.total_collection | currency: 'RM ' }}</p>
                     </div>  
                 </div>
             </div>
@@ -51,25 +48,23 @@
             <div class="col">
                 <div class="card  flex-fill">
                     <div class="card-body">
-                        <div class="grid-title"> 
-                            <img src="assets/icons/payout.svg" alt="Total Payout" />  
+                        <div class="grid-title justify-content-center"> 
+                            <img src="assets/icons/payout.svg" alt="Total Earings" />  
+                            <h3>Total Earings</h3>  
+                        </div>
+                        <p class="gird-count">{{ gridData?.total_earnings | currency: 'RM ' }}</p>
+                    </div>  
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card  flex-fill">
+                    <div class="card-body">
+                        <div class="grid-title justify-content-center">  
+                            <img src="assets/icons/netcollections.svg" alt="Net Collections" />  
                             <h3>Total Payout</h3>  
                         </div>
-                        <p class="gird-count">RM 38,291.00</p>
-                        <p class="gird-desc">Amount Paid</p>
-                    </div>  
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card  flex-fill">
-                    <div class="card-body">
-                        <div class="grid-title">  
-                            <img src="assets/icons/netcollections.svg" alt="Net Collections" />  
-                            <h3>Net Collections</h3>  
-                        </div>
-                        <p class="gird-count">RM 162,627.00</p>
-                        <p class="gird-desc">Net Amount Collected</p>
+                        <p class="gird-count">{{ gridData?.total_payouts | currency: 'RM ' }}</p>
                     </div>  
                 </div>
             </div>
@@ -86,19 +81,21 @@
                         <div class="grid-title">  
                             <img src="assets/icons/pending.svg" alt="Pending Verification" />  
                             <h3>Pending Verification</h3>  
-                            <p class="gird-desc">49 Pending</p>
+                            <p class="gird-desc">{{vtotal}} Requests</p>
                         </div>
-                       
-                        <table class="table table-striped text-center table-blue">
-                            <tr><th>Member Name</th> <th>Document Submitted</th> <th>Date of Submission</th> <th> </th></tr>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙ </button></td></tr>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙</button></td></tr>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙</button></td></tr>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙</button></td></tr>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙</button></td></tr>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙</button></td></tr>
-                        </table>
-                        <div class="mt-4 text-right"><a routerLink="" class="viewall">View All</a></div>
+                        <div class="tb_dash" [ngStyle]="{'min-height': vtotal ? '230px' : '230px'}">
+                            <table class="table table-striped text-center table-blue">
+                                <tr><th>Member Name</th> <th>Document Submitted</th> <th>Date of Submission</th> <th></th></tr>
+                                <tr *ngFor="let item of verification; let i=index;">
+                                    <td class="text-left">{{item.name}}</td> 
+                                    <td>{{item.count}}</td>
+                                     <td>{{item.createdAt | date: 'mediumDate' }}</td> 
+                                     <td><a  routerLink="/members/documents/{{item.member_id}}" class="btn btn-action">︙ </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="text-right"><a routerLink="/members" class="viewall" *ngIf="vtotal>0">View All</a></div>
                     </div> 
                 </div>
             </div>
@@ -109,19 +106,22 @@
                         <div class="grid-title">  
                             <img src="assets/icons/request.svg" alt="Payout Requests" />  
                             <h3>Payout Requests</h3>  
-                            <p class="gird-desc">12 Requests</p>
+                            <p class="gird-desc">{{ptotal}} Requests</p>
                         </div>
                         
-                        <table class="table table-striped text-center table-darkpink">
-                           <thead> <tr><th>Member Name</th> <th>Document Submitted</th> <th>Date of Submission</th> <th> </th></tr></thead>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙ </button></td></tr>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙</button></td></tr>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙</button></td></tr>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙</button></td></tr>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙</button></td></tr>
-                            <tr><td>Jack Loh Chee Mun</td> <td>5</td> <td>Jan 29, 2023</td> <td><button class="btn btn-action">︙</button></td></tr>  
-                        </table>
-                        <div class="mt-4 text-right"><a routerLink="" class="viewall">View All</a></div>
+                        <div class="tb_dash" [ngStyle]="{'min-height': ptotal ? '230px' : '230px'}">
+                            <table class="table table-striped text-center table-darkpink">
+                                <thead> <tr><th>Member Name</th> <th>Payout Amount</th> <th>Date of Request</th> <th> </th></tr></thead>
+                                <tr *ngFor="let item of payouts; let i=index;">
+                                     <td class="text-left">{{item.name}}</td> 
+                                     <td>{{item.amount | currency : 'RM ' }}</td>
+                                      <td>{{item.createdAt | date: 'mediumDate' }}</td> 
+                                      <td><a  routerLink="/members/{{item.member_id}}" class="btn btn-action">︙ </a>
+                                     </td>
+                                 </tr> 
+                             </table>
+                        </div>
+                        <div class="text-right"><a routerLink="/members" class="viewall" *ngIf="ptotal>0">View All</a></div>
                     </div> 
                 </div>
             </div>

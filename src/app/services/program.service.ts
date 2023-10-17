@@ -49,4 +49,8 @@ export class ProgramService {
     return this.http.post(this.apiUrl+'admin/programmes/'+id+'/member', { member_ids:ids , referral_id: referal } , {headers: new HttpHeaders().set("Authorization", ''+this.token)});
   }
 
+  listAllPrograme(){
+    return this.http.get(this.apiUrl+'programmes/list-all',  {headers: new HttpHeaders().set("Authorization", ''+this.token)});
+  }
+
 }

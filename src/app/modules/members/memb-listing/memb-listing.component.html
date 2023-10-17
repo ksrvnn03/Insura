@@ -81,11 +81,11 @@
                                             totalItems: noitem
                                           };  let i=index;">
                                             <td><a routerLink="/members/{{item?.id}}">{{item?.member_id}}</a></td>
-                                            <td><a routerLink="/members/{{item?.id}}">{{item?.personal_details?.full_name}}</a></td>
+                                            <td><a routerLink="/members/{{item?.id}}">{{item?.full_name}}</a></td>
                                             <td>{{item?.created_at | date: 'mediumDate'}}</td>
-                                            <td><span class="span_blue">RM 9,291.00</span></td>
-                                            <td><span class="span_red">RM 1,580.00</span></td>
-                                            <td>RM 7,711.00</td>
+                                            <td><span class="span_blue">{{ item?.total_earnings | currency: 'RM '}}</span></td>
+                                            <td><span class="span_red">{{ item?.total_payouts | currency: 'RM '}}</span></td>
+                                            <td>{{ item?.total_balance | currency: 'RM '}}</td>
                                             <td class="text-center"><span class="span_status status_active"><span class="dot"></span>Active</span></td>
                                             <td class="text-center" dropdown>
                                                 <button class="dot-line" dropdownToggle><span></span></button>
@@ -100,10 +100,10 @@
                                     </tbody>
                                 </table>
 
-                                <div class="text-right">
+                                <!-- <div class="text-right">
                                     <pagination-controls class="category-pagination" (pageChange)="pageChange($event)"></pagination-controls>
 
-                                </div>
+                                </div> -->
                                <!--  <nav aria-label="Page navigation">
                                     <ul class="pagination justify-content-end mt-4">
                                       <li class="page-item">

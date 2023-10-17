@@ -33,12 +33,38 @@ export class UserCrudComponent implements OnInit {
 
    profileCreation = this.fb.group(
     {
-      name:["",Validators.required],
+      name: ["", Validators.required],
+      email: [
+        "",
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+        ]
+      ],
+      ic_no:[""],
+      phone  :[
+        "",
+        [
+        Validators.required,
+        Validators.minLength(12),
+        Validators.maxLength(12),
+        Validators.pattern("^[0-9]{12}$")
+       ]
+      ],
+      photo:[""],
     }
   );
 
+  numberOnly(event:any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+
   ngOnInit(): void {
-    
   }
 
   imagePreview(event:any){

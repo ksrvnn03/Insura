@@ -1,0 +1,112 @@
+<main class="main program-page">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="col-inner">
+                <div class="card">
+                    <div class="card-body text-center" *ngIf="createFrm">
+                        <h5 class="page-title mt-5"><b>Add New Enrollment Form</b></h5>
+                        <div class="mt-5 mb-5">
+                            <button class="btn btn-primary" (click)="create()"><i
+                                    class="fa fa-plus-circle"></i> ADD FORM</button>
+                        </div>
+                    </div>
+
+                    <div class="card-body" *ngIf="!createFrm">
+                        <h5 class="page-title"><b>Create Enrollment Form</b></h5>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>Form Name</label>
+                                    <input type="text" class="form-control"
+                                        name="name" placeholder="Enter enrollment form name" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Program Name</label>
+                                    <select name="programme_id"
+                                        class="form-control">
+                                        <option value>Select Program</option>
+                                        <ng-container
+                                            *ngFor="let prog of programList; let i=index;">
+                                            <option value="{{prog.id}}">{{prog.name}}</option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Add Form Field</label>
+                                    <select name="field_id"
+                                        class="form-control" (change)="addField($event)">
+                                       <option value="">Select Field Type</option>
+                                       <option value="1"> Short Answer</option>
+                                       <option value="2">Paragraph</option>
+                                       <option value="3">Checkbox</option>
+                                       <option value="4">Radio Button</option>
+                                       <option value="5">Dropdown</option>
+                                       <option value="6">Email</option>
+                                       <option value="7">Phone</option>
+                                       <option value="8">Date</option>
+                                       <option value="9">Time</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 offset-1">
+                               
+                                <div class="addfield_list text-center">
+                                    <h3 class="page-title"><b>Added Field</b></h3>
+                                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                                        <div *ngFor="let field of formData">
+                                          <label>{{ field.label }}</label>
+                                          <div [ngSwitch]="field.type">
+                                            <input *ngSwitchCase="'text'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+                                            <input *ngSwitchCase="'email'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+                                         
+                                            <select *ngSwitchCase="'select'" [formControlName]="field.name">
+                                                <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+                                              </select>
+                                              <textarea *ngSwitchCase="'textarea'" [formControlName]="field.name" [placeholder]="field.placeholder"></textarea>
+                                              <div *ngSwitchCase="'radio'">
+                                                <div *ngFor="let option of field.options">
+                                                  <input type="radio" [value]="option" [formControlName]="field.name" [id]="option">
+                                                  <label [for]="option">{{ option }}</label>
+                                                </div>
+                                              </div>
+                                              <div *ngSwitchCase="'checkbox'">
+                                                <input type="checkbox" [formControlName]="field.name" [id]="field.name">
+                                                <label [for]="field.name">{{ field.label }}</label>
+                                              </div>
+
+                                                <!--  && (form.get(field.name).dirty) || form.get(field.name).touched)-->
+
+                                                
+
+                                                  <div *ngIf="submit && form.get(field.name).invalid && (form.get(field.name).dirty || form.get(field.name).touched)">
+                                                    <div *ngIf="form.get(field.name).hasError('required')" class="text-danger">
+                                                      {{ field.label }} is required.
+                                                    </div>
+                                                    <div *ngIf="form.get(field.name).hasError('email')" class="text-danger">
+                                                      Invalid email format for {{ field.label }}.
+                                                    </div>
+                                                  </div>
+
+
+                                             
+                                          </div>
+                                        </div>
+                                        <!-- <button  type="button" (click)="addField()">add field</button> -->
+                                        <button  type="button" (click)="removeField()">remove field</button>
+                                        <button type="submit">Submit</button>
+                                      </form>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

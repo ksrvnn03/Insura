@@ -26,6 +26,7 @@ export class ProgEditComponent implements OnInit {
   image: File | null = null;
   selectedFile='';
   choosedimg:any;
+  btnloader:boolean = false;
 
   constructor(    
     private fb: FormBuilder,
@@ -88,6 +89,7 @@ export class ProgEditComponent implements OnInit {
     this.submitted=true;
     var form=this.programUpdation.value;
     if (this.programUpdation.valid) {
+      this.btnloader=true;
       const fileReader = new FileReader();
       const formData = new FormData();
       const fileContent = fileReader.result as ArrayBuffer;
@@ -129,8 +131,10 @@ export class ProgEditComponent implements OnInit {
       }
 
        this.http.post(environment.apiUrl+'admin/programmes/'+this.progId, formData, { headers: new HttpHeaders().set("Authorization", ''+this.token)}).subscribe((res:any)=>{
+
+        this.btnloader=false;
         if(res.status='success'){
-          this.toastr.success('', 'Program Added Successfully...',{
+          this.toastr.success('', 'Program Update Successfully...',{
             positionClass: 'toast-bottom-right',
           })
           .onHidden 
@@ -141,6 +145,7 @@ export class ProgEditComponent implements OnInit {
           );
         }
       },(err:any)=>{
+        this.btnloader=false;
         this.toastr.error('', err.error.message,{
           timeOut: 2500,
           positionClass: 'toast-bottom-right' 

@@ -9,30 +9,76 @@
                     <div class="col-md-6">
                         <div class="col-inner">
                             <h5 class="page-title"><b>Security Settings</b></h5>
-                            <form class="member_frm mt-4" autocomplete="off">
+                            <form class="member_frm mt-4" autocomplete="off"
+                                [formGroup]="passFrm" (ngSubmit)="onSubmit()">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Current Password</label> 
+                                    <label class="col-sm-3 col-form-label">Current
+                                        Password</label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" placeholder="Current Password"/>
+                                        <input type="password"
+                                            name="current_password"
+                                            formControlName="current_password"
+                                            class="form-control"
+                                            placeholder="Current Password" />
+                                        <div
+                                            *ngIf="submit && !passFrm.get('current_password')?.valid">
+                                            <small class="text-danger"
+                                                *ngIf="passFrm.get('current_password')?.errors?.['required']">
+                                                Current password requird
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">New Password</label> 
+                                    <label class="col-sm-3 col-form-label">New
+                                        Password</label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" placeholder="New Password" />
+                                        <input type="password"
+                                            class="form-control"
+                                            name="new_password"
+                                            formControlName="new_password"
+                                            placeholder="New Password" />
+                                        <div
+                                            *ngIf="submit && !passFrm.get('new_password')?.valid">
+                                            <small class="text-danger"
+                                                *ngIf="passFrm.get('new_password')?.errors?.['required']">
+                                                New password requird
+                                            </small>
+                                            <small class="text-danger"
+                                                *ngIf="passFrm.get('new_password')?.hasError('minlength')">
+                                                Min. 8 character requird
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Confirm Password</label> 
+                                    <label class="col-sm-3 col-form-label">Confirm
+                                        Password</label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" placeholder="Confirm Password"/>
+                                        <input type="password"
+                                            name="new_confirm_password"
+                                            class="form-control"
+                                            formControlName="new_confirm_password"
+                                            placeholder="Confirm Password" />
+                                        <div
+                                            *ngIf="submit && !passFrm.get('new_confirm_password')?.valid">
+                                            <small class="text-danger"
+                                                *ngIf="passFrm.get('new_confirm_password')?.errors?.['required']">
+                                                Confirm password requird
+                                            </small>
+                                            <small class="text-danger"
+                                                *ngIf="passFrm.get('new_confirm_password')?.hasError('minlength')">
+                                                Min. 8 character requird
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group mt-4">
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <button type="submit"
+                                        class="btn btn-primary" [disabled]="btnloader">Update <i class="fa fa-spin fa-spinner" *ngIf="btnloader"></i></button>
                                 </div>
                             </form>
                         </div>
@@ -41,7 +87,6 @@
             </div>
         </div>
 
-
         <div class="card mt-4">
             <div class="card-body">
                 <div class="row">
@@ -49,9 +94,11 @@
                         <div class="col-inner">
                             <h5 class="page-title"><b>2FA Setup</b></h5>
                             <ol class="pl-3 mt-3">
-                                <li>Install an authenticate app on your mobile phone.</li>
+                                <li>Install an authenticate app on your
+                                    mobile phone.</li>
                                 <li>Scan the QR code above with your app.</li>
-                                <li>Enter 6 digits code from the app once the scan is complete.</li>
+                                <li>Enter 6 digits code from the app once
+                                    the scan is complete.</li>
                             </ol>
 
                             <div class="form-group">
@@ -59,7 +106,8 @@
                             </div>
 
                             <div class="form-group  mt-4">
-                                <button type="submit" class="btn btn-primary">Complete</button>
+                                <button type="submit"
+                                    class="btn btn-primary">Complete</button>
                             </div>
                         </div>
                     </div>

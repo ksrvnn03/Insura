@@ -276,7 +276,7 @@ li.nodification-item span{
     font-size: 18px;
     line-height: 24px;
     font-weight: bold;
-    margin: 0 0 0 10px;
+    margin: 0 0 0;
     color: #5F655E;
 }
 .dashboard-grid .gird-count{
@@ -284,6 +284,8 @@ li.nodification-item span{
     line-height: 43px;
     font-weight: bold;
     color:#1D848F;
+    text-align: center;
+    margin:0;
 }
 .dashboard-grid .grid-desc{
     font-size: 16px;
@@ -315,6 +317,11 @@ li.nodification-item span{
     margin-left: auto;
     margin-bottom: 0;
 }
+.yr-task table.table-darkpink th{
+    background-color: #460222; 
+}
+
+
 .yr-task table th{
     background-color: #1DA6B5;
     color:#fff;
@@ -1135,7 +1142,7 @@ ul.pagination li a[aria-label="Next"] img{
 }
 .viewpending:hover,
 .member_frm .btn:hover{
-    color:#024146;
+    /* color:#024146; */
 }
 .newpwd.input-group>.form-control {
     padding: 5px 15px !important;
@@ -1235,28 +1242,28 @@ ul.pagination li a[aria-label="Next"] img{
     font-weight: 400;
     color: #5F655E;
 }
-.transaction_view {
+.transaction_view ,.sideview{
     position: absolute;
     right: 0;
     background: #fff;
-    padding: 40px 25px;
+    padding: 3%;
     border-radius: 10px;
     width: 45%;
     max-width: 570px;
     z-index: 9;
-    height: 100%;
+    min-height: 100%;
     top: 0;
     box-shadow: 0px 0px 10px rgb(0 0 0 / 9%);
     border: 1px solid #e6dede;
 }
-.transaction_view h5{
+.transaction_view h5,.sideview h5{
     color:#024146;
     margin-bottom: 20px;
 }
-.transaction_view h6{
+.transaction_view h6,.sideview h6{
     margin-bottom: 10px;
 }
-.transaction_view h5,.transaction_view h6{
+.transaction_view h5,.sideview h5{
     font-size: 21px;
     line-height: 24px;
     font-weight: bold;
@@ -1450,6 +1457,8 @@ a.close_trans {
     margin-bottom: 20px;
 }
 .user-thumb {
+    min-width: 55px;
+    min-height: 55px;
     width: 55px;
     height: 55px;
     border-radius: 50%;
@@ -1819,4 +1828,16 @@ a.close_trans {
     color: #024146;
     background-color: #DCF2F5;
     border-right: 4px solid #1DE8DB;
+}
+td.dataTables_empty {
+    display: none;
+}
+.loadingcircle{
+    font-size: 30px;
+    color:#1DA6B5
+}
+
+label sup{
+    color:#dc3545;
+    top:0;
 }

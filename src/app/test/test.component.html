@@ -1,1 +1,26 @@
-<p>test works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div *ngFor="let field of formData">
+      <label>{{ field.label }}</label>
+      <div [ngSwitch]="field.type">
+        <input *ngSwitchCase="'text'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+        <input *ngSwitchCase="'email'" [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder">
+        <select *ngSwitchCase="'select'" [formControlName]="field.name">
+          <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+        </select>
+        {{field?.name}}
+            <!--  && (form.get(field.name).dirty) || form.get(field.name).touched)-->
+        <div *ngIf="submit && form.get(field.name).invalid">
+            <div *ngIf="form.get(field.name).hasError('required')" class="text-danger">
+              {{ field.label }} is required.
+            </div>
+            <div *ngIf="field.type === 'email' && form.get(field.name).hasError('email')" class="text-danger">
+              Invalid email format.
+            </div>
+        </div>
+         
+      </div>
+    </div>
+    <button  type="button" (click)="addField()">add field</button>
+    <button  type="button" (click)="removeField()">remove field</button>
+    <button type="submit">Submit</button>
+  </form>

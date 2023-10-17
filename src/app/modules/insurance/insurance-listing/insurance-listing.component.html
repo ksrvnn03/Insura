@@ -1,51 +1,167 @@
 <main class="main">
-    <div class="container-fluid">
-        <div class="row dashboard-grid">
-            <div class="col-12">
-                <div class="col-inner">
-                    <div class="card">
-                        <div class="card-body">
-                             <p>ests</p> <!--  [dtOptions]="dtOptions" -->
-                             <!-- <ngx-datatable tableClass="table table-striped table-bordered table-hover" [tableId]="'basic'" [data]="data" [options]="options"
+  <div class="container-fluid">
+    <div class="row dashboard-grid">
+      <div class="col-12">
+        <div class="col-inner">
+          <div class="card min-vh-100">
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-md-8 ">
+                    <h5 class="page-title">Insurance List</h5>
+                </div>
+                <div class="col-md-4 text-right">
+                  <button class="btn btn-info border-radius-0"
+                    (click)="sideview()">Import Quote</button>
+                </div>
+              </div>
+              <hr/>
+              
+              <!-- <ngx-datatable tableClass="table table-striped table-bordered table-hover" [tableId]="'basic'" [data]="data" [options]="options"
                              [columns]="columns">
                            </ngx-datatable> -->
-                           <table dataTable>
-                            <thead>
-                              <tr>
-                                <th>Name</th>
-                                <th>Age</th>
-                                <th>City</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>John Doe 133</td>
-                                <td>25</td>
-                                <td>New York</td>
-                              </tr>
-                              <tr>
-                                <td>John Doe1</td>
-                                <td>25</td> 
-                                <td>New York</td>
-                              </tr>
-                              <tr>
-                                <td>John Doe 2</td>
-                                <td>25</td>
-                                <td>New York</td>
-                              </tr>
-                              <tr>
-                                <td>John Doe 4</td>
-                                <td>25</td>
-                                <td>New York</td>
-                              </tr>
-                              <!-- Add more data rows here -->
-                            </tbody>
-                          </table>
-                          
+                       <!--     *ngIf="showTable" -->
+              <div class="table-responsive">
+                <table datatable [dtOptions]="dtOptions"
+                  class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Member ID</th>
+                      <th>Name</th>
+                      <th>Program</th>
+                      <th>Company</th>
+                      <th>Permium( RM )</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="posts?.length == 0 && showTable">
+                    <tr>
+                      <td colspan="6" class="text-center no-data-available">No
+                        data found.</td>
+                    </tr>
+                  </tbody>
+                  <tbody *ngIf="posts?.length != 0">
+                    <tr *ngFor="let item of posts; let i=index;">
+                      <td>{{item.memberID}}</td>
+                      <td>{{item.memberName}}</td>
+                      <td>{{item.programmeName}}</td>
+                      <td>{{item.company_name}}</td>
+                      <td>{{item.premium}}</td>
+                      <td class="text-center">
+                        <div class="position-relative" dropdown>
+                          <button class="dot-line" dropdownToggle><span></span></button>
+                          <div *dropdownMenu class="action_list dropdown-menu">
+                            <a href="javascript:void(0);"
+                              (click)="download($event)"
+                              [attr.data-id]="item?.id"
+                              [attr.data-title]="item?.memberName"><i
+                                class="fa fa-download"
+                                aria-hidden="true"></i> Enroll Doc.</a>
+                            <a href="javascript:void(0);"
+                              (click)="uploadCover($event)"
+                              [attr.data-id]="item.id"><i
+                                class="fa fa-eye" aria-hidden="true"></i>Upload
+                              Cover</a>
+                            <a href="javascript:void(0);"
+                              (click)="confirmModal(template, $event)"
+                              [attr.data-id]="item?.id"><i class="fa fa-trash-o"
+                                aria-hidden="true"></i> Delete</a>
+                          </div>
                         </div>
-                    </div>
-                </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+          </div>
+
+          <div class="sideview" *ngIf="insurance_import">
+            <a href="javascript:void(0);" (click)="sideview()"
+              class="close_trans"><img src="assets/icons/close.svg" alt></a>
+            <h5>Insurance Quote Import</h5>
+            <form class="pb-5" [formGroup]="quotefrm" (ngSubmit)="quoteSubmit()">
+              <div class="form-group">
+                <label>Upload as fresh</label>
+                <div>
+                  <label><input type="radio" value="1" formControlName="fresh" />
+                    Yes</label> &nbsp;
+                  <label><input type="radio" value="0" formControlName="fresh" />
+                    No</label>
+                </div>
+                <div *ngIf="quotesubmitted && !quotefrm.get('fresh')?.valid">
+                  <small class="text-danger">
+                    Upload type requird </small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Upload Document</label>
+                <input type="file" name="quotefile" formControlName="quotefile"
+                  class="form-control" (change)="onFileChanged($event)"
+                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+
+                <div *ngIf="quotesubmitted && !quotefrm.get('quotefile')?.valid">
+                  <small class="text-danger">
+                    Upload import file requird </small>
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-block btn-primary"
+                  [disabled]="frmloader">Upload <i class="fa fa-spin fa-spinner"
+                    *ngIf="frmloader"></i> </button>
+              </div>
+            </form>
+            <hr />
+            <p class="text-center mb-4 text-small font-weight-bold">Insurance
+              quote sample <a
+                href="../../../../assets/sample/sample-insurance-import.csv"
+                download>Download Here</a></p>
+          </div>
+
+          <div class="sideview" *ngIf="cover_import">
+            <a href="javascript:void(0);" (click)="sideview2()"
+              class="close_trans"><img src="assets/icons/close.svg" alt></a>
+            <h5>Upload cover letter</h5>
+            <form class="pb-5" [formGroup]="coverfrm" (ngSubmit)="coverSubmit()">
+              <div class="form-group">
+                <label>Upload Document</label>
+                <input type="file" name="file" formControlName="file"
+                  class="form-control" (change)="onFileChanged($event)"
+                  accept=".doc, .docx,.pdf" />
+                <div *ngIf="coversubmit && !coverfrm.get('file')?.valid">
+                  <small class="text-danger">
+                    Upload document requird</small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-block btn-primary"
+                  [disabled]="frmloader">Upload <i class="fa fa-spin fa-spinner"
+                    *ngIf="frmloader"></i> </button>
+              </div>
+            </form>
+          </div>
+
         </div>
+      </div>
     </div>
+  </div>
+
 </main>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Confirm Delete Member ?</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close"
+      (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center confirm_modal">
+    <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId
+      (click)="delete($event)">Yes </button>
+    <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">Cancel</button>
+  </div>
+</ng-template>

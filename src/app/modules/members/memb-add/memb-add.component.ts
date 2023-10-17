@@ -22,6 +22,7 @@ export class MembAddComponent implements OnInit {
   rshowPassword:boolean = false;
   submitted:boolean = false;
   dobchoosed:any;
+  btnloader:boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -123,8 +124,9 @@ export class MembAddComponent implements OnInit {
     this.submitted=true;
     var form=this.membCreation.value;
     if (this.membCreation.valid) {
+      this.btnloader=true;
       this.apiUrl.createMember(form).subscribe((res:any)=>{
-
+        this.btnloader=false;
         if(res.status='success'){
           this.toastr.success('', 'Member Added Successfully...',{
             positionClass: 'toast-bottom-right',
@@ -138,6 +140,7 @@ export class MembAddComponent implements OnInit {
         }
       },
       (err:any)=>{
+        this.btnloader=false;
         this.toastr.error('', err.error.message,{
           timeOut: 2500,
           positionClass: 'toast-bottom-right' 

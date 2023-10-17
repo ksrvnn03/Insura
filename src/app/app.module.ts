@@ -5,8 +5,7 @@ import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularEditorModule } from '@kolkov/angular-editor';
-import { DataTablesModule } from 'angular-datatables';
+import { AngularEditorModule } from '@kolkov/angular-editor'; 
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -43,6 +42,7 @@ import { SettingSidebarComponent } from './pages/settings/setting-sidebar/settin
 import { RoleManageComponent } from './pages/settings/users/role-manage/role-manage.component';
 import { UserCrudComponent } from './pages/settings/users/user-crud/user-crud.component';
 import { TestComponent } from './test/test.component';
+import { ReportComponent } from './pages/report/report.component';
 
 
 
@@ -72,7 +72,8 @@ import { TestComponent } from './test/test.component';
     SettingSidebarComponent,
     RoleManageComponent,
     UserCrudComponent,
-    TestComponent
+    TestComponent,
+    ReportComponent
   ],
   imports: [
     BrowserAnimationsModule,

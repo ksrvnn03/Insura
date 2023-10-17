@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from "@angular/common/http";
 import { MemberService } from 'src/app/services/member.service';
 import { Router,  ActivatedRoute,  ActivatedRouteSnapshot } from "@angular/router";
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-memb-networks',
@@ -24,6 +25,9 @@ export class MembNetworksComponent implements OnInit {
  oneAtATime = true;
  allOpen=false;
  totalMemb:any;
+ programlist:any;
+ pid='';
+ loader:boolean=false;
 
   constructor(
     private router: Router,
@@ -37,7 +41,8 @@ export class MembNetworksComponent implements OnInit {
 
   ngOnInit(): void {
     this.IsVisible1 = true;
-    this.getNetwork(this.memberId);
+    this.getProgram();
+    this.getNetwork(this.memberId,this.pid);
     this.getMemberData(this.memberId);
     
   }
@@ -57,11 +62,27 @@ export class MembNetworksComponent implements OnInit {
     this.isAccordionOpen = this.isAccordionOpen.map(() => true);
   }
 
-  getNetwork(id:any){
-    this.apiUrl.memberNetwork(id).subscribe(
+
+  getProgram(){
+    this.http.get(environment.apiUrl+'programmes/list-all').subscribe((res:any)=>{
+      this.programlist=res.data;
+    })
+  }
+
+
+  changeNetByProg($event:any){
+    let pid=$event.target.value;
+    this.getNetwork(this.memberId,pid);
+    this.toggleAccordion(0)
+  }
+
+  getNetwork(id:any,pid:any){
+    this.loader=true;
+    this.apiUrl.memberNetwork(id,pid).subscribe(
       (res:any)=>{
         const mapped = Object.keys(res).map(key => ({type: key, value: res[key]}));
         this.result=mapped;
+        this.loader=false;
         this.totalMemb=0;
         Object.keys(res).forEach((key) => {
           this.totalMemb += res[key].length;
@@ -76,7 +97,7 @@ export class MembNetworksComponent implements OnInit {
        // this.noTier=Object.keys(this.result).length;
       },
       (error:any)=>{
-
+        this.loader=false;
       }
     )
   }

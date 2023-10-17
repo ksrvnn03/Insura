@@ -1,0 +1,9 @@
+label{
+    text-transform:capitalize;
+ }
+
+ .fntxt{
+    color: #e19f9f;
+    font-size: 12px;
+    font-weight: bold;
+ }

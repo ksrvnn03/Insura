@@ -25,6 +25,8 @@ export class MembEditComponent implements OnInit {
   showPassword:boolean = false;
   rshowPassword:boolean = false;
   enrolled_prog:any;
+  btnloader:boolean = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -133,8 +135,10 @@ export class MembEditComponent implements OnInit {
     var form=this.membUpdate.value;
     console.log(form);
     if (this.membUpdate.valid) {
+      this.btnloader=true;
+
       this.apiUrl.updateMember(form,this.memberId).subscribe((res:any)=>{
-        res.status;
+        this.btnloader=false;
         if(res.status='success'){
           this.toastr.success('', 'Profile Updated...',{
             positionClass: 'toast-bottom-right',
@@ -149,6 +153,7 @@ export class MembEditComponent implements OnInit {
         }
       },
       (err:any)=>{
+        this.btnloader=false;
         this.toastr.error('', err.error.message,{
           timeOut: 2500,
           positionClass: 'toast-bottom-right' 

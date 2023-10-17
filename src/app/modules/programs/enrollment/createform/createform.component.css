@@ -1,0 +1,21 @@
+/* .addfield_list .btn {
+    display: block;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    width: 100%;
+}
+.addfield_list .btn:nth-child(odd){
+   background-color: #eee;
+}
+.addfield_list .btn:nth-child(even){
+    background-color: #fcfcfc;
+ } */
+
+ label{
+    text-transform:capitalize;
+ }
+ .fntxt{
+   color: #e19f9f;
+   font-size: 12px;
+   font-weight: bold;
+}

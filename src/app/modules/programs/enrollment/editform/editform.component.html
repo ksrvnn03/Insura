@@ -1,0 +1,179 @@
+<main class="main program-page">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="col-inner">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="page-title"><b>Edit Enrollment Form</b></h5>
+                        <div class="form-group">
+                            <input type="text" [value]="formname"
+                                name="formname" id="formname"
+                                placeholder="Form Name" class="form-control"
+                                required />
+                        </div>
+                        <table class="table table-custom mt-2">
+                            <thead><th>Field label</th>  <th>Name</th> <th>Type</th>  <th>Required</th>
+                                <th>Options</th><th>Actions</th></thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let field of fieldlist; let i=index">
+                                    <td>{{field.label}}</td>
+                                    <td>{{field.name}}</td>
+                                    <td>{{field.type}}</td>
+                                    <td>{{field.required==1 ? 'Yes' : 'No'
+                                        }}</td>
+                                    <td>
+                                        <div *ngIf="field.options">
+                                            <p>{{getObjectValues(field.options)}}</p>
+                                        </div>
+                                    </td>
+                                    <td><!-- <a href="javascriopt:void(0)"
+                                            class="btn"
+                                            [attr.data-id]="field.id"><i
+                                                class="fa fa-edit"></i></a> -->
+                                        <a href="javascriopt:void(0)"
+                                            (click)="removeField(i)"
+                                            class="btn"
+                                            [attr.data-id]="field.id"><i
+                                                class="fa fa-trash"></i></a></td>
+                                </tr>
+                                <tr><td colspan="6" class="text-right">
+                                        <button class="btn btn-info mr-2"
+                                            (click)="sideview()">Add New Field</button>
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                            (click)="onSave()">Update</button></td></tr>
+                            </tbody>
+                        </table>
+
+                        <div class="sideview" *ngIf="formshow">
+                            <a href="javascript:void(0);" (click)="sideview()"
+                                class="close_trans"><img
+                                    src="assets/icons/close.svg" alt></a>
+                            <h5>Add New Field</h5>
+
+                            <div class="form-group">
+                                <label>Choose Form Field</label>
+                                <select name="field_id"
+                                    class="form-control"
+                                    (change)="addField($event)">
+                                    <option value>Select Field Type</option>
+                                    <option value="1"> Short Answer</option>
+                                    <option value="2">Paragraph</option>
+                                    <option value="3">Checkbox</option>
+                                    <option value="4">Radio Button</option>
+                                    <option value="5">Dropdown</option>
+                                    <option value="6">Email</option>
+                                    <option value="7">Phone</option>
+                                    <option value="8">Date</option>
+                                    <option value="9">Time</option>
+                                </select>
+                            </div>
+
+                            <hr />
+
+                            <div class="addfield_list">
+                                <form [formGroup]="form"
+                                    (ngSubmit)="onSubmit()">
+                                    <div class="form-group"
+                                        *ngFor="let field of formData">
+                                        <label><strong>{{ field.label }}</strong></label>
+                                        <div [ngSwitch]="field.type">
+                                            <div *ngIf="field.name=='name'"> 
+                                                <input *ngSwitchCase="'text'"
+                                                class="form-control"
+                                                [type]="field.type"
+                                                [formControlName]="field.name"
+                                                [placeholder]="field.placeholder" >
+                                            </div>
+                                            
+                                            <div *ngIf="field.name!='name'">
+                                                <input *ngSwitchCase="'text'"
+                                                class="form-control"
+                                                [type]="field.type"
+                                                [formControlName]="field.name" 
+                                                [placeholder]="field.placeholder" >
+                                            </div>
+                                            
+
+                                            <div class="fntxt" *ngIf="field.name=='options'">
+                                                Add each option with , (comma) separater
+                                            </div>
+
+                                            <input *ngSwitchCase="'email'"
+                                                class="form-control"
+                                                [type]="field.type"
+                                                [formControlName]="field.name"
+                                                [placeholder]="field.placeholder">
+
+                                            <select *ngSwitchCase="'select'"
+                                                class="form-control"
+                                                [formControlName]="field.name">
+                                                <option
+                                                    *ngFor="let option of field.options"
+                                                    [value]="option">{{
+                                                    option }}</option>
+                                            </select>
+                                            
+                                            <textarea
+                                                *ngSwitchCase="'textarea'"
+                                                class="form-control"
+                                                [formControlName]="field.name"
+                                                [placeholder]="field.placeholder"></textarea>
+                                            <div *ngSwitchCase="'radio'">
+                                                <div
+                                                    *ngFor="let option of field.options">
+                                                    <input type="radio"
+                                                        [value]="option"
+                                                        [formControlName]="field.name"
+                                                        [id]="'radio_'+option">
+                                                    <label class="ml-1"
+                                                        [for]="'radio_'+option">
+                                                        {{
+                                                        option }}</label>
+                                                </div>
+                                            </div>
+                                            <div *ngSwitchCase="'checkbox'">
+                                                <input type="checkbox"
+                                                    [formControlName]="field.name"
+                                                    [id]="field.name">
+                                                <label [for]="field.name">{{
+                                                    field.label }}</label>
+                                                
+                                            </div>
+
+                                            <div class="small"
+                                                *ngIf="submit && form.get(field.name).invalid">
+                                                <div
+                                                    *ngIf="form.get(field.name).hasError('required')"
+                                                    class="text-danger">
+                                                    {{ field.label }} is
+                                                    required.
+                                                </div>
+                                                <div
+                                                    *ngIf="form.get(field.name).hasError('email')"
+                                                    class="text-danger">
+                                                    Invalid email format for
+                                                    {{ field.label }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <button type="button"
+                                        (click)="removeField($event)">remove field</button> -->
+                                    <button class="btn btn-primary"
+                                        type="submit" *ngIf="this.choosedType">Add
+                                        Field in Form</button>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

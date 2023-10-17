@@ -52,7 +52,7 @@ export class MembListingComponent implements OnInit {
 
   getMembers(page:any){
     this.apiUrl.listingMember(page).subscribe((res:any)=>{
-        this.result=res.data.data;
+        this.result=res.data;
         this.noitem=res.data.total;
         this.cpage=res.data.current_page;
         this.npage=res.data.next_page_url;

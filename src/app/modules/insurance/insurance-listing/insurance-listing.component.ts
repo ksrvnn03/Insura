@@ -1,7 +1,18 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ActivatedRoute, Router } from '@angular/router';
 declare var $: any;
+import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment.prod';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-insurance-listing',
@@ -9,74 +20,241 @@ declare var $: any;
   styleUrls: ['./insurance-listing.component.css']
 })
 export class InsuranceListingComponent implements OnInit {
-  options = {}
-  data: any = [];
-  columns: any = {};
- 
-   
-  ngAfterViewInit(): void {
-    $(this.el.nativeElement.querySelector('table')).DataTable();
+  title = 'insura';
+  dtOptions: DataTables.Settings = {};
+  posts: any;
+  headers: any;
+  dtTrigger: Subject<any> = new Subject();
+  showTable: boolean = false;
+  insurance_import: boolean = false;
+  cover_import: boolean = false;
+  quotesubmitted: boolean = false;
+  selectedFile = '';
+  modalRef?: BsModalRef;
+  delId: any;
+  apiUrl = environment.apiUrl;
+  coverID = '';
+  coversubmit: boolean = false;
+  frmloader: boolean = false;
+  btnloader: boolean = false;
+
+
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private modalService: BsModalService
+  ) { }
+
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
   }
 
 
-  title = 'datatables';
-  posts:any;
-  dtOptions: DataTables.Settings = {};
-
-  constructor(private el: ElementRef,private http: HttpClient) { }
   ngOnInit(): void {
-    this.dtOptions = {
+    this.headers = { headers: new HttpHeaders().set("Authorization", 'Bearer ' + localStorage.getItem('token')) }
+    this.dtOptions = {};
+    this.getInsurance()
+  }
 
-      pagingType: 'full_numbers',
+  quotefrm = this.fb.group(
+    {
+      quotefile: ["", Validators.required],
+      fresh: ["", Validators.required]
+    }
+  );
 
-      pageLength: 5,
+  coverfrm = this.fb.group(
+    {
+      file: ["", Validators.required]
+    }
+  );
 
-      processing: true
+  get f() {
+    return this.quotefrm.controls;
+  }
 
-    };
-
+  getInsurance() {
   
-
-    this.http.get('http://jsonplaceholder.typicode.com/posts')
-
-      .subscribe(posts => {
-
-        this.posts = posts;
-
-    });
-
-    this.columns = [
-      { key: 'id', title: "ID" },
-      { key: 'name', title: 'Name' },
-      { key: 'phone', title: 'Phone' },
-      { key: 'company', title: 'Company' },
-      { key: 'date', title: 'Date' }
-    ]
-
-    this.data = [
-      {
-        "id": "1",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "ZEnim Commodo Limited Enim Commodo Limited Enim Commodo LimitedEnim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      responsive: true,
+      ajax: (dataTablesParameters: any, callback: any) => {
+        console.log('recal 2')
+        this.http
+          .post(this.apiUrl + 'insurance/dtList', dataTablesParameters, {})
+          .subscribe((resp: any) => {
+            this.posts = resp.data['original'].data;
+            this.showTable = true;
+            callback({
+              recordsTotal: resp.data['original'].recordsTotal,
+              recordsFiltered: resp.data['original'].recordsFiltered,
+              data: [],
+            });
+          });
       },
-      {
-        "id": "2",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "ZOdio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
+      columns: [
+        { data: "memberID" },
+        { data: "memberName" },
+        { data: "programmeName" },
+        { data: "company_name" },
+        { data: "premium" },
+        { data: "created_at" }
+      ],
+    };
+  }
+
+  confirmModal(template: any, event: any) {
+    this.modalRef = this.modalService.show(template);
+    var element = event.target.getAttribute("data-id");
+    this.delId = element;
+  }
+
+  delete(event: any) {
+    var insId = event.target.getAttribute("data-id");
+    this.http.delete(this.apiUrl + 'insurance/' + insId).subscribe((res: any) => {
+
+      if (res) {
+        this.showTable=false;
+        this.modalService.hide();
+        this.toastr.success('', res.message, {
+          timeOut: 2500,
+          positionClass: 'toast-bottom-right'
+        });
+        setTimeout(()=>{
+          window.location.reload()
+        },1000)
       }
-    ];
+
+    }, (err: any) => {
+      this.toastr.error('', err.error.message, {
+        timeOut: 2500,
+        positionClass: 'toast-bottom-right'
+      });
+    });
+  }
+
+  download(event: any) {
+    var insId = event.target.getAttribute("data-id");
+    var title = event.target.getAttribute("data-title");
+ 
+    this.http.post(environment.apiUrl + 'insurance/' + insId + '/download/enroll-documents', {}, { responseType: 'blob' }).subscribe((response: Blob) => {
+
+      const fileURL = URL.createObjectURL(response);
+      const a = document.createElement('a');
+      a.href = fileURL;
+      a.download = title + ' Insurance Quote';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      this.toastr.success('', 'Insurance Document Downloaded', {
+        timeOut: 2500,
+        positionClass: 'toast-bottom-right'
+      });
+    }, (error: any) => {
+      this.toastr.error('', 'Try Again!', {
+        timeOut: 2500,
+        positionClass: 'toast-bottom-right'
+      });
+    });
+  }
+
+  sideview() {
+    this.insurance_import = !this.insurance_import;
+  }
+
+  sideview2() {
+    this.cover_import = !this.cover_import;
+  }
+
+  onFileChanged(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  quoteSubmit() {
+    this.quotesubmitted = true;
+    var form = this.quotefrm.value;
+    if (this.quotefrm.valid) {
+      this.btnloader=true;
+      this.frmloader=false;
+      const formData = new FormData();
+
+      if (this.selectedFile) {
+        formData.append("file", this.selectedFile);
+      }
+
+      this.http.post(environment.apiUrl + 'insurance/import?fresh=' + form.fresh, formData).subscribe((res: any) => {
+        this.quotesubmitted = false;
+        this.insurance_import = false;
+        this.dtOptions = {};
+        this.showTable = false;
+        this.getInsurance();
+
+        this.btnloader=false;
+        setTimeout(()=>{
+          window.location.reload()
+        },1000)
+        
+        this.frmloader=false;
+        this.toastr.success('', res.message, {
+          positionClass: 'toast-bottom-right',
+        })
+      },
+        (error: any) => {
+          this.btnloader=false;
+          this.frmloader=false;
+          this.quotesubmitted = false;
+          this.toastr.error('', error.response.message, {
+            positionClass: 'toast-bottom-right',
+          })
+        })
+    }
+  }
 
 
+  uploadCover($event: any) {
+    this.coverID = $event.target.getAttribute("data-id");
+    this.sideview2();
+  }
+
+  coverSubmit() {
+    this.coversubmit = true;
+
+    var form = this.coverfrm.value;
+    if (this.coverfrm.valid) {
+      this.frmloader=true;
+      const formData = new FormData();
+
+      if (this.selectedFile) {
+        formData.append("file", this.selectedFile);
+      }
+      if (this.coverID) {
+        this.http.post(environment.apiUrl + 'insurance/' + this.coverID + '/upload/cover-letter', formData).subscribe((res: any) => {
+          this.frmloader=false;
+          this.coversubmit = false;
+          this.cover_import= false;
+
+          this.toastr.success('', res.message, {
+            positionClass: 'toast-bottom-right',
+          })
+        },
+          (error: any) => {
+            this.frmloader=false;
+            this.coversubmit = false;
+          
+            this.toastr.error('', error, {
+              positionClass: 'toast-bottom-right',
+            })
+          });
+      }
+
+    }
   }
 
 }

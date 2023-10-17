@@ -21,6 +21,7 @@ import { UserCrudComponent } from './pages/settings/users/user-crud/user-crud.co
 import { PromolistingComponent } from './pages/settings/promo/promolisting/promolisting.component';
 import { PromoComponent } from './pages/settings/promo/promo.component';
 import { TestComponent } from './test/test.component';
+import { ReportComponent } from './pages/report/report.component';
 
 const routes: Routes = [
   { 
@@ -113,8 +114,13 @@ const routes: Routes = [
     component: PromoComponent,
     pathMatch: 'full'
   },
-
   { 
+    path: 'report',
+    canActivate: [AuthService], 
+    component: ReportComponent,
+    pathMatch: 'full'
+  },
+ { 
     path: 'audit',
     canActivate: [AuthService], 
     component: AuditComponent,

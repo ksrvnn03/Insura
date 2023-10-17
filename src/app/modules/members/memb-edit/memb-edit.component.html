@@ -137,7 +137,7 @@
                                         </div>
 
                                         <div class="col-md-12 mt-4">
-                                            <button class="btn btn-style2 btn-primary">Save Changes</button>
+                                            <button class="btn btn-style2 btn-primary" [disabled]="btnloader"> Update <i class="fa fa-spin fa-spinner" *ngIf="btnloader"></i></button>
                                         </div>
                                     </div>
                                 </form>
