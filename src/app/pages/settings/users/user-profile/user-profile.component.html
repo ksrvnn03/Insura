@@ -9,37 +9,58 @@
                     <div class="col-md-6">
                         <div class="col-inner">
                             <h5 class="page-title"><b>Profile</b></h5>
-                            <form class="member_frm mt-4" autocomplete="off" [formGroup]="profileCreation" (ngSubmit)="onSubmit()">
+                            <form class="member_frm mt-4" autocomplete="off"
+                                [formGroup]="profileCreation"
+                                (ngSubmit)="onSubmit()">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Profile Picture</label> 
+                                    <label class="col-sm-3 col-form-label">Profile
+                                        Picture</label>
                                     <div class="col-sm-9">
-                                        <div class="upload_file"> 
-                                            <input type=file formControlName="photo" accept=".png, .jpg, .jpeg" (change)="onFileChanged($event)" oninput="pic.src=window.URL.createObjectURL(this.files[0])">
-                                            <img id="pic" class="prevImg" src="{{this.preview}}" />
-                                            <button class="btn"><span class="icon_edit"><img src="assets/icons/editing.svg" alt="edit"/></span></button>
+                                        <div class="upload_file">
+                                            <input type=file
+                                                formControlName="photo"
+                                                accept=".png, .jpg, .jpeg"
+                                                (change)="onFileChanged($event)"
+                                                oninput="pic.src=window.URL.createObjectURL(this.files[0])">
+                                            <img id="pic" class="prevImg"
+                                                src="{{this.preview}}" />
+                                            <button class="btn"><span
+                                                    class="icon_edit"><img
+                                                        src="assets/icons/editing.svg"
+                                                        alt="edit" /></span></button>
                                         </div>
-                                     </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" value="" placeholder="Full Name" name="name" class="form-control" formControlName="name" />
-                                        <div *ngIf="submitted && !profileCreation.get('name')?.valid">
-                                            <small class="text-danger" *ngIf="profileCreation.get('name')?.errors?.['required']">
-                                           Full name requird </small>
+                                        <input type="text" value
+                                            placeholder="Full Name" name="name"
+                                            class="form-control"
+                                            formControlName="name" />
+                                        <div
+                                            *ngIf="submitted && !profileCreation.get('name')?.valid">
+                                            <small class="text-danger"
+                                                *ngIf="profileCreation.get('name')?.errors?.['required']">
+                                                Full name requird </small>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Email</label>
                                     <div class="col-sm-9">
-                                        <input type="email"  placeholder="Email" name="email" class="form-control" formControlName="email"/>
-                                        <div *ngIf="submitted && !profileCreation.get('email')?.valid">
-                                            <small class="text-danger" *ngIf="profileCreation.get('email')?.errors?.['required']">
+                                        <input type="email" placeholder="Email"
+                                            name="email" class="form-control"
+                                            formControlName="email" />
+                                        <div
+                                            *ngIf="submitted && !profileCreation.get('email')?.valid">
+                                            <small class="text-danger"
+                                                *ngIf="profileCreation.get('email')?.errors?.['required']">
                                                 Email requird </small>
-                                            <small class="text-danger" *ngIf="profileCreation.get('email')?.errors?.['email'] || profileCreation.get('email')?.errors?.['pattern']">
+                                            <small class="text-danger"
+                                                *ngIf="profileCreation.get('email')?.errors?.['email'] || profileCreation.get('email')?.errors?.['pattern']">
                                                 Enter vaild email</small>
                                         </div>
                                     </div>
@@ -48,35 +69,67 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">IC No</label>
                                     <div class="col-sm-9">
-                                        <input type="text" value="" placeholder="IC Number" name="ic_no" class="form-control" formControlName="ic_no"/>
-                                        <div *ngIf="submitted && !profileCreation.get('ic_no')?.valid">
-                                            <small class="text-danger" *ngIf="profileCreation.get('ic_no')?.errors?.['required']">
+                                        <input type="text" value
+                                            placeholder="IC Number" name="ic_no"
+                                            class="form-control"
+                                            formControlName="ic_no" />
+                                        <div
+                                            *ngIf="submitted && !profileCreation.get('ic_no')?.valid">
+                                            <small class="text-danger"
+                                                *ngIf="profileCreation.get('ic_no')?.errors?.['required']">
                                                 IC number requird </small>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Contact No</label>
+                                    <label class="col-sm-3 col-form-label">Contact
+                                        No</label>
                                     <div class="col-sm-9">
-                                        <input type="text" (keypress)="numberOnly($event)" value="" minlength="10" maxlength="12" placeholder="Contact Number" name="phone" formControlName="phone" class="form-control" />
-                                                <div *ngIf="submitted && !profileCreation.get('phone')?.valid">
-                                                    <small class="text-danger" *ngIf="profileCreation.get('phone')?.errors?.['required']">
-                                                        Phone number requird </small>
-                                                    <small class="text-danger" *ngIf="profileCreation.get('phone')?.errors?.['minlength'] || profileCreation.get('phone')?.errors?.['pattern']">
-                                                            Enter max 12 digits number</small>
-                                                </div>
+                                        <input type="text"
+                                            placeholder="Contact Number"
+                                            name="phone" formControlName="phone"
+                                            class="form-control" />
+                                        <div
+                                            *ngIf="submitted && !profileCreation.get('phone')?.valid">
+                                            
+                            <small class="text-danger"
+                            *ngIf="profileCreation.get('phone')?.errors?.['required']?.['message']">
+                            {{profileCreation.get('phone')?.errors?.['required'].message}}
+                        </small>
+
+                        <small class="text-danger"
+                            *ngIf="profileCreation.get('phone')?.errors?.['invalidFormat']?.['message']">
+                            {{profileCreation.get('phone')?.errors?.['invalidFormat'].message}}
+                        </small>
+
+                        <small class="text-danger"
+                            *ngIf="profileCreation.get('phone')?.errors?.['minLength']?.['message']">
+                            {{profileCreation.get('phone')?.errors?.['minLength'].message}}
+                        </small>
+
+                        <small class="text-danger"
+                            *ngIf="profileCreation.get('phone')?.errors?.['maxLength']?.['message']">
+                            {{profileCreation.get('phone')?.errors?.['maxLength'].message}}
+                        </small>
+
+                        <small class="text-danger"
+                            *ngIf="profileCreation.get('phone')?.errors?.['invalidPrefix']?.['message']">
+                            {{profileCreation.get('phone')?.errors?.['invalidPrefix'].message}}
+                        </small>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4">
-                                    <button class="btn btn-primary">Update Profile </button>
+                                    <button class="btn btn-primary">Update
+                                        Profile <i class="fa fa-spin fa-spinner" *ngIf="loader"></i></button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-             </div>
+            </div>
         </div>
     </div>
 </main>

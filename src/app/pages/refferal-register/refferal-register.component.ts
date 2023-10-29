@@ -14,6 +14,16 @@ import { HttpClient } from "@angular/common/http";
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 
+interface CustomValidationErrors {
+  required?: { error: true; message: string };
+  invalidPrefix?: { error: true; message: string };
+  invalidFormat?: { error: true; message: string };
+  minLength?: { error: true; message: string };
+  maxLength?: { error: true; message: string };
+}
+
+
+
 @Component({
   selector: 'app-refferal-register',
   templateUrl: './refferal-register.component.html',
@@ -58,12 +68,7 @@ export class RefferalRegisterComponent implements OnInit {
       ],
       phone  :[
         "",
-        [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        Validators.pattern("^[0-9]*$")
-       ]
+        [this.phoneNumberPrefixValidator]
       ],
      /*  haveid:[""],
       referrer_id :[""] */
@@ -106,6 +111,38 @@ export class RefferalRegisterComponent implements OnInit {
       }
     });
   }
+
+  
+phoneNumberPrefixValidator(control: AbstractControl): CustomValidationErrors | null {
+  let phoneNumber = control.value;
+
+  if (phoneNumber == '') {
+    return { required: { error: true, message: 'Contact number required' } };
+  }
+
+  // Check if phone number starts with '+60'
+  if (phoneNumber && !phoneNumber.startsWith('+60')) {
+    return { invalidPrefix: { error: true, message: 'Contact number must start with +60' } };
+  }
+
+  // Check if phone number contains only digits after '+'
+  const digitsOnly = phoneNumber.replace(/^\+/, ''); // Remove '+'
+  if (!/^\d+$/.test(digitsOnly)) {
+    return { invalidFormat: { error: true, message: 'Invalid contact number format' } };
+  }
+
+  // Check minimum length
+  if (phoneNumber && phoneNumber.length < 9) {
+    return { minLength: { error: true, message: 'Contact number must be at least 9 digits long' } };
+  }
+
+  // Check maximum length
+  if (phoneNumber && phoneNumber.length > 13) {
+    return { maxLength: { error: true, message: 'Contact number cannot exceed 13 digits' } };
+  }
+
+  return null;
+}
 
   onSubmit() {
     this.submitted=true;

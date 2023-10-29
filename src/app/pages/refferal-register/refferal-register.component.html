@@ -46,10 +46,31 @@
                             <input type="text" class="form-control" maxlength="10" minlength="10" formControlName="phone" placeholder="Your contact number"  />
                         </div>
                         <div *ngIf="submitted && f.phone?.invalid">
-                            <small class="text-danger" *ngIf="f.phone?.errors?.['required']">
-                                Phone requird </small>
-                                <small class="text-danger" *ngIf="f.phone?.errors?.['minlength'] || f.phone?.errors?.['pattern']">
-                                    Enter 10 digit number </small>
+                           
+                            <small class="text-danger"
+                                *ngIf="f.phone.errors?.['required']?.['message']">
+                                {{f.phone.errors?.['required'].message}}
+                            </small>
+
+                            <small class="text-danger"
+                                *ngIf="f.phone.errors?.['invalidFormat']?.['message']">
+                                {{f.phone.errors?.['invalidFormat'].message}}
+                            </small>
+
+                            <small class="text-danger"
+                                *ngIf="f.phone.errors?.['minLength']?.['message']">
+                                {{f.phone.errors?.['minLength'].message}}
+                            </small>
+
+                            <small class="text-danger"
+                                *ngIf="f.phone.errors?.['maxLength']?.['message']">
+                                {{f.phone.errors?.['maxLength'].message}}
+                            </small>
+
+                            <small class="text-danger"
+                                *ngIf="f.phone.errors?.['invalidPrefix']?.['message']">
+                                {{f.phone.errors?.['invalidPrefix'].message}}
+                            </small>
                         </div>
                         
                         <div class="input-group">

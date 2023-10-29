@@ -4,12 +4,21 @@ import {
   FormGroup,
   FormControl,
   Validators,
+  AbstractControl,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from 'src/environments/environment.prod';
+
+interface CustomValidationErrors {
+  required?: { error: true; message: string };
+  invalidPrefix?: { error: true; message: string };
+  invalidFormat?: { error: true; message: string };
+  minLength?: { error: true; message: string };
+  maxLength?: { error: true; message: string };
+}
 
 @Component({
   selector: 'app-user-profile',
@@ -23,6 +32,7 @@ export class UserProfileComponent implements OnInit {
   profileFrm:any;
   apiUrl=environment.apiUrl;
   selectedFile='';
+  loader=false;
 
   constructor(
     private fb: FormBuilder,
@@ -48,12 +58,7 @@ export class UserProfileComponent implements OnInit {
       ic_no:[""],
       phone  :[
         "",
-        [
-        Validators.required,
-        Validators.minLength(12),
-        Validators.maxLength(12),
-        Validators.pattern("^[0-9]{12}$")
-       ]
+        [this.phoneNumberPrefixValidator]
       ],
       photo:[""],
     }
@@ -71,6 +76,38 @@ export class UserProfileComponent implements OnInit {
     this.getProfile();
   }
 
+  
+  phoneNumberPrefixValidator(control: AbstractControl): CustomValidationErrors | null {
+    let phoneNumber = control.value;
+
+    if (phoneNumber == '') {
+      return { required: { error: true, message: 'Contact number required' } };
+    }
+
+    // Check if phone number starts with '+60'
+    if (phoneNumber && !phoneNumber.startsWith('+60')) {
+      return { invalidPrefix: { error: true, message: 'Contact number must start with +60' } };
+    }
+
+    // Check if phone number contains only digits after '+'
+    const digitsOnly = phoneNumber.replace(/^\+/, ''); // Remove '+'
+    if (!/^\d+$/.test(digitsOnly)) {
+      return { invalidFormat: { error: true, message: 'Invalid contact number format' } };
+    }
+
+    // Check minimum length
+    if (phoneNumber && phoneNumber.length < 9) {
+      return { minLength: { error: true, message: 'Contact number must be at least 9 digits long' } };
+    }
+
+    // Check maximum length
+    if (phoneNumber && phoneNumber.length > 13) {
+      return { maxLength: { error: true, message: 'Contact number cannot exceed 13 digits' } };
+    }
+
+    return null;
+  }
+  
   imagePreview(event: any) {
     this.preview = URL.createObjectURL(event.target.files[0])
   }
@@ -110,6 +147,7 @@ export class UserProfileComponent implements OnInit {
     this.submitted=true;
     var form=this.profileCreation.value;
     if (this.profileCreation.valid) {
+      this.loader=true;
       const formData = new FormData();
  
       if(form.name){
@@ -139,6 +177,7 @@ export class UserProfileComponent implements OnInit {
       this.http.post(environment.apiUrl + 'admin/profile', formData ).subscribe((res:any)=>{
 
         if(res.status='success'){
+          this.loader=false;
           this.toastr.success('', 'Profile Updated..',{
             positionClass: 'toast-bottom-right',
           })
@@ -151,6 +190,7 @@ export class UserProfileComponent implements OnInit {
         }
       },
       (err:any)=>{
+        this.loader=false;
         this.toastr.error('', err.data.message,{
           timeOut: 2500,
           positionClass: 'toast-bottom-right' 

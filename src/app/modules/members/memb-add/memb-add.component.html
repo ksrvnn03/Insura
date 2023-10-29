@@ -43,12 +43,35 @@
                                         <div class="col-md-3">
                                             <div class="form-group m-0">
                                                 <label>Contact Number</label>
-                                                <input type="text" (keypress)="numberOnly($event)" value="" minlength="10" maxlength="12" placeholder="Contact Number" name="phone" formControlName="phone" class="form-control" />
+                                                <input type="text"  placeholder="Contact Number" name="phone" formControlName="phone" class="form-control" />
                                                 <div *ngIf="submitted && !membCreation.get('phone')?.valid">
-                                                    <small class="text-danger" *ngIf="membCreation.get('phone')?.errors?.['required']">
-                                                        Phone number requird </small>
-                                                    <small class="text-danger" *ngIf="membCreation.get('phone')?.errors?.['minlength'] || membCreation.get('phone')?.errors?.['pattern']">
-                                                            Enter max 12 digits number</small>
+                                                    <!-- <small class="text-danger" *ngIf="membCreation.get('phone')?.errors?.['required']">
+                                                        Phone number requird </small> -->
+                                                  
+                            <small class="text-danger"
+                            *ngIf="membCreation.get('phone')?.errors?.['required']?.['message']">
+                            {{membCreation.get('phone')?.errors?.['required'].message}}
+                        </small>
+
+                        <small class="text-danger"
+                            *ngIf="membCreation.get('phone')?.errors?.['invalidFormat']?.['message']">
+                            {{membCreation.get('phone')?.errors?.['invalidFormat'].message}}
+                        </small>
+
+                        <small class="text-danger"
+                            *ngIf="membCreation.get('phone')?.errors?.['minLength']?.['message']">
+                            {{membCreation.get('phone')?.errors?.['minLength'].message}}
+                        </small>
+
+                        <small class="text-danger"
+                            *ngIf="membCreation.get('phone')?.errors?.['maxLength']?.['message']">
+                            {{membCreation.get('phone')?.errors?.['maxLength'].message}}
+                        </small>
+
+                        <small class="text-danger"
+                            *ngIf="membCreation.get('phone')?.errors?.['invalidPrefix']?.['message']">
+                            {{membCreation.get('phone')?.errors?.['invalidPrefix'].message}}
+                        </small>
                                                 </div>
                                             </div>
                                         </div>
@@ -129,11 +152,11 @@
     
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label>Zip</label>
-                                            <input type="text" value="" placeholder="Zip" name="zip" formControlName="zip" class="form-control" />
+                                            <label>Postcode</label>
+                                            <input type="text" value="" placeholder="Postcode" name="zip" formControlName="zip" class="form-control" />
                                             <div *ngIf="submitted && !membCreation.get('zip')?.valid">
                                                 <small class="text-danger" *ngIf="membCreation.get('zip')?.errors?.['required']">
-                                                    Zip code requird </small>
+                                                    Postcode requird </small>
                                             </div>
                                         </div>
                                         <div class="col-md-3">

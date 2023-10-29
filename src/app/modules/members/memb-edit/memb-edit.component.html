@@ -12,107 +12,185 @@
                             <div class="card-body mem-prof-view">
                                 <div class="row">
                                     <div class="col-md-9">
-                                        <h5 class="page-title">Personal Details <strong>Malek Hopkins</strong></h5>
-                                        <span class="span_status status_active"><span  class="dot"></span>Active</span>
+                                        <h5 class="page-title">Personal Details
+                                            <strong>Malek Hopkins</strong></h5>
+                                        <span class="span_status status_active"><span
+                                                class="dot"></span>Active</span>
                                     </div>
                                     <div class="col-md-3 text-right">
                                     </div>
                                 </div>
-                                <form class="member_frm mt-4" autocomplete="off" [formGroup]="membUpdate" (ngSubmit)="onSubmit()">    
-                                    
+                                <form class="member_frm mt-4" autocomplete="off"
+                                    [formGroup]="membUpdate"
+                                    (ngSubmit)="onSubmit()">
+
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label>Full Name</label>
-                                            <input type="text"  placeholder="Full Name" name="name" class="form-control" formControlName="name" />
-                                                <div *ngIf="submitted && !membUpdate.get('name')?.valid">
-                                                    <small class="text-danger" *ngIf="membUpdate.get('name')?.errors?.['required']">
-                                                   Full name requird </small>
-                                                </div>
+                                            <input type="text"
+                                                placeholder="Full Name"
+                                                name="name" class="form-control"
+                                                formControlName="name" />
+                                            <div
+                                                *ngIf="submitted && !membUpdate.get('name')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('name')?.errors?.['required']">
+                                                    Full name requird </small>
+                                            </div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>IC Number</label>
-                                            <input type="text"  placeholder="IC Number" name="ic_no" class="form-control" formControlName="ic_no"/>
-                                            <div *ngIf="submitted && !membUpdate.get('ic_no')?.valid">
-                                                <small class="text-danger" *ngIf="membUpdate.get('ic_no')?.errors?.['required']">
+                                            <input type="text"
+                                                placeholder="IC Number"
+                                                name="ic_no"
+                                                class="form-control"
+                                                formControlName="ic_no" />
+                                            <div
+                                                *ngIf="submitted && !membUpdate.get('ic_no')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('ic_no')?.errors?.['required']">
                                                     IC number requird </small>
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label>Contact Number</label>
-                                            <input type="text" mask="999 9999 99999" (keypress)="numberOnly($event)"  minlength="10" maxlength="12" placeholder="Contact Number" name="phone" formControlName="phone" class="form-control" />
-                                                <div *ngIf="submitted && !membUpdate.get('phone')?.valid">
-                                                    <small class="text-danger" *ngIf="membUpdate.get('phone')?.errors?.['required']">
-                                                        Phone number requird </small>
-                                                    <small class="text-danger" *ngIf="membUpdate.get('phone')?.errors?.['minlength'] || membUpdate.get('phone')?.errors?.['pattern']">
-                                                            Enter max 12 digits number</small>
-                                                </div>
+                                            <input type="text"
+                                                placeholder="Contact Number"
+                                                name="phone"
+                                                formControlName="phone"
+                                                class="form-control" />
+                                            <div
+                                                *ngIf="submitted && !membUpdate.get('phone')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('phone')?.errors?.['required']?.['message']">
+                                                    {{membUpdate.get('phone')?.errors?.['required'].message}}
+                                                </small>
+
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('phone')?.errors?.['invalidFormat']?.['message']">
+                                                    {{membUpdate.get('phone')?.errors?.['invalidFormat'].message}}
+                                                </small>
+
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('phone')?.errors?.['minLength']?.['message']">
+                                                    {{membUpdate.get('phone')?.errors?.['minLength'].message}}
+                                                </small>
+
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('phone')?.errors?.['maxLength']?.['message']">
+                                                    {{membUpdate.get('phone')?.errors?.['maxLength'].message}}
+                                                </small>
+
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('phone')?.errors?.['invalidPrefix']?.['message']">
+                                                    {{membUpdate.get('phone')?.errors?.['invalidPrefix'].message}}
+                                                </small>
+                                            </div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Email</label>
-                                            <input type="email"  placeholder="Email" name="email" class="form-control" formControlName="email"/>
-                                                <div *ngIf="submitted && !membUpdate.get('email')?.valid">
-                                                    <small class="text-danger" *ngIf="membUpdate.get('email')?.errors?.['required']">
-                                                        Email requird </small>
-                                                    <small class="text-danger" *ngIf="membUpdate.get('email')?.errors?.['email'] || membUpdate.get('email')?.errors?.['pattern']">
-                                                        Enter vaild email</small>
-                                                </div>
+                                            <input type="email"
+                                                placeholder="Email" name="email"
+                                                class="form-control"
+                                                formControlName="email" />
+                                            <div
+                                                *ngIf="submitted && !membUpdate.get('email')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('email')?.errors?.['required']">
+                                                    Email requird </small>
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('email')?.errors?.['email'] || membUpdate.get('email')?.errors?.['pattern']">
+                                                    Enter vaild email</small>
+                                            </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label>Date of Birth</label>
-                                            <input type="hidden" value="{{dobchoosed}}" formControlName="dob" />
-                                            <input type="text" placeholder="Date of Birth"
-                                            class="form-control datereadonly" name="dob" formControlName="dobchoosed"  bsDatepicker  (bsValueChange)="onDateChange($event)" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" readonly required /> 
-                                            <div *ngIf="submitted && !membUpdate.get('dob')?.valid">
-                                                <small class="text-danger" *ngIf="membUpdate.get('dob')?.errors?.['required']">
-                                                    Date of birth requird </small>
-                                            </div> 
+                                            <input type="hidden"
+                                                value="{{dobchoosed}}"
+                                                formControlName="dob" />
+                                            <input type="text"
+                                                placeholder="Date of Birth"
+                                                class="form-control datereadonly"
+                                                name="dob"
+                                                formControlName="dobchoosed"
+                                                bsDatepicker
+                                                (bsValueChange)="onDateChange($event)"
+                                                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                                                readonly required />
+                                            <div
+                                                *ngIf="submitted && !membUpdate.get('dob')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('dob')?.errors?.['required']">
+                                                    Date of birth requird
+                                                </small>
+                                            </div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Gender</label>
-                                            <select class="form-control" name="gender" formControlName="gender">
-                                                <option value="">Select</option>
+                                            <select class="form-control"
+                                                name="gender"
+                                                formControlName="gender">
+                                                <option value>Select</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
                                                 <option value="Other">Other</option>
                                             </select>
-                                            <div *ngIf="submitted && !membUpdate.get('gender')?.valid">
-                                                <small class="text-danger" *ngIf="membUpdate.get('gender')?.errors?.['required']">
-                                                   Gender requird </small>
+                                            <div
+                                                *ngIf="submitted && !membUpdate.get('gender')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('gender')?.errors?.['required']">
+                                                    Gender requird </small>
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Residential Address</label>
-                                            <input type="text"  placeholder="Residential Address" name="address" formControlName="address"  class="form-control" />
-                                            <div *ngIf="submitted && !membUpdate.get('address')?.valid">
-                                                <small class="text-danger" *ngIf="membUpdate.get('address')?.errors?.['required']">
+                                            <input type="text"
+                                                placeholder="Residential Address"
+                                                name="address"
+                                                formControlName="address"
+                                                class="form-control" />
+                                            <div
+                                                *ngIf="submitted && !membUpdate.get('address')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('address')?.errors?.['required']">
                                                     Address requird </small>
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label>City</label>
-                                            <input type="text"  placeholder="City" name="city" formControlName="city"  class="form-control" />
-                                            <div *ngIf="submitted && !membUpdate.get('city')?.valid">
-                                                <small class="text-danger" *ngIf="membUpdate.get('city')?.errors?.['required']">
+                                            <input type="text"
+                                                placeholder="City" name="city"
+                                                formControlName="city"
+                                                class="form-control" />
+                                            <div
+                                                *ngIf="submitted && !membUpdate.get('city')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('city')?.errors?.['required']">
                                                     City name requird </small>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>State</label>
-                                            <input type="text"  placeholder="State" name="state" formControlName="state" class="form-control" />
-                                            <div *ngIf="submitted && !membUpdate.get('state')?.valid">
-                                                <small class="text-danger" *ngIf="membUpdate.get('state')?.errors?.['required']">
+                                            <input type="text"
+                                                placeholder="State" name="state"
+                                                formControlName="state"
+                                                class="form-control" />
+                                            <div
+                                                *ngIf="submitted && !membUpdate.get('state')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('state')?.errors?.['required']">
                                                     State name requird </small>
                                             </div>
                                         </div>
@@ -120,28 +198,43 @@
 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label>Zip</label>
-                                            <input type="text" placeholder="Zip" name="zip" formControlName="zip" class="form-control" />
-                                            <div *ngIf="submitted && !membUpdate.get('zip')?.valid">
-                                                <small class="text-danger" *ngIf="membUpdate.get('zip')?.errors?.['required']">
-                                                    Zip code requird </small>
+                                            <label>Postcode</label>
+                                            <input type="text"
+                                                placeholder="Postcode"
+                                                name="zip" formControlName="zip"
+                                                class="form-control" />
+                                            <div
+                                                *ngIf="submitted && !membUpdate.get('zip')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('zip')?.errors?.['required']">
+                                                    Postcode requird </small>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Country</label>
-                                            <input type="text" placeholder="Country" name="country" formControlName="country" class="form-control" />
-                                            <div *ngIf="submitted && !membUpdate.get('country')?.valid">
-                                                <small class="text-danger" *ngIf="membUpdate.get('country')?.errors?.['required']">
+                                            <input type="text"
+                                                placeholder="Country"
+                                                name="country"
+                                                formControlName="country"
+                                                class="form-control" />
+                                            <div
+                                                *ngIf="submitted && !membUpdate.get('country')?.valid">
+                                                <small class="text-danger"
+                                                    *ngIf="membUpdate.get('country')?.errors?.['required']">
                                                     Country requird </small>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 mt-4">
-                                            <button class="btn btn-style2 btn-primary" [disabled]="btnloader"> Update <i class="fa fa-spin fa-spinner" *ngIf="btnloader"></i></button>
+                                            <button
+                                                class="btn btn-style2 btn-primary"
+                                                [disabled]="btnloader"> Update
+                                                <i class="fa fa-spin fa-spinner"
+                                                    *ngIf="btnloader"></i></button>
                                         </div>
                                     </div>
                                 </form>
-                                
+
                             </div>
                         </div>
 
@@ -150,17 +243,26 @@
                                 <h5 class="page-title">Enrolled Programs</h5>
                                 <div class="mem-prog-list text-center">
                                     <div class="row">
-                                        <div class="col-md-12" *ngIf="enrolled_prog==''">
+                                        <div class="col-md-12"
+                                            *ngIf="enrolled_prog==''">
                                             <h6><small>No program found</small></h6>
                                         </div>
-                                        <div class="col-md-3 mt-4 mb-4" *ngFor="let item of enrolled_prog; let i=index;">
+                                        <div class="col-md-3 mt-4 mb-4"
+                                            *ngFor="let item of enrolled_prog; let i=index;">
                                             <div class="col-inner">
-                                               <a routerLink="/program/{{item?.id}}">
-                                                <img src="{{item?.image_url}}" onerror="this.src='assets/img/noimage.jpg';" class="mem-prog-img" alt="profile-name" />
-                                                <p class="mem-prog-name">{{item?.name}}</p>
-                                                <div><label>Joined</label></div>
-                                                <div><strong>{{item?.created_at | date:'mediumDate' }}</strong></div>
-                                               </a>
+                                                <a
+                                                    routerLink="/program/{{item?.id}}">
+                                                    <img
+                                                        src="{{item?.image_url}}"
+                                                        onerror="this.src='assets/img/noimage.jpg';"
+                                                        class="mem-prog-img"
+                                                        alt="profile-name" />
+                                                    <p class="mem-prog-name">{{item?.name}}</p>
+                                                    <div><label>Joined</label></div>
+                                                    <div><strong>{{item?.created_at
+                                                            | date:'mediumDate'
+                                                            }}</strong></div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

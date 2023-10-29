@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormControl,
   Validators,
+  ValidationErrors,
 } from '@angular/forms';
 
 import { environment } from 'src/environments/environment.prod';
@@ -14,61 +15,94 @@ import { HttpClient } from "@angular/common/http";
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 
+interface CustomValidationErrors {
+  required?: { error: true; message: string };
+  invalidPrefix?: { error: true; message: string };
+  invalidFormat?: { error: true; message: string };
+  minLength?: { error: true; message: string };
+  maxLength?: { error: true; message: string };
+}
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  showPassword:boolean = false;
-  reshowPassword:boolean = false;
+  showPassword: boolean = false;
+  reshowPassword: boolean = false;
   result: any;
-  response='';
-  loader: boolean=false;
-  submitted:boolean=false;
+  response = '';
+  loader: boolean = false;
+  submitted: boolean = false;
+
+  phoneNumberPrefixValidator(control: AbstractControl): CustomValidationErrors | null {
+    let phoneNumber = control.value;
+
+    if (phoneNumber == '') {
+      return { required: { error: true, message: 'Contact number required' } };
+    }
+
+    // Check if phone number starts with '+60'
+    if (phoneNumber && !phoneNumber.startsWith('+60')) {
+      return { invalidPrefix: { error: true, message: 'Contact number must start with +60' } };
+    }
+
+    // Check if phone number contains only digits after '+'
+    const digitsOnly = phoneNumber.replace(/^\+/, ''); // Remove '+'
+    if (!/^\d+$/.test(digitsOnly)) {
+      return { invalidFormat: { error: true, message: 'Invalid contact number format' } };
+    }
+
+    // Check minimum length
+    if (phoneNumber && phoneNumber.length < 9) {
+      return { minLength: { error: true, message: 'Contact number must be at least 9 digits long' } };
+    }
+
+    // Check maximum length
+    if (phoneNumber && phoneNumber.length > 13) {
+      return { maxLength: { error: true, message: 'Contact number cannot exceed 13 digits' } };
+    }
+
+    return null;
+  }
 
   constructor(
-      private fb: FormBuilder,
-      private router: Router,
-      private http:HttpClient,
-      private authservice:AuthService,
-      private user:UserService,
-      private toastr: ToastrService) { 
+    private fb: FormBuilder,
+    private router: Router,
+    private http: HttpClient,
+    private authservice: AuthService,
+    private user: UserService,
+    private toastr: ToastrService) {
   }
 
   regForm = this.fb.group(
     {
-      uname:["",[Validators.required]],
+      uname: ["", [Validators.required]],
       email: [
         "",
         [
           Validators.required,
           Validators.email,
-          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
         ]
       ],
       password: [
         "",
-        [Validators.required,Validators.minLength(6)]
+        [Validators.required, Validators.minLength(6)]
       ],
       cpassword: [
         "",
-        [Validators.required,Validators.minLength(6)]
+        [Validators.required, Validators.minLength(6)]
       ],
-      phone  :[
+      phone: [
         "",
-        [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        Validators.pattern("^[0-9]*$")
-       ]
+        [this.phoneNumberPrefixValidator]
       ],
-      haveid:[""],
-      referrer_id :[""]
+      haveid: [""],
+      referrer_id: [""]
     }
   );
-
 
   /* checkPasswords(regForm: FormGroup) {
     var form = this.regForm.value;
@@ -78,12 +112,12 @@ export class RegisterComponent implements OnInit {
   } */
 
   ngOnInit(): void {
-    let userLogged=this.user.getLoggedUser();
-    if(userLogged){
-        this.router.navigate(['/dashboard']); 
-    }  
+    let userLogged = this.user.getLoggedUser();
+    if (userLogged) {
+      this.router.navigate(['/dashboard']);
+    }
   }
-  
+
   toggleEye() {
     this.showPassword = !this.showPassword;
   }
@@ -91,9 +125,9 @@ export class RegisterComponent implements OnInit {
     this.reshowPassword = !this.reshowPassword;
   }
 
-  get f(){
+  get f() {
     return this.regForm.controls;
-  } 
+  }
 
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
@@ -107,65 +141,61 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted=true;
-    var form=this.regForm.value;
-    let pwd=form.password;
-    let cpwd=form.cpassword;
-    let yesref=form.haveid;
-    let refid=form.referrer_id;
-    if(pwd!='' && cpwd!=''){
-      if(pwd!=cpwd){
-        this.regForm.controls['cpassword'].setErrors({'customError': true});
+    this.submitted = true;
+    var form = this.regForm.value;
+    let pwd = form.password;
+    let cpwd = form.cpassword;
+    let yesref = form.haveid;
+    let refid = form.referrer_id;
+    if (pwd != '' && cpwd != '') {
+      if (pwd != cpwd) {
+        this.regForm.controls['cpassword'].setErrors({ 'customError': true });
       }
-      else{
+      else {
         this.regForm.controls['cpassword'].setErrors(null);
       }
     }
-    console.log("yesref"+yesref);
-    if(yesref){
-      if(refid==''){
-        this.regForm.controls['referrer_id'].setErrors({'required': true});
-      }else{
+    console.log("yesref" + yesref);
+    if (yesref) {
+      if (refid == '') {
+        this.regForm.controls['referrer_id'].setErrors({ 'required': true });
+      } else {
         this.regForm.controls['referrer_id'].setErrors(null);
       }
-    } else{
+    } else {
       this.regForm.controls['referrer_id'].setErrors(null);
     }
-    if (this.regForm.valid) {
-      
-      this.http.post(environment.apiUrl+'member/register',{
-        referrer_id:form.referrer_id,
-        email:form.email,
-        password :form.password,
-        password_confirmation :form.cpassword,
-        name : form.uname,
-        phone:form.phone
-      }).subscribe(
-        (res:any)=>{
-          if(res.status=="success"){
-          /*   this.regForm.reset(); */
-         
-          this.toastr.success('', 'Register Successfully...',{
-            positionClass: 'toast-bottom-right',
-          })
-          .onHidden 
-          .subscribe(() => 
-            {
-              this.router.navigate(['/']);
-            }
-          );
 
-            
+    if (this.regForm.valid) {
+      this.http.post(environment.apiUrl + 'member/register', {
+        referrer_id: form.referrer_id,
+        email: form.email,
+        password: form.password,
+        password_confirmation: form.cpassword,
+        name: form.uname,
+        phone: form.phone
+      }).subscribe(
+        (res: any) => {
+          if (res.status == "success") {
+            this.toastr.success('', 'Register Successfully...', {
+              positionClass: 'toast-bottom-right',
+            })
+              .onHidden
+              .subscribe(() => {
+                this.router.navigate(['/']);
+              }
+              );
           }
         },
-        (err:any)=>{
-          this.toastr.error('', err.error.message,{
+        (err: any) => {
+          console.log(err)
+          this.toastr.error('', err, {
             timeOut: 2500,
-            positionClass: 'toast-bottom-right' 
-         });
+            positionClass: 'toast-bottom-right'
+          });
         }
       )
-      
+
     }
   }
 

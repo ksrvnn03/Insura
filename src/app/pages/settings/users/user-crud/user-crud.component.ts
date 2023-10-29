@@ -47,9 +47,9 @@ export class UserCrudComponent implements OnInit {
         "",
         [
         Validators.required,
-        Validators.minLength(12),
-        Validators.maxLength(12),
-        Validators.pattern("^[0-9]{12}$")
+        Validators.minLength(9),
+        Validators.maxLength(13),
+        Validators.pattern("^[0-9]{9,13}$")
        ]
       ],
       photo:[""],

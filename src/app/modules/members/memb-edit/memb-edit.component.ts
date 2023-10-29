@@ -8,8 +8,19 @@ import {
   FormGroup,
   FormControl,
   Validators,
+  AbstractControl,
 } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+
+
+interface CustomValidationErrors {
+  required?: { error: true; message: string };
+  invalidPrefix?: { error: true; message: string };
+  invalidFormat?: { error: true; message: string };
+  minLength?: { error: true; message: string };
+  maxLength?: { error: true; message: string };
+}
+
 
 @Component({
   selector: 'app-memb-edit',
@@ -42,6 +53,40 @@ export class MembEditComponent implements OnInit {
     this.getMemberData(this.memberId);
   }
 
+
+  phoneNumberPrefixValidator(control: AbstractControl): CustomValidationErrors | null {
+    let phoneNumber = control.value;
+
+    if (phoneNumber == '') {
+      return { required: { error: true, message: 'Contact number required' } };
+    }
+
+    // Check if phone number starts with '+60'
+    if (phoneNumber && !phoneNumber.startsWith('+60')) {
+      return { invalidPrefix: { error: true, message: 'Contact number must start with +60' } };
+    }
+
+    // Check if phone number contains only digits after '+'
+    const digitsOnly = phoneNumber.replace(/^\+/, ''); // Remove '+'
+    if (!/^\d+$/.test(digitsOnly)) {
+      return { invalidFormat: { error: true, message: 'Invalid contact number format' } };
+    }
+
+    // Check minimum length
+    if (phoneNumber && phoneNumber.length < 9) {
+      return { minLength: { error: true, message: 'Contact number must be at least 9 digits long' } };
+    }
+
+    // Check maximum length
+    if (phoneNumber && phoneNumber.length > 13) {
+      return { maxLength: { error: true, message: 'Contact number cannot exceed 13 digits' } };
+    }
+
+    return null;
+  }
+
+
+
   membUpdate= this.fb.group(
     {
       name:["",Validators.required],
@@ -56,12 +101,7 @@ export class MembEditComponent implements OnInit {
       ],
       phone  :[
         "",
-        [
-        Validators.required,
-        Validators.minLength(12),
-        Validators.maxLength(12),
-        Validators.pattern("^[0-9]{12}$")
-       ]
+        [this.phoneNumberPrefixValidator]
       ],
       dobchoosed:[""],
       dob:["",[Validators.required]],
@@ -120,8 +160,9 @@ export class MembEditComponent implements OnInit {
 
         },
         (err:any)=>{
-          this.noresult=err.error.message;
-          this.toastr.error('', err.error.message,{
+          this.noresult=err;
+          console.log(err)
+          this.toastr.error('', err,{
             timeOut: 2500,
             positionClass: 'toast-bottom-right' 
           });
@@ -154,7 +195,7 @@ export class MembEditComponent implements OnInit {
       },
       (err:any)=>{
         this.btnloader=false;
-        this.toastr.error('', err.error.message,{
+        this.toastr.error('', err,{
           timeOut: 2500,
           positionClass: 'toast-bottom-right' 
        });

@@ -50,17 +50,39 @@
                         <div class="position-relative" dropdown>
                           <button class="dot-line" dropdownToggle><span></span></button>
                           <div *dropdownMenu class="action_list dropdown-menu">
-                            <a href="javascript:void(0);"
-                              (click)="download($event)"
-                              [attr.data-id]="item?.id"
-                              [attr.data-title]="item?.memberName"><i
-                                class="fa fa-download"
-                                aria-hidden="true"></i> Enroll Doc.</a>
+                           
                             <a href="javascript:void(0);"
                               (click)="uploadCover($event)"
                               [attr.data-id]="item.id"><i
-                                class="fa fa-eye" aria-hidden="true"></i>Upload
+                                class="fa fa-upload" aria-hidden="true"></i>Upload
                               Cover</a>
+                            <a href="javascript:void(0);"
+                              (click)="downloadCover($event)"
+                              [attr.data-id]="item.id"><i
+                                class="fa fa-download" aria-hidden="true"></i>Download
+                              Cover</a>
+                              <a href="javascript:void(0);"
+                              (click)="viewCover($event)"
+                              [attr.data-id]="item.id"><i
+                                class="fa fa-eye" aria-hidden="true"></i>View
+                              Cover</a>
+
+                              <a href="javascript:void(0);"
+                              (click)="uploadQuote($event)"
+                              [attr.data-id]="item.id"><i
+                                class="fa fa-upload" aria-hidden="true"></i>Upload 
+                                Quote</a>
+                              <a href="javascript:void(0);"
+                              (click)="downloadQuote($event)"
+                              [attr.data-id]="item?.id"
+                              [attr.data-title]="item?.memberName"><i
+                                class="fa fa-download"
+                                aria-hidden="true"></i> Download Quote</a>
+                              <a href="javascript:void(0);"
+                              (click)="viewQuote($event)"
+                              [attr.data-id]="item.id"><i
+                                class="fa fa-eye" aria-hidden="true"></i>View
+                              Quote</a>
                             <a href="javascript:void(0);"
                               (click)="confirmModal(template, $event)"
                               [attr.data-id]="item?.id"><i class="fa fa-trash-o"
@@ -144,6 +166,35 @@
             </form>
           </div>
 
+
+          <div class="sideview" *ngIf="quoteDoc_import">
+            <a href="javascript:void(0);" (click)="sideview3()"
+              class="close_trans"><img src="assets/icons/close.svg" alt></a>
+            <h5>Upload Quote Document</h5>
+            <form class="pb-5" [formGroup]="quoteDoc" (ngSubmit)="quoteDocSubmit()">
+              <div class="form-group">
+                <input type="hidden" name="id" formControlName="id" />
+                <label>Upload Document</label>
+                <input type="file" name="file" formControlName="file"
+                  class="form-control" (change)="onFileChanged($event)"
+                  accept=".doc, .docx,.pdf" />
+                <div *ngIf="quoteDoc_submit && !quoteDoc.get('file')?.valid">
+                  <small class="text-danger">
+                    Upload document requird</small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-block btn-primary"
+                  [disabled]="frmloader">Upload <i class="fa fa-spin fa-spinner"
+                    *ngIf="frmloader"></i> </button>
+              </div>
+            </form>
+          </div>
+
+
+
+          
         </div>
       </div>
     </div>
@@ -153,7 +204,7 @@
 
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Confirm Delete Member ?</h4>
+    <h4 class="modal-title pull-left">Confirm Delete Insurance ?</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close"
       (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
