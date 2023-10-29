@@ -12,8 +12,7 @@
                             <div class="card-body mem-prof-view">
                                 <div class="row">
                                     <div class="col-md-9">
-                                        <h5 class="page-title">Personal Details
-                                            <strong>Malek Hopkins</strong></h5>
+                                        <h5 class="page-title">Personal Details</h5>
                                         <span class="span_status status_active"><span
                                                 class="dot"></span>Active</span>
                                     </div>
@@ -35,7 +34,7 @@
                                                 *ngIf="submitted && !membUpdate.get('name')?.valid">
                                                 <small class="text-danger"
                                                     *ngIf="membUpdate.get('name')?.errors?.['required']">
-                                                    Full name requird </small>
+                                                    Full name required </small>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -49,7 +48,7 @@
                                                 *ngIf="submitted && !membUpdate.get('ic_no')?.valid">
                                                 <small class="text-danger"
                                                     *ngIf="membUpdate.get('ic_no')?.errors?.['required']">
-                                                    IC number requird </small>
+                                                    IC number required </small>
                                             </div>
                                         </div>
                                     </div>
@@ -57,11 +56,16 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label>Contact Number</label>
-                                            <input type="text"
-                                                placeholder="Contact Number"
-                                                name="phone"
-                                                formControlName="phone"
-                                                class="form-control" />
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="user_cno">+60</span>
+                                                </div>
+                                                <input type="text"
+                                                    placeholder="Contact Number"
+                                                    name="phone"
+                                                    formControlName="phone"
+                                                    class="form-control" />
+                                            </div>
                                             <div
                                                 *ngIf="submitted && !membUpdate.get('phone')?.valid">
                                                 <small class="text-danger"
@@ -100,7 +104,7 @@
                                                 *ngIf="submitted && !membUpdate.get('email')?.valid">
                                                 <small class="text-danger"
                                                     *ngIf="membUpdate.get('email')?.errors?.['required']">
-                                                    Email requird </small>
+                                                    Email required </small>
                                                 <small class="text-danger"
                                                     *ngIf="membUpdate.get('email')?.errors?.['email'] || membUpdate.get('email')?.errors?.['pattern']">
                                                     Enter vaild email</small>
@@ -127,7 +131,7 @@
                                                 *ngIf="submitted && !membUpdate.get('dob')?.valid">
                                                 <small class="text-danger"
                                                     *ngIf="membUpdate.get('dob')?.errors?.['required']">
-                                                    Date of birth requird
+                                                    Date of birth required
                                                 </small>
                                             </div>
                                         </div>
@@ -145,7 +149,7 @@
                                                 *ngIf="submitted && !membUpdate.get('gender')?.valid">
                                                 <small class="text-danger"
                                                     *ngIf="membUpdate.get('gender')?.errors?.['required']">
-                                                    Gender requird </small>
+                                                    Gender required </small>
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +166,7 @@
                                                 *ngIf="submitted && !membUpdate.get('address')?.valid">
                                                 <small class="text-danger"
                                                     *ngIf="membUpdate.get('address')?.errors?.['required']">
-                                                    Address requird </small>
+                                                    Address required </small>
                                             </div>
                                         </div>
                                     </div>
@@ -178,7 +182,7 @@
                                                 *ngIf="submitted && !membUpdate.get('city')?.valid">
                                                 <small class="text-danger"
                                                     *ngIf="membUpdate.get('city')?.errors?.['required']">
-                                                    City name requird </small>
+                                                    City name required </small>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -191,7 +195,7 @@
                                                 *ngIf="submitted && !membUpdate.get('state')?.valid">
                                                 <small class="text-danger"
                                                     *ngIf="membUpdate.get('state')?.errors?.['required']">
-                                                    State name requird </small>
+                                                    State name required </small>
                                             </div>
                                         </div>
                                     </div>
@@ -207,7 +211,7 @@
                                                 *ngIf="submitted && !membUpdate.get('zip')?.valid">
                                                 <small class="text-danger"
                                                     *ngIf="membUpdate.get('zip')?.errors?.['required']">
-                                                    Postcode requird </small>
+                                                    Postcode required </small>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -221,7 +225,7 @@
                                                 *ngIf="submitted && !membUpdate.get('country')?.valid">
                                                 <small class="text-danger"
                                                     *ngIf="membUpdate.get('country')?.errors?.['required']">
-                                                    Country requird </small>
+                                                    Country required </small>
                                             </div>
                                         </div>
 

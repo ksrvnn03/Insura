@@ -61,10 +61,10 @@ export class MembEditComponent implements OnInit {
       return { required: { error: true, message: 'Contact number required' } };
     }
 
-    // Check if phone number starts with '+60'
-    if (phoneNumber && !phoneNumber.startsWith('+60')) {
-      return { invalidPrefix: { error: true, message: 'Contact number must start with +60' } };
-    }
+    // // Check if phone number starts with '+60'
+    // if (phoneNumber && !phoneNumber.startsWith('+60')) {
+    //   return { invalidPrefix: { error: true, message: 'Contact number must start with +60' } };
+    // }
 
     // Check if phone number contains only digits after '+'
     const digitsOnly = phoneNumber.replace(/^\+/, ''); // Remove '+'

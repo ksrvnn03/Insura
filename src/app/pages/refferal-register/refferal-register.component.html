@@ -41,9 +41,9 @@
     
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="user_cno"><img src="assets/icons/smartphone.svg" alt="user_cno"/></span>
+                                <span class="input-group-text" id="user_cno">+60</span>
                             </div>
-                            <input type="text" class="form-control" maxlength="10" minlength="10" formControlName="phone" placeholder="Your contact number"  />
+                            <input type="text" class="form-control" maxlength="13" minlength="9" formControlName="phone" placeholder="Your contact number"  />
                         </div>
                         <div *ngIf="submitted && f.phone?.invalid">
                            
