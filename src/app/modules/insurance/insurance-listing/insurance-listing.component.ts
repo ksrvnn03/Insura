@@ -155,7 +155,7 @@ export class InsuranceListingComponent implements OnInit {
     var insId = event.target.getAttribute("data-id");
     var title = event.target.getAttribute("data-title");
 
-    this.http.post(environment.apiUrl + 'insurance/' + insId + '/download/enroll-documents', {}, { responseType: 'blob' }).subscribe((response: Blob) => {
+    this.http.post(environment.apiUrl + 'insurance/' + insId + '/download/quote-doc', {}, { responseType: 'blob' }).subscribe((response: Blob) => {
 
       const fileURL = URL.createObjectURL(response);
       const a = document.createElement('a');
@@ -165,7 +165,7 @@ export class InsuranceListingComponent implements OnInit {
       a.click();
       document.body.removeChild(a);
 
-      this.toastr.success('', 'Insurance Document Downloaded', {
+      this.toastr.success('', 'Quote Document Downloaded', {
         timeOut: 2500,
         positionClass: 'toast-bottom-right'
       });
@@ -328,20 +328,16 @@ export class InsuranceListingComponent implements OnInit {
     var insId = $event.target.getAttribute("data-id");
     var title = $event.target.getAttribute("data-title");
 
-    this.http.post(environment.apiUrl + 'insurance/' + insId + '/download/enroll-documents', {}, { responseType: 'blob' }).subscribe((response: Blob) => {
+    this.http.post(environment.apiUrl + 'insurance/' + insId + '/view/quote-doc', {}, { responseType: 'blob' }).subscribe((response: Blob) => {
+  
+      var fileURL = window.URL.createObjectURL(response);                        
 
-      const fileURL = URL.createObjectURL(response);
-      const a = document.createElement('a');
-      a.href = fileURL;
-      a.download = title + ' Insurance Quote';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      //this not display my pdf document in a new tab.
+      window.open(fileURL, '_blank');
 
-      this.toastr.success('', 'View Quote', {
-        timeOut: 2500,
-        positionClass: 'toast-bottom-right'
-      });
+      //this display my document pdf, but in current tab
+    //  window.location.href = fileURL; 
+
     }, (error: any) => {
       this.toastr.error('', 'Try Again!', {
         timeOut: 2500,
