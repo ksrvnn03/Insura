@@ -217,13 +217,28 @@ export class EditformComponent implements OnInit {
 
   removeField(id: any) {
     const indexToDelete = id;
-    if (indexToDelete >= 0 && indexToDelete < this.formfield.length) {
+   
+
+    this.http.delete(environment.apiUrl+'forms/'+this.frmid+'/fields/'+indexToDelete).subscribe((res:any)=>{
+      this.getFields()
+      this.toastr.success('', 'One field removed', {
+        timeOut: 2500,
+        positionClass: 'toast-bottom-right'
+      });
+    },
+    (error:any)=>{
+      this.toastr.error('', 'Try Later!', {
+        timeOut: 2500,
+        positionClass: 'toast-bottom-right'
+      });
+    });
+   /*  if (indexToDelete >= 0 && indexToDelete < this.formfield.length) {
       this.formfield.splice(indexToDelete, 1);
       this.toastr.success('', 'One field removed', {
         timeOut: 2500,
         positionClass: 'toast-bottom-right'
       });
-    }
+    } */
   }
 
   generateSlug(name:any) {
@@ -248,7 +263,7 @@ export class EditformComponent implements OnInit {
         if (this.form.value.hasOwnProperty(key)) {
           const value = this.form.value[key];
           const type = fieldtype[typeIndex];
-
+          
           if (key == 'options' && value) {
             const valuesArray = value.split(',');
             let resultArray: any = [];
@@ -267,26 +282,45 @@ export class EditformComponent implements OnInit {
       }
 
       let nameField=this.generateSlug(newobj.name);
-      const myObject = {
+      let reqva='';
+      let nwreq=0;
+       reqva=newobj.required;
+      if(reqva==='true'){
+        nwreq=1;
+      }else{
+        nwreq=0;
+      }
+      let myObject = {};
+       myObject = {
         name: nameField,
         label: newobj.label,
         type: newobj.type,
         options: newobj.options,
-        required: newobj.required
+        required: nwreq
       };
-
+      
       if(this.isNameAlreadyExists(this.fieldlist,nameField)){
         this.toastr.error('', 'Field name already exits.', {
           positionClass: 'toast-bottom-right',
         });
       }else{
-        this.fieldlist.push(myObject);
+        this.http.post(environment.apiUrl+'forms/'+this.frmid+'/fields', myObject ).subscribe((res:any)=>{
+          this.toastr.success('', 'New field added.', {
+            positionClass: 'toast-bottom-right',
+          });
+          this.getFields()
+        });
+       
+       /*  this.fieldlist.push(myObject);
         this.formData = [];
         this.formshow = false;
-
+        console.log(this.fieldlist)
         this.toastr.success('', 'New field added.', {
           positionClass: 'toast-bottom-right',
-        });
+        }); */
+        this.getFields()
+        this.formData = [];
+        this.formshow = false;
         this.form.reset();
       }
       

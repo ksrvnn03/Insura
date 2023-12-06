@@ -16,6 +16,7 @@ import { CreateformComponent } from './enrollment/createform/createform.componen
 import { ListformComponent } from './enrollment/listform/listform.component';
 import { FormlistComponent } from './enrollment/formlist/formlist.component';
 import { EditformComponent } from './enrollment/editform/editform.component';
+import { ViewentriesComponent } from './viewentries/viewentries.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { EditformComponent } from './enrollment/editform/editform.component';
     CreateformComponent,
     ListformComponent,
     FormlistComponent,
-    EditformComponent
+    EditformComponent,
+    ViewentriesComponent
   ],
   imports: [
     CommonModule,

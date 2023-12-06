@@ -9,6 +9,7 @@ import { ProgListComponent } from './prog-list/prog-list.component';
 import { CreateformComponent } from './enrollment/createform/createform.component';
 import { FormlistComponent } from './enrollment/formlist/formlist.component';
 import { EditformComponent } from './enrollment/editform/editform.component';
+import { ViewentriesComponent } from './viewentries/viewentries.component';
 
 const routes: Routes = [
   { 
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: "program/:id", component: ProgDetailComponent, pathMatch: 'full'},
       { path: "program/edit/:id", component: ProgEditComponent, pathMatch: 'full'},
       { path: "program/enroll/edit/:fid", component: EditformComponent, pathMatch: 'full'},
+      { path: "program/form/entries/:fid", component: ViewentriesComponent, pathMatch: 'full'},
     ],
     canActivate: [AuthguardGuard]
   }

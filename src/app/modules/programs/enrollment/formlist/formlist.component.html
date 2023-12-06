@@ -21,7 +21,9 @@
                                             <td>{{ frm?.name}}</td>
                                             <td>{{ frm?.programme_name}}</td>
                                             <td>{{frm?.programme_join_fee}}</td>
-                                            <td><a class="btn"
+                                            <td>
+                                                <a class="btn" routerLink="/program/form/entries/{{frm.id}}"><i class="fa fa-eye"></i></a>
+                                                <a class="btn"
                                                     routerLink="/program/enroll/edit/{{frm.id}}"
                                                     title="Edit"><i
                                                         class="fa fa-edit"
