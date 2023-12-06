@@ -1028,7 +1028,7 @@ ul#profile-menus li a {
     margin-right:6px;
 }
 .action_list .span_status {
-    text-align: center;
+    text-align: left;
 }
 .dot-line{
     border:0;
@@ -1312,7 +1312,7 @@ a.close_trans {
     padding: 3px 18px;
 }
 .doc_item_name {
-    padding-left: 15px;
+    padding-left: 20px;
     text-align: left;
     word-break: break-all;
     display: flex;

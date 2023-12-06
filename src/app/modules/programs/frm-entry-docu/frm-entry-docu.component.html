@@ -1,0 +1,139 @@
+<main class="main program-page">
+<div class="wrapper">
+<div class="container-fluid">
+<div class="col-inner">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <h5 class="page-title">Form uploaded documents</h5>
+                </div>
+                <div class="col-md-7 text-right">
+                    <a routerLink="/program/form/entries/{{frmid}}"
+                        class="btn btn-primary"><i
+                            class="fa fa-angle-left"></i> Back</a>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-custom  mt-3">
+                        <thead>
+                            <tr>
+                                <th width="30%">DOCUMENT NAME</th>
+                                <th>UPLOAD DATE</th>
+                                <th width="15%">STATUS</th>
+                                <th class="text-center" width="3%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngIf="!listDocu.length">
+                                <td colspan="4"> <div class="alert alert-danger text-center">
+                                    No form entry found
+                                </div></td>
+                            </tr>
+                            <tr
+                                *ngFor="let item of listDocu;  let i=index;">
+                                <td><span class="doc_item_name">
+                                        <span
+                                            class="mr-1 doc_type doc_{{item.file_name | extension:item.file_name}}"></span>
+                                        {{item.file_name}}
+                                    </span></td>
+                                    <td>{{item.created_at | date: 'mediumDate'}}</td>
+                                <td>
+                                    <div  class="text-left">
+                                        <span class="span_status"
+                                        [ngClass]="{'status_pending': item.status =='1',
+                                        'status_active' : item.status == '2',
+                                        'status_blocked' : item.status == '3',
+                                        'status_expire' : item.status == '4'
+                                        }">
+                                        <span class="dot"></span>{{item.status_txt}}</span>
+                                    </div>
+                                </td>
+                                <td class="text-center" dropdown>
+                                    <button class="dot-line"
+                                        dropdownToggle><span></span></button>
+                                    <div *dropdownMenu
+                                        class="action_list dropdown-menu">
+                                        <a href="javascript:void(0)"
+                                            class="mt-1 span_status status_pending"
+                                            (click)="statusChange($event)"
+                                            [attr.data-status]="1"
+                                            [attr.data-id]="item?.id" *ngIf="item.status!=1"><i
+                                                class="fa fa-circle"
+                                                aria-hidden="true"></i>
+                                            Pending</a>
+                                        <a href="javascript:void(0)"
+                                            class="mt-1 span_status status_active"
+                                            (click)="statusChange($event)"
+                                            [attr.data-status]="2"
+                                            [attr.data-id]="item?.id" *ngIf="item.status!=2"><i
+                                                class="fa fa-circle"
+                                                aria-hidden="true"></i>
+                                            Verify</a>
+                                        <a href="javascript:void(0)"
+                                            class="mt-1 span_status status_blocked"
+                                            (click)="statusChange($event)"
+                                            [attr.data-status]="3"
+                                            [attr.data-id]="item?.id" *ngIf="item.status!=3"><i
+                                                class="fa fa-circle"
+                                                aria-hidden="true"></i>
+                                            Block</a>
+                                        <a href="javascript:void(0)"
+                                            class="mt-1 span_status status_expire"
+                                            (click)="statusChange($event)"
+                                            [attr.data-status]="4"
+                                            [attr.data-id]="item?.id" *ngIf="item.status!=4"><i
+                                                class="fa fa-circle"
+                                                aria-hidden="true"></i>
+                                            Rejected</a>
+                                        <hr class="mb-0" />
+                                        <a href="javascript:void(0)"
+                                            (click)="generateImageLink(item?.id,item.file_name)"
+                                            [attr.data-id]="item?.id"
+                                            *ngIf="isImageFile(item?.file_name)"><i
+                                                class="fa fa-eye"
+                                                aria-hidden="true"></i>
+                                            View</a>
+                                        <a href="javascript:void(0)"
+                                            [attr.data-id]="item?.id"
+                                            [attr.data-name]="item?.id"
+                                            download
+                                            (click)="download($event)"><i
+                                                class="fa fa-download"
+                                                aria-hidden="true"></i>
+                                            Download</a>
+
+                                        <a href="javascript:void(0)"
+                                            [attr.data-id]="item?.id"
+                                            (click)="confirmModal(template, $event)"><i
+                                                class="fa fa-trash-o"
+                                                aria-hidden="true"></i>
+                                            Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<ng-template #template>
+<div class="modal-header">
+<h4 class="modal-title pull-left">Confirm Delete Document ?</h4>
+<button type="button" class="btn-close close pull-right"
+    aria-label="Close" (click)="modalRef?.hide()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+</button>
+</div>
+<div class="modal-body text-center confirm_modal">
+<button class="btn btn-primary btn-sm m-2" id="del"
+    [attr.data-id]=delId (click)="delete($event)">Confirm</button>
+<button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">No</button>
+</div>
+</ng-template>
+
+</main>

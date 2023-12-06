@@ -6,20 +6,44 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-5">
-                                <h5 class="page-title"><b>Form Values</b></h5>
+                                <h5 class="page-title">Form Values</h5>
                             </div>
                             <div class="col-md-7 text-right">
-                                <button class="btn btn-warning mr-2" [disabled]="exportsub" (click)="downloadEntry($event)"><i class="fa fa-download"></i> Export <i class="fa fa-spinner fa-spin" *ngIf="exportsub"></i></button>
-                                <a routerLink="/program/enroll" class="btn btn-primary"><i class="fa fa-angle-left"></i>  Back</a>
+                                <button class="btn btn-warning mr-2"
+                                    [disabled]="exportsub"
+                                    (click)="downloadEntry($event)"><i
+                                        class="fa fa-download"></i> Export <i
+                                        class="fa fa-spinner fa-spin"
+                                        *ngIf="exportsub"></i></button>
+                                <a routerLink="/program/enroll"
+                                    class="btn btn-primary"><i
+                                        class="fa fa-angle-left"></i> Back</a>
                             </div>
                             <div class="col-md-12">
-                                <div class="card p-3 mt-3" *ngFor="let item of entries">
+                                <div
+                                    class="alert alert-danger text-center mt-3 mb-3"
+                                    *ngIf="!entries.length">
+                                    No form entry found
+                                </div>
+                                <div class="card p-1 mt-3"
+                                    *ngFor="let item of entries">
                                     <div class="card-body">
                                         <div class="row">
-                                            <ng-container  *ngFor="let key of getObjectKeys(item)">
-                                                <div class="col-md-3"><label class="font-weight-bold text-capitalize">{{ key }}</label></div>
-                                                <div class="col-md-3">: {{ item[key] ? item[key] : 'N/A' }}</div>
+                                            <ng-container
+                                                *ngFor="let key of getObjectKeys(item)">
+                                                <div class="col-md-3"><label
+                                                        class="font-weight-bold text-capitalize">{{
+                                                        key }}</label></div>
+                                                <div class="col-md-3">: {{
+                                                    item[key] ? item[key] :
+                                                    'N/A' }}</div>
                                             </ng-container>
+                                            <div
+                                                class="col-md-12 text-right mt-2"
+                                                *ngIf="item['member_id']"><hr />
+                                                <a
+                                                    routerLink="/program/form/{{this.frmid}}/member/{{item['member_id']}}/documents"
+                                                    class="btn btn-info"><i class="fa fa-eye"></i> View Documents</a></div>
                                         </div>
                                     </div>
                                 </div>
