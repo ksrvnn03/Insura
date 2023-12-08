@@ -41,7 +41,7 @@ export class FrmEntryDocuComponent implements OnInit {
   }
 
   getEntryDocus() {
-    let memberid = this.membid.split("INS00");
+    let memberid = this.membid;
     this.http.get(environment.apiUrl + 'enroll/form/' + this.frmid + '/documents/' + memberid[1]).subscribe((res: any) => {
       this.listDocu = res.data;
     },
