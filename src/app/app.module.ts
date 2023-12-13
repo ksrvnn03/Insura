@@ -4,6 +4,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularEditorModule } from '@kolkov/angular-editor'; 
 
@@ -81,6 +82,7 @@ import { ReportComponent } from './pages/report/report.component';
     AppRoutingModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
+    TooltipModule.forRoot(),
     ReactiveFormsModule,
     MembersModule,
     UserModule,
