@@ -7,22 +7,20 @@
             <div class="card-body">
               <div class="row mb-3">
                 <div class="col-md-8 ">
-                    <h5 class="page-title">Insurance List</h5>
+                  <h5 class="page-title">Insurance List</h5>
                 </div>
                 <div class="col-md-4 text-right">
-                  <button class="btn btn-info border-radius-0"
-                    (click)="sideview()">Import Quote</button>
+                  <button class="btn btn-info border-radius-0" (click)="sideview()">Import Quote</button>
                 </div>
               </div>
-              <hr/>
-              
+              <hr />
+
               <!-- <ngx-datatable tableClass="table table-striped table-bordered table-hover" [tableId]="'basic'" [data]="data" [options]="options"
                              [columns]="columns">
                            </ngx-datatable> -->
-                       <!--     *ngIf="showTable" -->
+              <!--     *ngIf="showTable" -->
               <div class="table-responsive">
-                <table datatable [dtOptions]="dtOptions"
-                  class="table table-striped">
+                <table datatable [dtOptions]="dtOptions" class="table table-striped">
                   <thead>
                     <tr>
                       <th>Member ID</th>
@@ -46,48 +44,51 @@
                       <td>{{item.programmeName}}</td>
                       <td>{{item.company_name}}</td>
                       <td>{{item.premium}}</td>
-                      <td class="text-center">
-                        <div class="position-relative" dropdown>
-                          <button class="dot-line" dropdownToggle><span></span></button>
-                          <div *dropdownMenu class="action_list dropdown-menu">
-                           
-                            <a href="javascript:void(0);"
-                              (click)="uploadCover($event)"
-                              [attr.data-id]="item.id"><i
-                                class="fa fa-upload" aria-hidden="true"></i>Upload
-                              Cover</a>
-                            <a href="javascript:void(0);"
-                              (click)="downloadCover($event)"
-                              [attr.data-id]="item.id"><i
-                                class="fa fa-download" aria-hidden="true"></i>Download
-                              Cover</a>
-                              <a href="javascript:void(0);"
-                              (click)="viewCover($event)"
-                              [attr.data-id]="item.id"><i
-                                class="fa fa-eye" aria-hidden="true"></i>View
-                              Cover</a>
-
-                              <a href="javascript:void(0);"
-                              (click)="uploadQuote($event)"
-                              [attr.data-id]="item.id"><i
-                                class="fa fa-upload" aria-hidden="true"></i>Upload 
+                      <td>
+                        <div class="btn-group" dropdown container="body" placement="bottom right">
+                          <button id="button-container" dropdownToggle type="button"
+                            class="btn btn-primary dropdown-toggle" aria-controls="dropdown-container">
+                            <i class="fa fa-bars mr-2"></i><span class="caret"></span>
+                          </button>
+                          <ul id="dropdown-container" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                            aria-labelledby="button-container">
+                            <li role="menuitem">
+                              <a class="dropdown-item" href="javascript:void(0);" (click)="uploadCover($event)" [attr.data-id]="item.id"><i
+                                  class="fa fa-upload mr-2" aria-hidden="true"></i>Upload
+                                Cover</a>
+                            </li>
+                            <li role="menuitem">
+                              <a class="dropdown-item" href="javascript:void(0);" (click)="downloadCover($event)" [attr.data-id]="item.id"><i
+                                  class="fa fa-download mr-2" aria-hidden="true"></i>Download
+                                Cover</a>
+                            </li>
+                            <li role="menuitem">
+                              <a class="dropdown-item" href="javascript:void(0);" (click)="viewCover($event)" [attr.data-id]="item.id"><i
+                                  class="fa fa-eye mr-2" aria-hidden="true"></i>View
+                                Cover</a>
+                            </li>
+                            <li class="divider dropdown-divider"></li>
+                            <li role="menuitem">
+                              <a class="dropdown-item" href="javascript:void(0);" (click)="uploadQuote($event)" [attr.data-id]="item.id"><i
+                                  class="fa fa-upload mr-2" aria-hidden="true"></i>Upload
                                 Quote</a>
-                              <a href="javascript:void(0);"
-                              (click)="downloadQuote($event)"
-                              [attr.data-id]="item?.id"
-                              [attr.data-title]="item?.memberName"><i
-                                class="fa fa-download"
-                                aria-hidden="true"></i> Download Quote</a>
-                              <a href="javascript:void(0);"
-                              (click)="viewQuote($event)"
-                              [attr.data-id]="item.id"><i
-                                class="fa fa-eye" aria-hidden="true"></i>View
-                              Quote</a>
-                            <a href="javascript:void(0);"
-                              (click)="confirmModal(template, $event)"
-                              [attr.data-id]="item?.id"><i class="fa fa-trash-o"
-                                aria-hidden="true"></i> Delete</a>
-                          </div>
+                            </li>
+                            <li role="menuitem">
+                              <a class="dropdown-item" href="javascript:void(0);" (click)="downloadQuote($event)" [attr.data-id]="item?.id"
+                                [attr.data-title]="item?.memberName"><i class="fa fa-download mr-2" aria-hidden="true"></i>
+                                Download Quote</a>
+                            </li>
+                            <li role="menuitem">
+                              <a class="dropdown-item" href="javascript:void(0);" (click)="viewQuote($event)" [attr.data-id]="item.id"><i
+                                  class="fa fa-eye mr-2" aria-hidden="true"></i>View
+                                Quote</a>
+                            </li>
+                            <li class="divider dropdown-divider"></li>
+                            <li role="menuitem">
+                              <a class="dropdown-item" href="javascript:void(0);" (click)="confirmModal(template, $event)"
+                                [attr.data-id]="item?.id"><i class="fa fa-trash-o mr-2" aria-hidden="true"></i> Delete</a>
+                            </li>
+                          </ul>
                         </div>
                       </td>
                     </tr>
@@ -98,8 +99,8 @@
           </div>
 
           <div class="sideview" *ngIf="insurance_import">
-            <a href="javascript:void(0);" (click)="sideview()"
-              class="close_trans"><img src="assets/icons/close.svg" alt></a>
+            <a href="javascript:void(0);" (click)="sideview()" class="close_trans"><img src="assets/icons/close.svg"
+                alt></a>
             <h5>Insurance Quote Import</h5>
             <form class="pb-5" [formGroup]="quotefrm" (ngSubmit)="quoteSubmit()">
               <div class="form-group">
@@ -118,8 +119,8 @@
 
               <div class="form-group">
                 <label>Upload Document</label>
-                <input type="file" name="quotefile" formControlName="quotefile"
-                  class="form-control" (change)="onFileChanged($event)"
+                <input type="file" name="quotefile" formControlName="quotefile" class="form-control"
+                  (change)="onFileChanged($event)"
                   accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 
                 <div *ngIf="quotesubmitted && !quotefrm.get('quotefile')?.valid">
@@ -130,28 +131,24 @@
               </div>
 
               <div class="form-group">
-                <button type="submit" class="btn btn-block btn-primary"
-                  [disabled]="frmloader">Upload <i class="fa fa-spin fa-spinner"
-                    *ngIf="frmloader"></i> </button>
+                <button type="submit" class="btn btn-block btn-primary" [disabled]="frmloader">Upload <i
+                    class="fa fa-spin fa-spinner" *ngIf="frmloader"></i> </button>
               </div>
             </form>
             <hr />
             <p class="text-center mb-4 text-small font-weight-bold">Insurance
-              quote sample <a
-                href="assets/sample/sample-insurance-import.xlsx"
-                download>Download Here</a></p>
+              quote sample <a href="assets/sample/sample-insurance-import.xlsx" download>Download Here</a></p>
           </div>
 
           <div class="sideview" *ngIf="cover_import">
-            <a href="javascript:void(0);" (click)="sideview2()"
-              class="close_trans"><img src="assets/icons/close.svg" alt></a>
+            <a href="javascript:void(0);" (click)="sideview2()" class="close_trans"><img src="assets/icons/close.svg"
+                alt></a>
             <h5>Upload cover letter</h5>
             <form class="pb-5" [formGroup]="coverfrm" (ngSubmit)="coverSubmit()">
               <div class="form-group">
                 <label>Upload Document</label>
-                <input type="file" name="file" formControlName="file"
-                  class="form-control" (change)="onFileChanged($event)"
-                  accept=".doc, .docx,.pdf" />
+                <input type="file" name="file" formControlName="file" class="form-control"
+                  (change)="onFileChanged($event)" accept=".doc, .docx,.pdf" />
                 <div *ngIf="coversubmit && !coverfrm.get('file')?.valid">
                   <small class="text-danger">
                     Upload document requird</small>
@@ -159,25 +156,23 @@
               </div>
 
               <div class="form-group">
-                <button type="submit" class="btn btn-block btn-primary"
-                  [disabled]="frmloader">Upload <i class="fa fa-spin fa-spinner"
-                    *ngIf="frmloader"></i> </button>
+                <button type="submit" class="btn btn-block btn-primary" [disabled]="frmloader">Upload <i
+                    class="fa fa-spin fa-spinner" *ngIf="frmloader"></i> </button>
               </div>
             </form>
           </div>
 
 
           <div class="sideview" *ngIf="quoteDoc_import">
-            <a href="javascript:void(0);" (click)="sideview3()"
-              class="close_trans"><img src="assets/icons/close.svg" alt></a>
+            <a href="javascript:void(0);" (click)="sideview3()" class="close_trans"><img src="assets/icons/close.svg"
+                alt></a>
             <h5>Upload Quote Document</h5>
             <form class="pb-5" [formGroup]="quoteDoc" (ngSubmit)="quoteDocSubmit()">
               <div class="form-group">
                 <input type="hidden" name="id" formControlName="id" />
                 <label>Upload Document</label>
-                <input type="file" name="file" formControlName="file"
-                  class="form-control" (change)="onFileChanged($event)"
-                  accept=".doc, .docx,.pdf" />
+                <input type="file" name="file" formControlName="file" class="form-control"
+                  (change)="onFileChanged($event)" accept=".doc, .docx,.pdf" />
                 <div *ngIf="quoteDoc_submit && !quoteDoc.get('file')?.valid">
                   <small class="text-danger">
                     Upload document requird</small>
@@ -185,13 +180,12 @@
               </div>
 
               <div class="form-group">
-                <button type="submit" class="btn btn-block btn-primary"
-                  [disabled]="frmloader">Upload <i class="fa fa-spin fa-spinner"
-                    *ngIf="frmloader"></i> </button>
+                <button type="submit" class="btn btn-block btn-primary" [disabled]="frmloader">Upload <i
+                    class="fa fa-spin fa-spinner" *ngIf="frmloader"></i> </button>
               </div>
             </form>
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -202,14 +196,12 @@
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Confirm Delete Insurance ?</h4>
-    <button type="button" class="btn-close close pull-right" aria-label="Close"
-      (click)="modalRef?.hide()">
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
   </div>
   <div class="modal-body text-center confirm_modal">
-    <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId
-      (click)="delete($event)">Yes </button>
+    <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId (click)="delete($event)">Yes </button>
     <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">Cancel</button>
   </div>
 </ng-template>

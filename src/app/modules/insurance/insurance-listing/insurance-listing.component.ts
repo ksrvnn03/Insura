@@ -41,6 +41,7 @@ export class InsuranceListingComponent implements OnInit {
   coversubmit: boolean = false;
   frmloader: boolean = false;
   btnloader: boolean = false;
+  loadingToast:any;
 
 
   constructor(
@@ -60,7 +61,7 @@ export class InsuranceListingComponent implements OnInit {
   ngOnInit(): void {
     this.headers = { headers: new HttpHeaders().set("Authorization", 'Bearer ' + localStorage.getItem('token')) }
     this.dtOptions = {};
-    this.getInsurance()
+    this.getInsurance();
   }
 
   quotefrm = this.fb.group(
@@ -86,6 +87,19 @@ export class InsuranceListingComponent implements OnInit {
 
   get f() {
     return this.quotefrm.controls;
+  }
+
+  showLoadingToast(){
+    this.loadingToast = this.toastr.info("Please Wait... <i class='fa fa-spinner fa-spin ml-2'></i>", "", {
+      disableTimeOut: true,
+      positionClass: "toast-top-center",
+      tapToDismiss: false,
+      closeButton: false,
+      enableHtml: true,
+    });
+  }
+  closeLoadingToast(){
+    this.toastr.clear(this.loadingToast.toastId);
   }
 
   getInsurance() {
@@ -129,6 +143,7 @@ export class InsuranceListingComponent implements OnInit {
 
   delete(event: any) {
     var insId = event.target.getAttribute("data-id");
+    this.showLoadingToast();
     this.http.delete(this.apiUrl + 'insurance/' + insId).subscribe((res: any) => {
 
       if (res) {
@@ -138,6 +153,7 @@ export class InsuranceListingComponent implements OnInit {
           timeOut: 2500,
           positionClass: 'toast-bottom-right'
         });
+        this.closeLoadingToast();
         setTimeout(() => {
           window.location.reload()
         }, 1000)
@@ -148,13 +164,14 @@ export class InsuranceListingComponent implements OnInit {
         timeOut: 2500,
         positionClass: 'toast-bottom-right'
       });
+      this.closeLoadingToast();
     });
   }
 
   downloadQuote(event: any) {
     var insId = event.target.getAttribute("data-id");
     var title = event.target.getAttribute("data-title");
-
+    this.showLoadingToast();
     this.http.post(environment.apiUrl + 'insurance/' + insId + '/download/quote-doc', {}, { responseType: 'blob' }).subscribe((response: Blob) => {
 
       const fileURL = URL.createObjectURL(response);
@@ -169,11 +186,13 @@ export class InsuranceListingComponent implements OnInit {
         timeOut: 2500,
         positionClass: 'toast-bottom-right'
       });
+      this.closeLoadingToast();
     }, (error: any) => {
       this.toastr.error('', 'Try Again!', {
         timeOut: 2500,
         positionClass: 'toast-bottom-right'
       });
+      this.closeLoadingToast();
     });
   }
 
@@ -198,7 +217,7 @@ export class InsuranceListingComponent implements OnInit {
     var form = this.quoteDoc.value;
     if (this.quoteDoc.valid) {
       this.btnloader = true;
-      this.frmloader = false;
+      this.frmloader = true;
       const formData = new FormData();
 
       if (this.selectedFile) {
@@ -276,7 +295,7 @@ export class InsuranceListingComponent implements OnInit {
   downloadCover($event: any) {
     var insId = $event.target.getAttribute("data-id");
     var title = $event.target.getAttribute("data-title");
-
+    this.showLoadingToast();
     this.http.post(environment.apiUrl + 'insurance/' + insId + '/download/cover-letter', {}, { responseType: 'blob' }).subscribe((response: Blob) => {
       const fileURL = URL.createObjectURL(response);
       const a = document.createElement('a');
@@ -290,11 +309,13 @@ export class InsuranceListingComponent implements OnInit {
         timeOut: 2500,
         positionClass: 'toast-bottom-right'
       });
+      this.closeLoadingToast();
     }, (error: any) => {
       this.toastr.error('', 'Try Again!', {
         timeOut: 2500,
         positionClass: 'toast-bottom-right'
       });
+      this.closeLoadingToast();
     });
   }
 
@@ -305,7 +326,7 @@ export class InsuranceListingComponent implements OnInit {
   viewCover($event: any) {
     var insId = $event.target.getAttribute("data-id");
     var title = $event.target.getAttribute("data-title");
-
+    this.showLoadingToast();
     this.http.post(environment.apiUrl + 'insurance/' + insId + '/view/cover-letter', {}, { responseType: 'blob' }).subscribe((response: Blob) => {
   
       var fileURL = window.URL.createObjectURL(response);                        
@@ -315,19 +336,21 @@ export class InsuranceListingComponent implements OnInit {
 
       //this display my document pdf, but in current tab
     //  window.location.href = fileURL; 
+    this.closeLoadingToast();
 
     }, (error: any) => {
       this.toastr.error('', 'Try Again!', {
         timeOut: 2500,
         positionClass: 'toast-bottom-right'
       });
+      this.closeLoadingToast();
     });
   }
 
   viewQuote($event: any) {
     var insId = $event.target.getAttribute("data-id");
     var title = $event.target.getAttribute("data-title");
-
+    this.showLoadingToast();
     this.http.post(environment.apiUrl + 'insurance/' + insId + '/view/quote-doc', {}, { responseType: 'blob' }).subscribe((response: Blob) => {
   
       var fileURL = window.URL.createObjectURL(response);                        
@@ -337,12 +360,13 @@ export class InsuranceListingComponent implements OnInit {
 
       //this display my document pdf, but in current tab
     //  window.location.href = fileURL; 
-
+    this.closeLoadingToast();
     }, (error: any) => {
       this.toastr.error('', 'Try Again!', {
         timeOut: 2500,
         positionClass: 'toast-bottom-right'
       });
+      this.closeLoadingToast();
     });
   }
 

@@ -7,4 +7,5 @@ table.dataTable,.dataTables_length{
 
 .action_list{
     min-width: 170px;
+    right: 0 !important;
 }
