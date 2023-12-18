@@ -18,123 +18,103 @@
 
                         <div class="row mt-3 mb-4 filter_style2">
                             <div class="col-md-8 d-flex">
-                                <div class="dropdown-list ml-12" dropdown>
-                                    <button class="btn no_items" dropdownToggle>
-                                        <i class="fa fa-eye"></i> 100
-                                    </button>
-                                    <div *dropdownMenu class="action_list dropdown-menu">
-                                        <button data-perpage="100">100</button>
-                                        <button data-perpage="50">50</button>
-                                        <button data-perpage="20">20</button>
-                                        <button data-perpage="10">10</button>
-                                        <button data-perpage="5">5</button>
-                                    </div>
-                                </div>
-
-                                <div class="dropdown-list ml-12" dropdown>
-                                    <button class="btn status_by" dropdownToggle><i class="fa fa-calendar"></i> Date Range</button>
-                                    <div *dropdownMenu class="action_list dropdown-menu dropdown-caldendar">
-                                        <bs-datepicker-inline id="bsdatepickerinline" [bsValue]="bsInlineValue"></bs-datepicker-inline>
-                                    </div>
-                                </div>
-                                
-                                <div class="membersearch ml-12">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                        <span class="input-group-text" id="memb-search">
-                                            <img src="assets/icons/search-gray.svg" alt=""/>
-                                        </span>
+                                <ng-template class="d-none">
+                                    <div class="dropdown-list ml-12" dropdown>
+                                        <button class="btn no_items" dropdownToggle>
+                                            <i class="fa fa-eye"></i> 100
+                                        </button>
+                                        <div *dropdownMenu class="action_list dropdown-menu">
+                                            <button data-perpage="100">100</button>
+                                            <button data-perpage="50">50</button>
+                                            <button data-perpage="20">20</button>
+                                            <button data-perpage="10">10</button>
+                                            <button data-perpage="5">5</button>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Search users" aria-label="Search members" aria-describedby="memb-search">
                                     </div>
-                                </div>
+
+                                    <div class="dropdown-list ml-12" dropdown>
+                                        <button class="btn status_by" dropdownToggle><i class="fa fa-calendar"></i> Date
+                                            Range</button>
+                                        <div *dropdownMenu class="action_list dropdown-menu dropdown-caldendar">
+                                            <bs-datepicker-inline id="bsdatepickerinline"
+                                                [bsValue]="bsInlineValue"></bs-datepicker-inline>
+                                        </div>
+                                    </div>
+
+                                    <div class="membersearch ml-12">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="memb-search">
+                                                    <img src="assets/icons/search-gray.svg" alt="" />
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Search users"
+                                                aria-label="Search members" aria-describedby="memb-search">
+                                        </div>
+                                    </div>
+                                </ng-template>
                             </div>
 
                             <div class="col-md-4 d-flex justify-content-end">
-                                <button routerLink="/settings/user/role" class="btn ml-12"><img src="assets/icons/gear.svg" alt="upload"/>Manage User Roles</button>
-                                <button routerLink="/settings/user/add" class="btn ml-12"><img src="assets/icons/add-user.svg" alt="upload"/>Add User</button>
+                                <button routerLink="/settings/user/role" class="btn ml-12 d-none"><img
+                                        src="assets/icons/gear.svg" alt="upload" />Manage User Roles</button>
+                                <button routerLink="/settings/user/add" class="btn ml-12"><img
+                                        src="assets/icons/add-user.svg" alt="upload" />Add User</button>
                             </div>
                         </div>
-                        <table
-                        class="table table-custom table-style2 mt-3">
-                        <thead>
-                            <tr>
-                                <th class="checkall" width="3%"><input
-                                        type="checkbox" /></th>
-                                <th width="35%">NAME</th>
-                                <th width="35%">EMAIL</th>
-                                <th width="20%">ROLE</th>
-                                <th width="10%" class="text-center"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                        <table class="table table-custom table-style2 mt-3">
+                            <thead>
+                                <tr>
+                                    <th class="checkall d-none" width="3%"><input type="checkbox" /></th>
+                                    <th width="35%">NAME</th>
+                                    <th width="35%">EMAIL</th>
+                                    <th width="20%">ROLE</th>
+                                    <th width="10%" class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of result">
+                                    <td class="checkall d-none"><input type="checkbox" /></td>
+                                    <td>{{ user?.name }}</td>
+                                    <td>{{ user?.email }}</td>
+                                    <td>{{ user?.role_name }}</td>
+                                    <td class="text-center" dropdown>
+                                        <button class="dot-line" dropdownToggle><span></span></button>
+                                        <div *dropdownMenu class="action_list dropdown-menu">
+                                            <a href="javascript:void(0)" class="mt-1 span_status status_pending d-none"
+                                                (click)="statusChange($event)" [attr.data-status]="1"
+                                                [attr.data-id]="1"><i class="fa fa-circle" aria-hidden="true"></i>
+                                                Pending</a>
+                                            <a href="javascript:void(0)" class="mt-1 span_status status_active d-none"
+                                                (click)="statusChange($event)" [attr.data-status]="2"
+                                                [attr.data-id]="1"><i class="fa fa-circle" aria-hidden="true"></i>
+                                                Verify</a>
+                                            <a href="javascript:void(0)" class="mt-1 span_status status_blocked d-none"
+                                                (click)="statusChange($event)" [attr.data-status]="3"
+                                                [attr.data-id]="1"><i class="fa fa-circle" aria-hidden="true"></i>
+                                                Block</a>
+                                            <a href="javascript:void(0)" class="mt-1 span_status status_expire d-none"
+                                                (click)="statusChange($event)" [attr.data-status]="4"
+                                                [attr.data-id]="1"><i class="fa fa-circle" aria-hidden="true"></i>
+                                                Rejected</a>
+                                            <a routerLink="/settings/user/edit/{{ user?.id }}" [attr.data-id]="user?.id"><i
+                                                    class="fa fa-edit" aria-hidden="true"></i>
+                                                Edit</a>
+                                            <a href="javascript:void(0)" [attr.data-id]="user?.id"
+                                                (click)="confirmModal(deleteConfirmTemplate, $event)"><i class="fa fa-trash-o"
+                                                    aria-hidden="true"></i>
+                                                Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                            <tr>
-                                <td class="checkall"><input
-                                        type="checkbox" /></td>
-                                <td>test1
-                                </td>
-                                <td>Test@gmail.com</td>
-                                <td>Manager</td>
-                                <td class="text-center" dropdown>
-                                    <button class="dot-line"
-                                        dropdownToggle><span></span></button>
-                                    <div *dropdownMenu
-                                        class="action_list dropdown-menu">
-                                        <a href="javascript:void(0)"
-                                            class="mt-1 span_status status_pending"
-                                            (click)="statusChange($event)"
-                                            [attr.data-status]="1"
-                                            [attr.data-id]="1"><i
-                                                class="fa fa-circle"
-                                                aria-hidden="true"></i>
-                                            Pending</a>
-                                        <a href="javascript:void(0)"
-                                            class="mt-1 span_status status_active"
-                                            (click)="statusChange($event)"
-                                            [attr.data-status]="2"
-                                            [attr.data-id]="1"><i
-                                                class="fa fa-circle"
-                                                aria-hidden="true"></i>
-                                            Verify</a>
-                                        <a href="javascript:void(0)"
-                                            class="mt-1 span_status status_blocked"
-                                            (click)="statusChange($event)"
-                                            [attr.data-status]="3"
-                                            [attr.data-id]="1"><i
-                                                class="fa fa-circle"
-                                                aria-hidden="true"></i>
-                                            Block</a>
-                                        <a href="javascript:void(0)"
-                                            class="mt-1 span_status status_expire"
-                                            (click)="statusChange($event)"
-                                            [attr.data-status]="4"
-                                            [attr.data-id]="1"><i
-                                                class="fa fa-circle"
-                                                aria-hidden="true"></i>
-                                            Rejected</a>
-                                            <a routerLink="/settings/user/edit/1"
-                                            [attr.data-id]="1"
-                                            ><i class="fa fa-edit"
-                                                aria-hidden="true"></i>
-                                            Edit</a>
-                                        <a href="javascript:void(0)"
-                                            [attr.data-id]="1"
-                                            (click)="confirmModal(template, $event)"><i
-                                                class="fa fa-trash-o"
-                                                aria-hidden="true"></i>
-                                            Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr *ngIf="result==''">
+                                    <td colspan="6" class="text-center">No
+                                        user found</td>
+                                </tr>
 
-                            <tr *ngIf="result==''">
-                                <td colspan="6" class="text-center">No
-                                    user found</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
@@ -142,16 +122,17 @@
         </div>
     </div>
 
-    <ng-template #template>
+    <ng-template #deleteConfirmTemplate>
         <div class="modal-header">
-          <h4 class="modal-title pull-left">Confirm Delete User ?</h4>
-          <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-            <span aria-hidden="true" class="visually-hidden">&times;</span>
-          </button>
+            <h4 class="modal-title pull-left">Confirm Delete User ?</h4>
+            <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
         </div>
-        <div class="modal-body text-center confirm_modal"> 
-           <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]=delId (click)="delete($event)">Confirm</button> 
-           <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">No</button>  
+        <div class="modal-body text-center confirm_modal">
+            <button class="btn btn-primary btn-sm m-2" id="del" [attr.data-id]="delId"
+                (click)="delete($event)" [disabled]="btnLoading"><i class="fa fa-spinner fa-spin mr-2" *ngIf="btnLoading"></i>Confirm</button>
+            <button class="btn btn-danger btn-sm m-2" (click)="modalRef?.hide()">No</button>
         </div>
-      </ng-template>
+    </ng-template>
 </main>

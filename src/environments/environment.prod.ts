@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl:'https://insura.com.my/backend/api/'
+  apiUrl:'http://api.insura.loc/api/'
 };

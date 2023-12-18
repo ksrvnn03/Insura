@@ -3,70 +3,159 @@
 
 
 <main class="main">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3">
-            <app-setting-sidebar></app-setting-sidebar>
-        </div>
-        <div class="col-md-9">
-            <div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <app-setting-sidebar></app-setting-sidebar>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-7">
-                                <h5 class="page-title">Add New User 1</h5>
+                                <h5 class="page-title" *ngIf="isEdit">Edit User</h5>
+                                <h5 class="page-title" *ngIf="!isEdit">Add New User</h5>
                             </div>
                             <div class="col-md-7">
-                                <form class="member_frm mt-4" autocomplete="off" [formGroup]="profileCreation" (ngSubmit)="onSubmit()">
+                                <form class="member_frm mt-4" autocomplete="off" [formGroup]="profileCreation"
+                                    (ngSubmit)="onSubmit()">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Profile Picture</label> 
-                                        <div class="col-sm-9">
-                                            <div class="upload_file"> 
-                                                <input type=file oninput="pic.src=window.URL.createObjectURL(this.files[0])">
+                                        <label class="col-sm-4 col-form-label">Profile Picture</label>
+                                        <div class="col-sm-8">
+                                            <div class="upload_file">
+                                                <input type=file
+                                                    oninput="pic.src=window.URL.createObjectURL(this.files[0])"
+                                                    (change)="onFileChanged($event)">
                                                 <img id="pic" class="prevImg" src="{{this.preview}}" />
-                                                <button class="btn"><span class="icon_edit"><img src="assets/icons/editing.svg" alt="edit"/></span></button>
+                                                <button class="btn"><span class="icon_edit"><img
+                                                            src="assets/icons/editing.svg" alt="edit" /></span></button>
                                             </div>
-                                         </div>
-                                    </div>
-    
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Name</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" placeholder="Enter full name" />
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Email</label>
-                                        <div class="col-sm-9">
-                                            <input type="email" class="form-control" placeholder="Enter your email" />
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Role</label>
-                                        <div class="col-sm-9">
-                                            <select class="form-control">
-                                                <option value="">Select</option>
-                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">IC No</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" placeholder="Enter IC No" />
+                                        <label class="col-sm-4 col-form-label">Name<sup
+                                                class="text-danger ml-2">*</sup></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" placeholder="Enter full name"
+                                                formControlName="name" />
+                                            <div *ngIf="submitted && f.get('name')?.invalid">
+                                                <small class="text-danger"
+                                                    *ngIf="f.get('name')?.hasError('required')">Name required</small>
+                                            </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Contact No</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" placeholder="Enter Contact No" />
+                                        <label class="col-sm-4 col-form-label">Email<sup
+                                                class="text-danger ml-2">*</sup></label>
+                                        <div class="col-sm-8">
+                                            <input type="email" class="form-control" placeholder="Enter your email"
+                                                formControlName="email" />
+                                            <div *ngIf="submitted && f.get('email')?.invalid">
+                                                <small class="text-danger" *ngIf="f.get('email')?.hasError('required')">
+                                                    Email requird </small>
+                                                <small class="text-danger"
+                                                    *ngIf="f.get('email')?.hasError('email') || f.get('email')?.hasError('pattern')">
+                                                    Enter valid email</small>
+                                            </div>
                                         </div>
                                     </div>
-    
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Role<sup
+                                                class="text-danger ml-2">*</sup></label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" formControlName="role">
+                                                <option value="">Select</option>
+                                                <option value="1">Super Admin</option>
+                                                <option value="2">Admin</option>
+                                            </select>
+                                            <div *ngIf="submitted && f.get('role')?.invalid">
+                                                <small class="text-danger"
+                                                    *ngIf="f.get('role')?.hasError('required')">Role required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">IC No</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" placeholder="Enter IC No"
+                                                formControlName="ic_no" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Contact No<sup
+                                                class="text-danger ml-2">*</sup></label>
+                                        <div class="col-sm-8">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="user_cno">+60</span>
+                                                </div>
+                                                <input type="text" placeholder="Enter Contact Number" name="phone"
+                                                    formControlName="phone" class="form-control" />
+                                            </div>
+                                            <div *ngIf="submitted && f.get('phone')?.invalid">
+                                                <small class="text-danger" *ngIf="f.get('phone')?.hasError('required')">
+                                                    Contact No is required
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="f.get('phone')?.hasError('minLength') || f.get('phone')?.hasError('maxLength') || f.get('phone')?.hasError('pattern')">
+                                                    Contact No is invalid
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <ng-template [ngIf]="isEdit">
+                                        <hr>
+                                        <p class="mb-3"><small><sup class="mr-2">*</sup>You can left these fields as blank as you dont want to update password</small></p>
+                                    </ng-template>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">{{ isEdit ? "New Password" : "Password" }}<sup
+                                                class="text-danger ml-2">*</sup></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" placeholder="Enter Password"
+                                                formControlName="password" />
+                                            <div *ngIf="submitted && f.get('password')?.invalid">
+                                                <small class="text-danger"
+                                                    *ngIf="f.get('password')?.hasError('minlength')">Password should has
+                                                    Minimum 6 characters</small>
+                                                <small class="text-danger"
+                                                    *ngIf="f.get('password')?.hasError('required')">Password
+                                                    required </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Confirm Password<sup
+                                                class="text-danger ml-2">*</sup></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" placeholder="Re-Enter Password"
+                                                formControlName="password_confirmation" />
+                                            <div *ngIf="submitted && f.get('password_confirmation')?.invalid">
+                                                <small class="text-danger"
+                                                    *ngIf="f.get('password_confirmation')?.hasError('minLength')">Confirm
+                                                    Password should has
+                                                    Minimum 6 characters</small>
+                                                <small class="text-danger"
+                                                    *ngIf="f.get('password_confirmation')?.hasError('required')">Confirm
+                                                    Password required</small>
+                                                <small class="text-danger"
+                                                    *ngIf="f?.get('password_confirmation')?.hasError('passwordMismatch')">Passwords
+                                                    do not match.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group mt-4">
-                                        <button class="btn btn-primary">Create Profile</button>
+                                        <button class="btn btn-primary" [disabled]="btnLoading">
+                                            <i class="fa fa-spinner fa-spin mr-2" *ngIf="btnLoading"></i> 
+                                            {{ isEdit ? "Update Profile" : "Create Profile" }}</button>
                                     </div>
                                 </form>
                             </div>
