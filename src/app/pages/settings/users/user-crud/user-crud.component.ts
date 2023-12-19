@@ -37,9 +37,9 @@ export class UserCrudComponent implements OnInit {
 
   profileCreation = this.fb.group(
     {
-      name: [null, Validators.required],
+      name: ["", Validators.required],
       email: [
-        null,
+        "",
         [
           Validators.required,
           Validators.email,
@@ -49,9 +49,9 @@ export class UserCrudComponent implements OnInit {
       password: ["", [Validators.required, Validators.minLength(6)]],
       password_confirmation: ["", [Validators.required, Validators.minLength(6)]],
       role: [1, [Validators.required]],
-      ic_no: [null],
+      ic_no: [""],
       phone: [
-        null,
+        "",
         [
           Validators.required,
           Validators.minLength(9),
@@ -59,7 +59,7 @@ export class UserCrudComponent implements OnInit {
           Validators.pattern("^[0-9]{9,13}$")
         ]
       ],
-      photo: [null],
+      photo: [""],
     },
     {
       validators: this.passwordMatchValidator
@@ -88,7 +88,7 @@ export class UserCrudComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isEdit = this.route.snapshot.url.filter(seg => seg.path === "user").length;
+    this.isEdit = this.route.snapshot.url.filter(seg => seg.path === "edit").length;
     if (this.isEdit) {
       this.fetchUser();
       this.profileCreation.get("password")?.removeValidators([Validators.required, Validators.minLength(6)]);

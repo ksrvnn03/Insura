@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
